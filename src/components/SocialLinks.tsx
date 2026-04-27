@@ -13,7 +13,7 @@ const socialLinks: SocialLink[] = [
   { label: 'Facebook', href: FACEBOOK_URL, Icon: FaFacebookF },
   { label: 'TikTok', href: TIKTOK_URL, Icon: FaTiktok },
   { label: 'LinkedIn', href: LINKEDIN_URL, Icon: FaLinkedinIn },
-  { label: 'WhatsApp', href: whatsappUrl('Bonjour, je souhaite contacter Aziz EL Mire Haute Couture pour une création sur mesure.'), Icon: FaWhatsapp },
+  { label: 'WhatsApp', href: whatsappUrl('Bonjour, je souhaite contacter Maison El Mire pour une création sur mesure.'), Icon: FaWhatsapp },
 ];
 
 export function HeaderSocialLinks() {
@@ -25,7 +25,7 @@ export function HeaderSocialLinks() {
           href={href}
           target="_blank"
           rel="noreferrer"
-          aria-label={`${label} Aziz EL Mire Haute Couture`}
+          aria-label={`${label} Maison El Mire`}
           title={label}
           style={{
             alignItems: 'center',
@@ -48,7 +48,7 @@ export function FooterSocialLinks() {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '18px' }}>
       {socialLinks.map(({ label, href, Icon }) => (
-        <a key={label} className="social-link social-link-icon" href={href} target="_blank" rel="noreferrer" aria-label={`${label} Aziz EL Mire Haute Couture`}>
+        <a key={label} className="social-link social-link-icon" href={href} target="_blank" rel="noreferrer" aria-label={`${label} Maison El Mire`}>
           <Icon aria-hidden="true" size={15} />
           <span>{label}</span>
         </a>

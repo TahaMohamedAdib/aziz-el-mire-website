@@ -6,7 +6,7 @@ import { INSTAGRAM_URL, lookbookImages } from '@/lib/catalog';
 const posts = lookbookImages.slice(0, 12).map((imageSrc, i) => ({
   id: i + 1,
   imageSrc,
-  alt: `Aziz EL Mire Haute Couture - inspiration costume - ${i + 1}`,
+  alt: `Maison El Mire - inspiration costume - ${i + 1}`,
   href: INSTAGRAM_URL,
 }));
 
@@ -77,7 +77,7 @@ export default function InstagramGrid() {
             <circle cx="17.5" cy="6.5" r="1" fill="white" />
           </svg>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '26px', fontWeight: 700, lineHeight: 1.15, margin: '0 0 14px', textTransform: 'uppercase' }}>
-            Entrez dans l’univers<br />Aziz EL Mire.
+            Entrez dans l’univers<br />Maison El Mire.
           </h2>
           <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ivory)', textTransform: 'uppercase' }}>
             @maison_elmire

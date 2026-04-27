@@ -9,7 +9,7 @@ const editorialBlocks = [
   {
     eyebrow: 'Histoire',
     title: "Une maison pensée pour l'élégance masculine",
-    text: 'Aziz EL Mire Haute Couture accompagne les hommes qui recherchent une tenue précise, élégante et adaptée aux grandes occasions.',
+    text: 'Maison El Mire accompagne les hommes qui recherchent une tenue précise, élégante et adaptée aux grandes occasions.',
     image: `${IG}/atelier-boutique-window.jpg`,
     href: '/about',
   },
@@ -91,12 +91,12 @@ export default function ReferenceInspiredSections() {
             </div>
           </div>
           <div className="capsule-image">
-            <Image src={`${IG}/costume-black-tuxedo-front.jpg`} alt="Costume cérémonie Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={`${IG}/costume-black-tuxedo-front.jpg`} alt="Costume cérémonie Maison El Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
           </div>
         </div>
         <div className="container-rc dual-panels">
           <Link className="dual-panel" href="/collections">
-            <Image src={`${IG}/veste-green-mannequin.jpg`} alt="Le vestiaire Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={`${IG}/veste-green-mannequin.jpg`} alt="Le vestiaire Maison El Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             <div style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), transparent)', inset: 0, position: 'absolute', zIndex: 1 }} />
             <div className="dual-panel-content">
               <p className="eyebrow">Le vestiaire</p>
@@ -105,7 +105,7 @@ export default function ReferenceInspiredSections() {
             </div>
           </Link>
           <Link className="dual-panel" href="/sur-mesure">
-            <Image src={`${IG}/accessoire-initials-lining.jpg`} alt="Expérience sur mesure Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={`${IG}/accessoire-initials-lining.jpg`} alt="Expérience sur mesure Maison El Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             <div style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), transparent)', inset: 0, position: 'absolute', zIndex: 1 }} />
             <div className="dual-panel-content">
               <p className="eyebrow">Bespoke</p>

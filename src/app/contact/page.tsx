@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { FaPhone, FaWhatsapp } from 'react-icons/fa6';
-import ContactForm from '@/components/ContactForm';
 import { PageHero, SitePage } from '@/components/SitePage';
-import { ADDRESS_DISPLAY, PHONE_DISPLAY, PHONE_TEL, whatsappUrl } from '@/lib/catalog';
+import { ADDRESS_DISPLAY, EMAIL_DISPLAY, PHONE_DISPLAY, PHONE_TEL, whatsappUrl } from '@/lib/catalog';
 
 export const metadata: Metadata = {
-  title: 'Prendre rendez-vous - Aziz EL Mire Atelier Casablanca',
+  title: 'Contact - Maison El Mire Atelier Casablanca',
   description:
-    'Contactez notre atelier a Sidi Maarouf, Casablanca. WhatsApp, telephone ou formulaire. Consultation sur mesure disponible.',
+    'Contactez notre atelier à Sidi Maarouf, Casablanca. WhatsApp, téléphone, e-mail et adresse de Maison El Mire.',
 };
 
 const mapQuery = encodeURIComponent(ADDRESS_DISPLAY);
@@ -15,8 +15,8 @@ const mapQuery = encodeURIComponent(ADDRESS_DISPLAY);
 export default function ContactPage() {
   return (
     <SitePage>
-      <PageHero eyebrow="Contactez l'Atelier" title="Contact & Reservation">
-        WhatsApp, telephone ou formulaire: choisissez le chemin le plus simple pour organiser votre rendez-vous.
+      <PageHero eyebrow="Contactez l'atelier" title="Contact atelier">
+        WhatsApp, téléphone, e-mail et adresse: retrouvez les informations essentielles de Maison El Mire.
       </PageHero>
       <section className="section-pad" style={{ background: 'var(--color-ivory)', paddingTop: 0 }}>
         <style>{`
@@ -58,8 +58,8 @@ export default function ContactPage() {
             <div className="contact-card">
               <p className="eyebrow">WhatsApp</p>
               <h2 className="section-title" style={{ fontSize: 34 }}>Action directe</h2>
-              <a className="whatsapp-large" href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier.")} target="_blank" rel="noreferrer">
-                <FaWhatsapp aria-hidden="true" /> Ecrire sur WhatsApp
+              <a className="whatsapp-large" href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier.")} target="_blank" rel="noreferrer">
+                <FaWhatsapp aria-hidden="true" /> Écrire sur WhatsApp
               </a>
               <p style={{ marginBottom: 0 }}>
                 <a className="text-link" href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
@@ -67,23 +67,31 @@ export default function ContactPage() {
             </div>
 
             <div className="contact-card">
-              <p className="eyebrow">Telephone</p>
+              <p className="eyebrow">Téléphone</p>
               <a className="text-link" href={`tel:${PHONE_TEL}`} style={{ alignItems: 'center', display: 'inline-flex', gap: 10 }}>
                 <FaPhone aria-hidden="true" /> {PHONE_DISPLAY}
               </a>
-              <p className="body-large" style={{ marginBottom: 0 }}>Lun-Sam 10h-20h</p>
+              <p className="body-large" style={{ marginBottom: 0 }}>Lundi-samedi, 10h-20h</p>
             </div>
 
             <div className="contact-card" style={{ background: 'var(--color-linen)' }}>
-              Pour un costume sur mesure, prevoyez 30 a 45 minutes pour le premier rendez-vous.
+              Pour réserver une séance de mesure, utilisez la page dédiée.
+              <br />
+              <Link className="text-link" href="/reservation">Aller à la réservation</Link>
             </div>
           </div>
 
           <div style={{ display: 'grid', gap: 24 }}>
             <div className="contact-card">
-              <p className="eyebrow">Rendez-vous</p>
-              <h2 className="section-title" style={{ fontSize: 34 }}>Demande rapide</h2>
-              <ContactForm />
+              <p className="eyebrow">Informations</p>
+              <h2 className="section-title" style={{ fontSize: 34 }}>Atelier Casablanca</h2>
+              <p className="body-large" style={{ marginBottom: 12 }}>{ADDRESS_DISPLAY}</p>
+              <p style={{ margin: '0 0 10px' }}>
+                <a className="text-link" href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
+              </p>
+              <p style={{ margin: 0 }}>
+                <a className="text-link" href={`mailto:${EMAIL_DISPLAY}`}>{EMAIL_DISPLAY}</a>
+              </p>
             </div>
 
             <div className="contact-card">
@@ -91,7 +99,7 @@ export default function ContactPage() {
               <p className="body-large">{ADDRESS_DISPLAY}</p>
               <iframe
                 className="contact-map"
-                title="Google Maps Aziz EL Mire Haute Couture"
+                title="Google Maps Maison El Mire"
                 src={`https://www.google.com/maps?q=${mapQuery}&z=15&output=embed`}
                 loading="lazy"
               />

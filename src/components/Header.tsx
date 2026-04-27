@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa6';
-import { BRAND_TAGLINE, navItems, whatsappUrl } from '@/lib/catalog';
+import { BRAND_LOGO, navItems, whatsappUrl } from '@/lib/catalog';
 
 export default function Header() {
   const pathname = usePathname();
@@ -25,12 +26,15 @@ export default function Header() {
     };
   }, [open]);
 
-  const isSolid = scrolled || open;
+  const normalizedPath = (pathname ?? '/').replace(/\/$/, '') || '/';
+  const isHome = normalizedPath === '/' || normalizedPath === '/aziz-el-mire-website';
+  const isSolid = scrolled || open || !isHome;
 
   return (
     <header className={`site-header ${isSolid ? 'is-solid' : ''}`}>
       <style>{`
         .site-header {
+          background: rgba(9, 48, 37, 0.96);
           border-bottom: 1px solid transparent;
           left: 0;
           min-height: 88px;
@@ -41,8 +45,8 @@ export default function Header() {
           z-index: 1000;
         }
         .site-header.is-solid {
-          background: rgba(255, 255, 255, 0.96);
-          border-bottom-color: var(--color-linen);
+          background: rgba(9, 48, 37, 0.98);
+          border-bottom-color: rgba(184,151,90,0.35);
           min-height: 72px;
         }
         .header-inner {
@@ -53,25 +57,39 @@ export default function Header() {
           min-height: inherit;
         }
         .brand-link {
+          align-items: center;
           color: var(--color-white);
+          display: inline-flex;
           font-family: var(--font-serif);
           font-size: 25px;
+          height: 72px;
           line-height: 0.95;
+          width: 72px;
         }
         .site-header.is-solid .brand-link,
         .site-header.is-solid .nav-link,
         .site-header.is-solid .menu-button {
-          color: var(--color-dark);
+          color: var(--color-ivory);
         }
-        .brand-sub {
-          color: var(--color-gold);
+        .site-header.is-solid .brand-link {
+          height: 58px;
+          width: 58px;
+        }
+        .brand-logo {
+          border: 1px solid rgba(184,151,90,0.4);
           display: block;
-          font-family: var(--font-sans);
-          font-size: 9px;
-          font-weight: 600;
-          letter-spacing: 1.4px;
-          margin-top: 7px;
-          text-transform: uppercase;
+          height: 100%;
+          object-fit: cover;
+          width: 100%;
+        }
+        .brand-name-visually-hidden {
+          clip: rect(0 0 0 0);
+          clip-path: inset(50%);
+          height: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+          width: 1px;
         }
         .main-nav {
           align-items: center;
@@ -109,6 +127,37 @@ export default function Header() {
           justify-self: end;
           min-height: 40px;
           padding: 10px 16px;
+          position: relative;
+          box-shadow: 0 0 0 1px rgba(216,178,90,0.45), 0 0 16px rgba(216,178,90,0.36);
+          overflow: hidden;
+        }
+        .header-cta::before {
+          border: 1px solid rgba(255,225,148,0.85);
+          content: "";
+          inset: 3px;
+          pointer-events: none;
+          position: absolute;
+        }
+        .header-cta::after {
+          background: linear-gradient(120deg, transparent 22%, rgba(255,238,184,0.75), transparent 48%);
+          content: "";
+          inset: -45%;
+          opacity: 0.75;
+          pointer-events: none;
+          position: absolute;
+          transform: translateX(-55%) rotate(10deg);
+          transition: transform 620ms ease, opacity 220ms ease;
+        }
+        .header-cta:hover,
+        .header-cta:focus-visible {
+          background: #D8B25A;
+          border-color: #D8B25A;
+          box-shadow: 0 0 0 1px rgba(216,178,90,0.75), 0 0 22px rgba(216,178,90,0.58);
+        }
+        .header-cta:hover::after,
+        .header-cta:focus-visible::after {
+          opacity: 1;
+          transform: translateX(55%) rotate(10deg);
         }
         .menu-button {
           background: transparent;
@@ -137,7 +186,7 @@ export default function Header() {
         .menu-button.is-open span:nth-child(2) { opacity: 0; }
         .menu-button.is-open span:nth-child(3) { top: 22px; transform: rotate(-45deg); }
         .mobile-menu {
-          background: var(--color-ivory);
+          background: var(--color-emerald);
           inset: 0;
           padding: 120px 28px 32px;
           position: fixed;
@@ -147,8 +196,8 @@ export default function Header() {
         }
         .mobile-menu.is-open { transform: translateX(0); }
         .mobile-menu a {
-          border-bottom: 1px solid var(--color-linen);
-          color: var(--color-dark);
+          border-bottom: 1px solid rgba(184,151,90,0.24);
+          color: var(--color-ivory);
           display: block;
           font-family: var(--font-serif);
           font-size: 34px;
@@ -177,9 +226,9 @@ export default function Header() {
         }
       `}</style>
       <div className="container-rc header-inner">
-        <Link href="/" className="brand-link" onClick={() => setOpen(false)} aria-label="Accueil Aziz EL Mire Haute Couture">
-          Aziz EL Mire
-          <span className="brand-sub">{BRAND_TAGLINE}</span>
+        <Link href="/" className="brand-link" onClick={() => setOpen(false)} aria-label="Accueil Maison El Mire">
+          <Image className="brand-logo" src={BRAND_LOGO} alt="" width={1254} height={1254} priority />
+          <span className="brand-name-visually-hidden">Maison El Mire</span>
         </Link>
 
         <nav className="main-nav" aria-label="Navigation principale">
@@ -193,8 +242,8 @@ export default function Header() {
           })}
         </nav>
 
-        <Link href="/contact" className="btn btn-gold header-cta">
-          Reserver
+        <Link href="/reservation" className="btn btn-gold header-cta">
+          Réserver
         </Link>
 
         <button
@@ -217,7 +266,7 @@ export default function Header() {
         ))}
         <a
           className="mobile-whatsapp"
-          href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier.")}
+          href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier.")}
           target="_blank"
           rel="noreferrer"
         >

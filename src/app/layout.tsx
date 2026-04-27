@@ -20,11 +20,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Aziz EL Mire - Costumes & Smokings sur mesure a Casablanca",
-    template: "%s | Aziz EL Mire Haute Couture",
+    default: "Maison El Mire - Costumes et smokings sur mesure à Casablanca",
+    template: "%s | Maison El Mire",
   },
   description:
-    "Maison de creation masculine a Casablanca. Smokings, costumes et vestes sur mesure pour mariage, ceremonie et evenement. Prenez rendez-vous.",
+    "Maison de création masculine à Casablanca. Smokings, costumes et vestes sur mesure pour mariage, cérémonie et événement. Prenez rendez-vous.",
   alternates: {
     canonical: "/",
   },

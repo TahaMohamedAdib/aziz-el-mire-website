@@ -22,7 +22,7 @@ export default function IntroSection() {
           maxWidth: '620px',
         }}
       >
-        Aziz EL Mire Haute Couture imagine des costumes élégants pour les mariages,
+        Maison El Mire imagine des costumes élégants pour les mariages,
         les cérémonies, les soirées et les moments où la tenue doit parler avant vous.
       </p>
     </section>

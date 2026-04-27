@@ -57,10 +57,10 @@ export default function FloatingWhatsApp() {
       `}</style>
       <a
         className={`floating-whatsapp ${visible ? 'is-visible' : ''}`}
-        href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier.")}
+        href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier.")}
         target="_blank"
         rel="noreferrer"
-        aria-label="Ecrire sur WhatsApp"
+        aria-label="Écrire sur WhatsApp"
       >
         <FaWhatsapp aria-hidden="true" size={25} />
       </a>

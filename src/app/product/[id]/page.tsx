@@ -103,7 +103,7 @@ export default async function ProductDetailPage({
         <div className="container-rc product-detail">
           <ProductGallery images={product.images} name={product.name} />
           <div>
-            <p className="eyebrow">Aziz EL Mire Haute Couture</p>
+            <p className="eyebrow">Maison El Mire</p>
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(40px, 5vw, 58px)', fontWeight: 400, lineHeight: 1, margin: '0 0 14px' }}>
               {product.name}
             </h1>
@@ -126,9 +126,9 @@ export default async function ProductDetailPage({
             </p>
             <div style={{ display: 'grid', gap: 12 }}>
               <a className="btn btn-gold" href={whatsappUrl(product.whatsappMessage)} target="_blank" rel="noreferrer">
-                <FaWhatsapp aria-hidden="true" /> Commander via WhatsApp
+                <FaWhatsapp aria-hidden="true" /> Commander sur WhatsApp
               </a>
-              <Link className="btn btn-outline" href="/contact">Prendre rendez-vous</Link>
+              <Link className="btn btn-outline" href="/reservation">Prendre rendez-vous</Link>
             </div>
             <div className="detail-accordion">
               <details>
@@ -137,11 +137,11 @@ export default async function ProductDetailPage({
               </details>
               <details>
                 <summary>Entretien</summary>
-                <p>Nettoyage professionnel recommande pour preserver le tombe, la couleur et les finitions.</p>
+                <p>Nettoyage professionnel recommandé pour préserver le tombé, la couleur et les finitions.</p>
               </details>
               <details>
                 <summary>Livraison</summary>
-                <p>Disponible a l&apos;atelier de Sidi Maarouf, Casablanca. Delai confirme lors du rendez-vous.</p>
+                <p>Disponible à l&apos;atelier de Sidi Maarouf, Casablanca. Délai confirmé lors du rendez-vous.</p>
               </details>
             </div>
           </div>

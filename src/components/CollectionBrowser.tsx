@@ -7,7 +7,7 @@ import type { Product } from '@/lib/catalog';
 import { productCategories } from '@/lib/catalog';
 
 const filters = ['Tous', ...productCategories] as const;
-type SortMode = 'Nouveautes' | 'Prix croissant' | 'Prix decroissant';
+type SortMode = 'Nouveautés' | 'Prix croissant' | 'Prix décroissant';
 
 function priceValue(price: string) {
   const value = Number(price.replace(/[^\d]/g, ''));
@@ -28,7 +28,7 @@ export default function CollectionBrowser({
   const initialUrlFilter = categoryParam && filters.includes(categoryParam as never) ? categoryParam : initialFilter;
   const [activeFilter, setActiveFilter] = useState(initialUrlFilter);
   const [newOnly, setNewOnly] = useState(initialNewOnly || searchParams.get('tag') === 'nouveau');
-  const [sortMode, setSortMode] = useState<SortMode>('Nouveautes');
+  const [sortMode, setSortMode] = useState<SortMode>('Nouveautés');
 
   const filteredProducts = useMemo(() => {
     const next = products.filter((product) => {
@@ -39,7 +39,7 @@ export default function CollectionBrowser({
 
     return [...next].sort((a, b) => {
       if (sortMode === 'Prix croissant') return priceValue(a.price) - priceValue(b.price);
-      if (sortMode === 'Prix decroissant') return priceValue(b.price) - priceValue(a.price);
+      if (sortMode === 'Prix décroissant') return priceValue(b.price) - priceValue(a.price);
       return Number(b.isNewArrival) - Number(a.isNewArrival);
     });
   }, [activeFilter, newOnly, products, sortMode]);
@@ -123,9 +123,9 @@ export default function CollectionBrowser({
             </button>
           </div>
           <select className="sort-select" value={sortMode} onChange={(event) => setSortMode(event.target.value as SortMode)} aria-label="Trier les produits">
-            <option>Nouveautes</option>
+            <option>Nouveautés</option>
             <option>Prix croissant</option>
-            <option>Prix decroissant</option>
+            <option>Prix décroissant</option>
           </select>
         </div>
       </div>

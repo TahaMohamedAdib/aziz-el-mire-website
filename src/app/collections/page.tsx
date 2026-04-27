@@ -5,16 +5,16 @@ import { PageHero, SitePage } from '@/components/SitePage';
 import { products } from '@/lib/catalog';
 
 export const metadata: Metadata = {
-  title: 'Collections - Costumes & Smokings Homme',
+  title: 'Collections - Costumes et smokings homme',
   description:
-    "Explorez notre collection de costumes, smokings, vestes et pantalons homme. Pieces d'exception disponibles a Casablanca.",
+    "Explorez notre collection de costumes, smokings, vestes et pantalons homme. Pièces d'exception disponibles à Casablanca.",
 };
 
 export default function CollectionsPage() {
   return (
     <SitePage>
-      <PageHero eyebrow="Collections" title="Costumes & Smokings Homme">
-        Explorez les smokings, costumes, vestes, pantalons, chemises et accessoires de la maison Aziz EL Mire.
+      <PageHero eyebrow="Collections" title="Costumes et smokings homme">
+        Explorez les smokings, costumes, vestes, pantalons, chemises et accessoires de Maison El Mire.
       </PageHero>
       <Suspense>
         <CollectionBrowser products={products} initialFilter="Tous" />

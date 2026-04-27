@@ -9,10 +9,10 @@ export default function ContactForm() {
   const buildContactMessage = (formData: FormData) => {
     const getValue = (field: string) => String(formData.get(field) ?? '').trim();
     return [
-      "Bonjour, je souhaite prendre rendez-vous a l'atelier.",
+      "Bonjour, je souhaite prendre rendez-vous à l'atelier.",
       `Nom : ${getValue('name')}`,
-      `Telephone : ${getValue('phone')}`,
-      `Date souhaitee : ${getValue('date')}`,
+      `Téléphone : ${getValue('phone')}`,
+      `Date souhaitée : ${getValue('date')}`,
       getValue('message') ? `Message : ${getValue('message')}` : '',
     ]
       .filter(Boolean)
@@ -39,8 +39,8 @@ export default function ContactForm() {
         </div>
       ) : null}
       <input className="input-field" name="name" placeholder="Nom" aria-label="Nom" autoComplete="name" required />
-      <input className="input-field" name="phone" type="tel" inputMode="tel" placeholder="Telephone" aria-label="Telephone" autoComplete="tel" required />
-      <input className="input-field" name="date" type="date" aria-label="Date souhaitee" required />
+      <input className="input-field" name="phone" type="tel" inputMode="tel" placeholder="Téléphone" aria-label="Téléphone" autoComplete="tel" required />
+      <input className="input-field" name="date" type="date" aria-label="Date souhaitée" required />
       <textarea className="input-field" name="message" placeholder="Message (optionnel)" aria-label="Message optionnel" rows={4} />
       <button className="btn btn-gold" type="submit">Envoyer la demande</button>
     </form>

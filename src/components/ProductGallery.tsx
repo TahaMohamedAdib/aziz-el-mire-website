@@ -70,8 +70,8 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
           }
         }
       `}</style>
-      <button type="button" className="product-gallery-main" onClick={() => setLightbox(true)} aria-label="Agrandir l'image produit">
-        <Image src={images[active]} alt={`${name} Aziz EL Mire Casablanca`} fill priority sizes="(max-width: 820px) 100vw, 55vw" style={{ objectFit: 'cover' }} />
+      <button type="button" className="product-gallery-main" onClick={() => setLightbox(true)} aria-label="Agrandir l'image du produit">
+        <Image src={images[active]} alt={`${name} Maison El Mire Casablanca`} fill priority sizes="(max-width: 820px) 100vw, 55vw" style={{ objectFit: 'cover' }} />
       </button>
       <div className="product-thumbs">
         {images.slice(0, 5).map((image, index) => (
@@ -82,7 +82,7 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
             onClick={() => setActive(index)}
             aria-label={`Voir image ${index + 1}`}
           >
-            <Image src={image} alt={`${name} detail ${index + 1}`} fill loading="lazy" sizes="80px" style={{ objectFit: 'cover' }} />
+            <Image src={image} alt={`${name} détail ${index + 1}`} fill loading="lazy" sizes="80px" style={{ objectFit: 'cover' }} />
           </button>
         ))}
       </div>

@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6';
 import {
   ADDRESS_DISPLAY,
+  BRAND_LOGO,
   BRAND_NAME,
   BRAND_SIGNATURE,
   BRAND_TAGLINE,
@@ -19,11 +21,11 @@ export default function Footer() {
     { label: 'Instagram', href: INSTAGRAM_URL, icon: FaInstagram },
     { label: 'Facebook', href: FACEBOOK_URL, icon: FaFacebookF },
     { label: 'TikTok', href: TIKTOK_URL, icon: FaTiktok },
-    { label: 'WhatsApp', href: whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier."), icon: FaWhatsapp },
+    { label: 'WhatsApp', href: whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier."), icon: FaWhatsapp },
   ];
 
   return (
-    <footer style={{ background: 'var(--color-dark)', borderTop: '1px solid var(--color-gold)', padding: '72px 0 28px' }}>
+    <footer style={{ background: 'var(--color-emerald)', borderTop: '1px solid var(--color-gold)', padding: '72px 0 28px' }}>
       <style>{`
         .footer-grid {
           display: grid;
@@ -49,6 +51,13 @@ export default function Footer() {
           border-color: var(--color-gold);
           color: var(--color-gold);
         }
+        .footer-logo {
+          display: block;
+          height: 128px;
+          margin: 0 0 18px;
+          object-fit: cover;
+          width: 128px;
+        }
         @media (max-width: 820px) {
           .footer-grid { grid-template-columns: 1fr; }
         }
@@ -56,9 +65,7 @@ export default function Footer() {
       <div className="container-rc">
         <div className="footer-grid">
           <div>
-            <h2 style={{ color: 'var(--color-ivory)', fontFamily: 'var(--font-serif)', fontSize: '30px', lineHeight: 1, margin: '0 0 12px' }}>
-              Aziz EL Mire
-            </h2>
+            <Image className="footer-logo" src={BRAND_LOGO} alt="Maison El Mire" width={1254} height={1254} />
             <p className="footer-text" style={{ color: 'var(--color-gold)', marginBottom: 12 }}>
               {BRAND_TAGLINE}
             </p>

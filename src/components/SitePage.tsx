@@ -26,16 +26,18 @@ export function PageHero({
   eyebrow,
   title,
   children,
+  titleColor = 'var(--color-dark)',
 }: {
   eyebrow: string;
   title: string;
   children: ReactNode;
+  titleColor?: string;
 }) {
   return (
     <section style={{ background: 'var(--color-ivory)', color: 'var(--color-dark)', padding: '160px 0 80px', textAlign: 'center' }}>
       <div className="container-rc">
         <p className="eyebrow">{eyebrow}</p>
-        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(42px, 7vw, 72px)', fontWeight: 400, lineHeight: 1, margin: '0 0 22px' }}>
+        <h1 style={{ color: titleColor, fontFamily: 'var(--font-serif)', fontSize: 'clamp(42px, 7vw, 72px)', fontWeight: 400, lineHeight: 1, margin: '0 0 22px' }}>
           {title}
         </h1>
         <div className="body-large" style={{ margin: '0 auto', maxWidth: '760px' }}>
