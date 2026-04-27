@@ -2,151 +2,227 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { HeaderSocialLinks } from '@/components/SocialLinks';
-import { BRAND_TAGLINE } from '@/lib/catalog';
-
-const NAV_ITEMS = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Collections', href: '/collections' },
-  { label: 'Nouveautés', href: '/new-arrivals' },
-  { label: 'Sur Mesure', href: '/sur-mesure' },
-  { label: 'Galerie', href: '/gallery' },
-  { label: 'Réservation', href: '/reservation' },
-  { label: 'À propos', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-] as const;
+import { usePathname } from 'next/navigation';
+import { FaWhatsapp } from 'react-icons/fa6';
+import { BRAND_TAGLINE, navItems, whatsappUrl } from '@/lib/catalog';
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
+    const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  const isSolid = scrolled || open;
+
   return (
-    <header
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        minHeight: scrolled ? '72px' : '96px',
-        background: scrolled || open ? 'rgba(5, 7, 6, 0.96)' : 'linear-gradient(to bottom, rgba(5,7,6,0.7), transparent)',
-        borderBottom: scrolled || open ? '1px solid rgba(183, 154, 85, 0.24)' : '1px solid transparent',
-        backdropFilter: scrolled || open ? 'blur(16px)' : 'none',
-        transition: 'background-color 300ms ease, min-height 300ms ease, border-color 300ms ease',
-      }}
-    >
+    <header className={`site-header ${isSolid ? 'is-solid' : ''}`}>
       <style>{`
-        .main-nav { display: flex; gap: 22px; align-items: center; }
-        .header-social { display: flex; gap: 12px; }
-        .mobile-panel { display: none; }
-        @media (max-width: 1120px) {
-          .main-nav, .header-social { display: none !important; }
-          .mobile-panel.is-open { display: grid !important; }
+        .site-header {
+          border-bottom: 1px solid transparent;
+          left: 0;
+          min-height: 88px;
+          position: fixed;
+          right: 0;
+          top: 0;
+          transition: background var(--transition-base), border-color var(--transition-base), min-height var(--transition-base);
+          z-index: 1000;
+        }
+        .site-header.is-solid {
+          background: rgba(255, 255, 255, 0.96);
+          border-bottom-color: var(--color-linen);
+          min-height: 72px;
+        }
+        .header-inner {
+          align-items: center;
+          display: grid;
+          gap: 24px;
+          grid-template-columns: 220px 1fr 140px;
+          min-height: inherit;
+        }
+        .brand-link {
+          color: var(--color-white);
+          font-family: var(--font-serif);
+          font-size: 25px;
+          line-height: 0.95;
+        }
+        .site-header.is-solid .brand-link,
+        .site-header.is-solid .nav-link,
+        .site-header.is-solid .menu-button {
+          color: var(--color-dark);
+        }
+        .brand-sub {
+          color: var(--color-gold);
+          display: block;
+          font-family: var(--font-sans);
+          font-size: 9px;
+          font-weight: 600;
+          letter-spacing: 1.4px;
+          margin-top: 7px;
+          text-transform: uppercase;
+        }
+        .main-nav {
+          align-items: center;
+          display: flex;
+          gap: 26px;
+          justify-content: center;
+        }
+        .nav-link {
+          color: var(--color-white);
+          font-size: 12px;
+          font-weight: 600;
+          min-height: 44px;
+          padding-top: 16px;
+          position: relative;
+          text-transform: uppercase;
+        }
+        .nav-link::after {
+          background: var(--color-gold);
+          bottom: 8px;
+          content: "";
+          height: 1px;
+          left: 0;
+          opacity: 0;
+          position: absolute;
+          right: 0;
+          transform: scaleX(0.4);
+          transition: opacity 200ms ease, transform 200ms ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.is-active::after {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+        .header-cta {
+          justify-self: end;
+          min-height: 40px;
+          padding: 10px 16px;
+        }
+        .menu-button {
+          background: transparent;
+          border: 0;
+          color: var(--color-white);
+          cursor: pointer;
+          display: none;
+          height: 44px;
+          justify-self: end;
+          position: relative;
+          width: 44px;
+        }
+        .menu-button span {
+          background: currentColor;
+          display: block;
+          height: 1px;
+          left: 9px;
+          position: absolute;
+          right: 9px;
+          transition: transform 200ms ease, top 200ms ease, opacity 200ms ease;
+        }
+        .menu-button span:nth-child(1) { top: 15px; }
+        .menu-button span:nth-child(2) { top: 22px; }
+        .menu-button span:nth-child(3) { top: 29px; }
+        .menu-button.is-open span:nth-child(1) { top: 22px; transform: rotate(45deg); }
+        .menu-button.is-open span:nth-child(2) { opacity: 0; }
+        .menu-button.is-open span:nth-child(3) { top: 22px; transform: rotate(-45deg); }
+        .mobile-menu {
+          background: var(--color-ivory);
+          inset: 0;
+          padding: 120px 28px 32px;
+          position: fixed;
+          transform: translateX(100%);
+          transition: transform 300ms ease;
+          z-index: 990;
+        }
+        .mobile-menu.is-open { transform: translateX(0); }
+        .mobile-menu a {
+          border-bottom: 1px solid var(--color-linen);
+          color: var(--color-dark);
+          display: block;
+          font-family: var(--font-serif);
+          font-size: 34px;
+          padding: 18px 0;
+        }
+        .mobile-whatsapp {
+          align-items: center;
+          background: #25D366;
+          color: white !important;
+          display: inline-flex !important;
+          font-family: var(--font-sans) !important;
+          font-size: 14px !important;
+          font-weight: 600;
+          gap: 10px;
+          justify-content: center;
+          margin-top: 28px;
+          min-height: 52px;
+          padding: 0 20px !important;
+          text-transform: uppercase;
+          width: 100%;
+        }
+        @media (max-width: 1050px) {
+          .header-inner { grid-template-columns: 1fr 44px; }
+          .main-nav, .header-cta { display: none; }
+          .menu-button { display: block; }
         }
       `}</style>
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '1240px',
-          margin: '0 auto',
-          padding: '20px 18px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '24px',
-        }}
-      >
-        <Link
-          href="/"
-          aria-label="Aziz EL Mire Haute Couture home"
-          style={{
-            color: 'var(--ivory)',
-            fontFamily: 'var(--font-heading)',
-            maxWidth: '250px',
-            textDecoration: 'none',
-            textTransform: 'uppercase',
-            lineHeight: 1.05,
-          }}
-          onClick={() => setOpen(false)}
-        >
-          <span style={{ display: 'block', fontSize: scrolled ? '20px' : '24px', transition: 'font-size 300ms ease' }}>
-            Aziz EL Mire
-          </span>
-          <span style={{ color: '#b79a55', display: 'block', fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '1.2px', lineHeight: 1.35, marginTop: '5px' }}>
-            {BRAND_TAGLINE}
-          </span>
+      <div className="container-rc header-inner">
+        <Link href="/" className="brand-link" onClick={() => setOpen(false)} aria-label="Accueil Aziz EL Mire Haute Couture">
+          Aziz EL Mire
+          <span className="brand-sub">{BRAND_TAGLINE}</span>
         </Link>
 
         <nav className="main-nav" aria-label="Navigation principale">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                color: 'var(--ivory)',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.href || Boolean(pathname?.startsWith(`${item.href}/`));
+            return (
+              <Link key={item.href} href={item.href} className={`nav-link ${isActive ? 'is-active' : ''}`}>
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        <HeaderSocialLinks />
+        <Link href="/contact" className="btn btn-gold header-cta">
+          Reserver
+        </Link>
 
         <button
-          className="header-hamburger"
-          style={{
-            flexDirection: 'column',
-            background: 'none',
-            border: '1px solid rgba(239,230,209,0.24)',
-            cursor: 'pointer',
-            padding: '9px',
-            width: '44px',
-            height: '44px',
-            justifyContent: 'center',
-          }}
+          type="button"
+          className={`menu-button ${open ? 'is-open' : ''}`}
           aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
         >
-          {[0, 1, 2].map((i) => (
-            <span key={i} style={{ display: 'block', width: '22px', height: '2px', background: 'var(--ivory)', margin: '3px 0' }} />
-          ))}
+          <span />
+          <span />
+          <span />
         </button>
       </div>
-
-      <div className={`mobile-panel ${open ? 'is-open' : ''}`} style={{ gap: '0', padding: '0 18px 24px' }}>
-        {NAV_ITEMS.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            onClick={() => setOpen(false)}
-            style={{
-              borderTop: '1px solid rgba(183,154,85,0.18)',
-              color: 'var(--ivory)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '13px',
-              fontWeight: 700,
-              padding: '16px 0',
-              textTransform: 'uppercase',
-            }}
-          >
+      <div className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        {navItems.map((item) => (
+          <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
             {item.label}
           </Link>
         ))}
+        <a
+          className="mobile-whatsapp"
+          href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier.")}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaWhatsapp aria-hidden="true" /> WhatsApp
+        </a>
       </div>
     </header>
   );

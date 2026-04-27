@@ -1,16 +1,28 @@
 export const BRAND_NAME = 'Aziz EL Mire Haute Couture';
-export const BRAND_TAGLINE = 'Maison de création & sur-mesure';
-export const BRAND_OFFER = 'Costumes d’exception & pièces exclusives';
+export const BRAND_TAGLINE = 'Maison de creation & sur-mesure';
+export const BRAND_OFFER = "Costumes d'exception & pieces exclusives";
 export const BRAND_SIGNATURE = 'Where elegance is tailored to you';
 export const PHONE_DISPLAY = '+212 6 61 48 28 84';
+export const PHONE_TEL = '+212661482884';
 export const WHATSAPP_NUMBER = '212661482884';
 export const ADDRESS_DISPLAY = 'Sidi Maarouf, Casablanca';
+export const EMAIL_DISPLAY = 'contact@azizelmire.com';
 export const INSTAGRAM_URL = 'https://www.instagram.com/maison_elmire/';
 export const FACEBOOK_URL = 'https://facebook.com/azizelmire';
 export const TIKTOK_URL = 'https://tiktok.com/@azizelmire';
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/aziz-el-mire-haute-couture';
 
+export const navItems = [
+  { label: 'Collections', href: '/collections' },
+  { label: 'Nouveautes', href: '/new-arrivals' },
+  { label: 'Sur Mesure', href: '/sur-mesure' },
+  { label: 'Galerie', href: '/gallery' },
+  { label: 'A propos', href: '/about' },
+  { label: 'Reserver', href: '/contact' },
+] as const;
+
 export const productCategories = [
+  'Smokings',
   'Costumes',
   'Vestes',
   'Pantalons',
@@ -44,14 +56,17 @@ const IG = `${BASE}/aziz-media/instagram`;
 const MEDIA = `${BASE}/aziz-media`;
 
 export const instagramCategoryImages: Record<ProductCategory, string[]> = {
+  Smokings: [
+    `${IG}/costume-black-tuxedo-front.jpg`,
+    `${IG}/costume-black-double-breasted-front.jpg`,
+    `${IG}/pantalon-black-tuxedo-side.jpg`,
+  ],
   Costumes: [
     `${IG}/costume-grey-boutique.jpg`,
     `${IG}/costume-navy-boutique.jpg`,
     `${IG}/costume-navy-red-tie.jpg`,
     `${IG}/costume-plaid-red-tie.jpg`,
     `${IG}/costume-black-double-breasted.jpg`,
-    `${IG}/costume-black-double-breasted-front.jpg`,
-    `${IG}/costume-black-tuxedo-front.jpg`,
   ],
   Vestes: [
     `${IG}/veste-navy-canvas-detail.jpg`,
@@ -77,7 +92,7 @@ export const instagramCategoryImages: Record<ProductCategory, string[]> = {
     `${IG}/pantalon-navy-suit-look.jpg`,
   ],
   Chemises: [
-    `${IG}/accessoire-pocket-square-buttons.jpg`,
+    `${MEDIA}/web-chemises-white-shirt.jpg`,
     `${IG}/costume-grey-boutique.jpg`,
     `${IG}/costume-navy-boutique.jpg`,
   ],
@@ -93,6 +108,7 @@ export const instagramCategoryImages: Record<ProductCategory, string[]> = {
 };
 
 export const productCategoryImages: Record<ProductCategory, string> = {
+  Smokings: instagramCategoryImages.Smokings[0],
   Costumes: instagramCategoryImages.Costumes[1],
   Vestes: instagramCategoryImages.Vestes[5],
   Pantalons: instagramCategoryImages.Pantalons[0],
@@ -101,12 +117,14 @@ export const productCategoryImages: Record<ProductCategory, string> = {
 };
 
 export const lookbookImages = [
+  `${IG}/atelier-boutique-window.jpg`,
+  ...instagramCategoryImages.Smokings,
   ...instagramCategoryImages.Costumes,
   ...instagramCategoryImages.Vestes,
   ...instagramCategoryImages.Pantalons,
-  ...instagramCategoryImages.Chemises,
   ...instagramCategoryImages.Accessoires,
-  `${IG}/atelier-boutique-window.jpg`,
+  `${MEDIA}/ref-tailor-workshop.jpg`,
+  `${MEDIA}/ref-hands-fabric.jpg`,
 ].filter((image, index, list) => list.indexOf(image) === index);
 
 export const products: Product[] = [
@@ -115,11 +133,11 @@ export const products: Product[] = [
     slug: 'smoking-noir-revers-satin',
     aliases: ['costume-noir-satin'],
     name: 'Smoking noir revers satin',
-    category: 'Costumes',
-    collection: 'Smoking & Mariage',
+    category: 'Smokings',
+    collection: 'Mariage & Gala',
     description:
-      'Smoking noir inspiré des looks Maison Elmire, pensé pour les mariages, soirées et cérémonies. Sa veste structurée et ses revers satin apportent une présence élégante, sobre et contemporaine.',
-    shortDescription: 'Smoking noir à revers satin pour mariage et soirée.',
+      "Taille dans une matiere noire aux reflets satin, ce smoking habille les soirees de mariage avec une elegance sobre et maitrisee. Les revers lumineux structurent la silhouette et signent une presence calme, precise, tres Maison.",
+    shortDescription: 'Smoking noir a revers satin pour mariage et soiree.',
     price: '3 900 MAD',
     images: [
       `${IG}/costume-black-tuxedo-front.jpg`,
@@ -129,21 +147,21 @@ export const products: Product[] = [
     ],
     colors: ['Noir', 'Bleu nuit', 'Gris anthracite'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
-    fabric: 'Tissu premium avec revers satin',
-    customization: ['Doublure personnalisée', 'Boutons couture', 'Ajustement morphologie'],
+    fabric: 'Laine melangee et revers satin',
+    customization: ['Doublure personnalisee', 'Boutons couture', 'Ajustement morphologie'],
     isNewArrival: true,
-    whatsappMessage: 'Bonjour, je suis intéressé par le smoking noir revers satin.',
+    whatsappMessage: 'Bonjour, je suis interesse par le smoking noir revers satin.',
   },
   {
     id: 2,
     slug: 'costume-croise-noir',
     aliases: ['smoking-noir-gilet'],
-    name: 'Costume croisé noir',
+    name: 'Costume croise noir',
     category: 'Costumes',
-    collection: 'Cérémonie',
+    collection: 'Ceremonie',
     description:
-      'Costume croisé noir inspiré des publications Maison Elmire autour du smoking, du mariage et du sur-mesure. Une pièce forte pour une silhouette habillée et parfaitement structurée.',
-    shortDescription: 'Costume croisé noir pour cérémonie et mariage.',
+      "Ce costume croise noir dessine une carrure nette et une allure de ceremonie sans exces. Le boutonnage double apporte de la profondeur, tandis que la coupe reste fluide pour accompagner les grands moments.",
+    shortDescription: 'Costume croise noir pour ceremonie et mariage.',
     price: '4 500 MAD',
     images: [
       `${IG}/costume-black-double-breasted-front.jpg`,
@@ -153,21 +171,21 @@ export const products: Product[] = [
     ],
     colors: ['Noir', 'Bleu nuit'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
-    fabric: 'Laine mélangée premium',
-    customization: ['Revers satin', 'Boutonnage croisé', 'Broderie initiales'],
+    fabric: 'Laine melangee premium',
+    customization: ['Revers satin', 'Boutonnage croise', 'Broderie initiales'],
     isNewArrival: true,
-    whatsappMessage: 'Bonjour, je souhaite commander le costume croisé noir.',
+    whatsappMessage: 'Bonjour, je souhaite commander le costume croise noir.',
   },
   {
     id: 3,
     slug: 'veste-bleu-nuit-epuree',
     aliases: ['veste-noire-prestige'],
-    name: 'Veste bleu nuit épurée',
+    name: 'Veste bleu nuit epuree',
     category: 'Vestes',
     collection: 'Prestige',
     description:
-      'Veste bleu nuit au tombé net, issue de l’univers visuel Maison Elmire. Elle se porte avec un pantalon habillé, une chemise claire ou un col roulé pour une allure moderne et raffinée.',
-    shortDescription: 'Veste bleu nuit minimaliste, élégante et structurée.',
+      "Une veste bleu nuit au tombe net, pensee pour passer d'une reception a un diner habille avec naturel. Sa ligne minimaliste laisse parler la matiere, la coupe et la precision des finitions.",
+    shortDescription: 'Veste bleu nuit minimaliste, elegante et structuree.',
     price: 'Sur demande',
     images: [
       `${IG}/veste-navy-mannequin.jpg`,
@@ -177,21 +195,21 @@ export const products: Product[] = [
     ],
     colors: ['Bleu nuit', 'Gris anthracite', 'Noir'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
-    fabric: 'Tissu de cérémonie structuré',
-    customization: ['Col ajusté', 'Boutons luxe', 'Longueur ajustée'],
+    fabric: 'Tissu de ceremonie structure',
+    customization: ['Col ajuste', 'Boutons luxe', 'Longueur ajustee'],
     isNewArrival: false,
-    whatsappMessage: 'Bonjour, je suis intéressé par la veste bleu nuit épurée.',
+    whatsappMessage: 'Bonjour, je suis interesse par la veste bleu nuit epuree.',
   },
   {
     id: 4,
     slug: 'veste-bordeaux-texturee',
     aliases: ['veste-noire-texturee'],
-    name: 'Veste bordeaux texturée',
+    name: 'Veste bordeaux texturee',
     category: 'Vestes',
     collection: 'Signature',
     description:
-      'Veste bordeaux texturée, pensée comme une pièce signature pour les grandes occasions. La matière visible dans les photos apporte profondeur, caractère et élégance.',
-    shortDescription: 'Veste bordeaux texturée avec allure signature.',
+      "La texture bordeaux donne a cette veste une profondeur discrete, ideale pour les ceremonies du soir. Elle affirme la silhouette sans la charger, avec une couleur chaude et une finition couture.",
+    shortDescription: 'Veste bordeaux texturee avec allure signature.',
     price: '3 600 MAD',
     images: [
       `${IG}/veste-bordeaux-hanger.jpg`,
@@ -201,10 +219,10 @@ export const products: Product[] = [
     ],
     colors: ['Bordeaux', 'Vert profond', 'Bleu nuit'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
-    fabric: 'Tissu texturé premium',
-    customization: ['Coupe cintrée', 'Poches passepoilées', 'Doublure personnalisée'],
+    fabric: 'Tissu texture premium',
+    customization: ['Coupe cintree', 'Poches passepoilees', 'Doublure personnalisee'],
     isNewArrival: true,
-    whatsappMessage: 'Bonjour, je suis intéressé par la veste bordeaux texturée.',
+    whatsappMessage: 'Bonjour, je suis interesse par la veste bordeaux texturee.',
   },
   {
     id: 5,
@@ -212,10 +230,10 @@ export const products: Product[] = [
     aliases: ['veste-blanche-ceremonie'],
     name: 'Vestes bordeaux & vert profond',
     category: 'Vestes',
-    collection: 'Cérémonie',
+    collection: 'Ceremonie',
     description:
-      'Duo de vestes cérémonie en bordeaux et vert profond, inspiré directement des visuels Maison Elmire. Une proposition élégante pour composer une tenue distinctive et sur mesure.',
-    shortDescription: 'Vestes cérémonie en bordeaux et vert profond.',
+      "Deux nuances riches pour une tenue de ceremonie plus personnelle. Le bordeaux et le vert profond dialoguent avec des finitions soignees, parfaits pour composer une silhouette distinctive.",
+    shortDescription: 'Vestes ceremonie en bordeaux et vert profond.',
     price: '4 800 MAD',
     images: [
       `${IG}/veste-bordeaux-green-duo.jpg`,
@@ -225,10 +243,10 @@ export const products: Product[] = [
     ],
     colors: ['Bordeaux', 'Vert profond', 'Bleu', 'Ivoire'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
-    fabric: 'Tissu cérémonie texturé',
-    customization: ['Boutons métal', 'Revers ajusté', 'Doublure personnalisée'],
+    fabric: 'Tissu ceremonie texture',
+    customization: ['Boutons metal', 'Revers ajuste', 'Doublure personnalisee'],
     isNewArrival: true,
-    whatsappMessage: 'Bonjour, je suis intéressé par les vestes bordeaux et vert profond.',
+    whatsappMessage: 'Bonjour, je suis interesse par les vestes bordeaux et vert profond.',
   },
   {
     id: 6,
@@ -238,8 +256,8 @@ export const products: Product[] = [
     category: 'Pantalons',
     collection: 'Essentiels',
     description:
-      'Pantalon smoking noir présenté dans les looks Maison Elmire. Sa ligne nette accompagne les vestes croisées, les smokings et les tenues de cérémonie.',
-    shortDescription: 'Pantalon smoking noir à coupe nette.',
+      "Un pantalon noir a la ligne nette, concu pour accompagner un smoking ou une veste de ceremonie. La coupe allonge la jambe et conserve une tenue impeccable du premier rendez-vous a la derniere danse.",
+    shortDescription: 'Pantalon smoking noir a coupe nette.',
     price: '1 200 MAD',
     images: [
       `${IG}/pantalon-black-tuxedo-side.jpg`,
@@ -250,7 +268,7 @@ export const products: Product[] = [
     colors: ['Noir', 'Gris', 'Bleu nuit'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
     fabric: 'Tissu tailoring infroissable',
-    customization: ['Ourlet personnalisé', 'Taille ajustée', 'Pinces sur demande'],
+    customization: ['Ourlet personnalise', 'Taille ajustee', 'Pinces sur demande'],
     isNewArrival: false,
     whatsappMessage: 'Bonjour, je souhaite des informations sur le pantalon smoking noir.',
   },
@@ -262,7 +280,7 @@ export const products: Product[] = [
     category: 'Chemises',
     collection: 'Essentiels',
     description:
-      'Chemise blanche premium pensée pour accompagner les smokings, costumes croisés et vestes de cérémonie Maison Elmire. Une base élégante pour une tenue impeccable.',
+      "Une chemise blanche en coton premium, lumineuse sous un revers satin comme sous une veste de jour. Le col reste precis, les poignets propres, la silhouette toujours composee.",
     shortDescription: 'Chemise blanche premium pour costumes et smokings.',
     price: 'Sur demande',
     images: [
@@ -274,9 +292,9 @@ export const products: Product[] = [
     colors: ['Blanc', 'Ivoire', 'Bleu clair'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
     fabric: 'Coton premium',
-    customization: ['Col italien', 'Poignets mousquetaire', 'Initiales brodées'],
+    customization: ['Col italien', 'Poignets mousquetaire', 'Initiales brodees'],
     isNewArrival: true,
-    whatsappMessage: 'Bonjour, je suis intéressé par la chemise blanche premium.',
+    whatsappMessage: 'Bonjour, je suis interesse par la chemise blanche premium.',
   },
   {
     id: 8,
@@ -286,8 +304,8 @@ export const products: Product[] = [
     category: 'Accessoires',
     collection: 'Accessoires',
     description:
-      'Sélection de détails Maison Elmire: doublures, étiquettes, pochettes, initiales brodées et finitions intérieures. Ces éléments personnalisent chaque costume sur mesure.',
-    shortDescription: 'Doublures, pochettes, initiales et détails personnalisés.',
+      "Doublures, pochettes, etiquettes et initiales brodees donnent a chaque piece son caractere intime. Ces details se decouvrent de pres et prolongent l'elegance jusque dans l'interieur du costume.",
+    shortDescription: 'Doublures, pochettes, initiales et details personnalises.',
     price: 'Sur demande',
     images: [
       `${IG}/accessoire-maison-elmire-label.jpg`,
@@ -300,9 +318,9 @@ export const products: Product[] = [
     colors: ['Noir', 'Blanc', 'Bordeaux'],
     sizes: ['Sur mesure'],
     fabric: 'Doublure, satin et finitions premium',
-    customization: ['Initiales brodées', 'Pochette assortie', 'Étiquette personnalisée'],
+    customization: ['Initiales brodees', 'Pochette assortie', 'Etiquette personnalisee'],
     isNewArrival: false,
-    whatsappMessage: 'Bonjour, je suis intéressé par les finitions Maison Elmire.',
+    whatsappMessage: 'Bonjour, je suis interesse par les finitions Maison Elmire.',
   },
 ];
 

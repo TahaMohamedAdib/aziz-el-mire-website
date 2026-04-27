@@ -1,75 +1,100 @@
-'use client';
-
 import Link from 'next/link';
-import { ADDRESS_DISPLAY, BRAND_NAME, BRAND_OFFER, BRAND_SIGNATURE, BRAND_TAGLINE, PHONE_DISPLAY } from '@/lib/catalog';
-import { FooterSocialLinks } from '@/components/SocialLinks';
+import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6';
+import {
+  ADDRESS_DISPLAY,
+  BRAND_NAME,
+  BRAND_SIGNATURE,
+  BRAND_TAGLINE,
+  EMAIL_DISPLAY,
+  FACEBOOK_URL,
+  INSTAGRAM_URL,
+  navItems,
+  PHONE_DISPLAY,
+  TIKTOK_URL,
+  whatsappUrl,
+} from '@/lib/catalog';
 
 export default function Footer() {
-  const quickLinks = [
-    ['Accueil', '/'],
-    ['Collections', '/collections'],
-    ['Nouveautés', '/new-arrivals'],
-    ['Sur Mesure', '/sur-mesure'],
-    ['Galerie', '/gallery'],
-    ['Réservation', '/reservation'],
-    ['À propos', '/about'],
-    ['Contact', '/contact'],
+  const socials = [
+    { label: 'Instagram', href: INSTAGRAM_URL, icon: FaInstagram },
+    { label: 'Facebook', href: FACEBOOK_URL, icon: FaFacebookF },
+    { label: 'TikTok', href: TIKTOK_URL, icon: FaTiktok },
+    { label: 'WhatsApp', href: whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier."), icon: FaWhatsapp },
   ];
 
-  const collections = ['Costumes', 'Vestes', 'Pantalons', 'Chemises', 'Accessoires'];
-
   return (
-    <footer style={{ background: '#050706', borderTop: '1px solid rgba(183,154,85,0.16)', padding: '72px 0 30px' }}>
+    <footer style={{ background: 'var(--color-dark)', borderTop: '1px solid var(--color-gold)', padding: '72px 0 28px' }}>
       <style>{`
-        .footer-grid { display: grid; grid-template-columns: 1.3fr 0.8fr 0.8fr 1.1fr; gap: 46px; }
-        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 620px) { .footer-grid { grid-template-columns: 1fr; } }
+        .footer-grid {
+          display: grid;
+          gap: 48px;
+          grid-template-columns: 1.3fr 0.7fr 1fr;
+        }
+        .footer-socials {
+          display: flex;
+          gap: 12px;
+          margin-top: 24px;
+        }
+        .footer-socials a {
+          align-items: center;
+          border: 1px solid rgba(248,245,240,0.22);
+          color: var(--color-ivory);
+          display: inline-flex;
+          height: 38px;
+          justify-content: center;
+          transition: border-color 200ms ease, color 200ms ease;
+          width: 38px;
+        }
+        .footer-socials a:hover {
+          border-color: var(--color-gold);
+          color: var(--color-gold);
+        }
+        @media (max-width: 820px) {
+          .footer-grid { grid-template-columns: 1fr; }
+        }
       `}</style>
       <div className="container-rc">
         <div className="footer-grid">
           <div>
-            <h3 style={{ color: 'var(--ivory)', fontFamily: 'var(--font-heading)', fontSize: '24px', lineHeight: 1.1, margin: '0 0 18px', textTransform: 'uppercase' }}>
-              Aziz EL Mire<br />
-              <span style={{ color: '#b79a55', fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '2px' }}>{BRAND_TAGLINE}</span>
-            </h3>
-            <p style={{ color: '#b8ad96', fontSize: '15px', lineHeight: 1.8, margin: 0 }}>
-              {BRAND_OFFER}. <span style={{ color: '#d7c28b', fontStyle: 'italic' }}>{BRAND_SIGNATURE}</span>.
+            <h2 style={{ color: 'var(--color-ivory)', fontFamily: 'var(--font-serif)', fontSize: '30px', lineHeight: 1, margin: '0 0 12px' }}>
+              Aziz EL Mire
+            </h2>
+            <p className="footer-text" style={{ color: 'var(--color-gold)', marginBottom: 12 }}>
+              {BRAND_TAGLINE}
             </p>
+            <p className="footer-text" style={{ maxWidth: 340 }}>
+              {BRAND_SIGNATURE}
+            </p>
+            <div className="footer-socials">
+              {socials.map(({ label, href, icon: Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
+                  <Icon aria-hidden="true" size={16} />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <h4 className="footer-title">Liens rapides</h4>
-            {quickLinks.map(([label, href]) => (
-              <Link key={href} href={href} className="footer-link">
-                {label}
+          <nav aria-label="Navigation pied de page">
+            <h3 className="footer-title">Navigation</h3>
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className="footer-link">
+                {item.label}
               </Link>
             ))}
-          </div>
+          </nav>
 
           <div>
-            <h4 className="footer-title">Collections</h4>
-            {collections.map((label) => (
-              <Link key={label} href={`/collections?category=${encodeURIComponent(label)}`} className="footer-link">
-                {label}
-              </Link>
-            ))}
-          </div>
-
-          <div>
-            <h4 className="footer-title">Contact</h4>
-            <p className="footer-text">Adresse : {ADDRESS_DISPLAY}</p>
-            <p className="footer-text">Téléphone : {PHONE_DISPLAY}</p>
-            <p className="footer-text">Email : contact@azizelmire.com</p>
-            <p className="footer-text">Horaires : Lundi - Samedi, 10h00 - 20h00</p>
-            <FooterSocialLinks />
+            <h3 className="footer-title">Contact</h3>
+            <p className="footer-text">{ADDRESS_DISPLAY}</p>
+            <p className="footer-text">{PHONE_DISPLAY}</p>
+            <p className="footer-text">{EMAIL_DISPLAY}</p>
+            <p className="footer-text">Lundi - Samedi, 10h00 - 20h00</p>
           </div>
         </div>
 
-        <div style={{ borderTop: '1px solid rgba(183,154,85,0.16)', marginTop: '54px', paddingTop: '24px', textAlign: 'center' }}>
-          <p style={{ color: '#8f856f', fontSize: '12px', margin: 0 }}>
-            © 2026 {BRAND_NAME}. Tous droits réservés.
-          </p>
-        </div>
+        <p style={{ borderTop: '1px solid rgba(248,245,240,0.14)', color: 'rgba(248,245,240,0.58)', fontSize: 12, margin: '56px 0 0', paddingTop: 24, textAlign: 'center' }}>
+          © 2026 {BRAND_NAME}. Tous droits reserves.
+        </p>
       </div>
     </footer>
   );

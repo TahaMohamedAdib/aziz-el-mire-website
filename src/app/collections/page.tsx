@@ -5,15 +5,16 @@ import { PageHero, SitePage } from '@/components/SitePage';
 import { products } from '@/lib/catalog';
 
 export const metadata: Metadata = {
-  title: 'Collections',
-  description: 'Toutes les collections Aziz EL Mire Haute Couture: costumes, vestes, pantalons, chemises et accessoires.',
+  title: 'Collections - Costumes & Smokings Homme',
+  description:
+    "Explorez notre collection de costumes, smokings, vestes et pantalons homme. Pieces d'exception disponibles a Casablanca.",
 };
 
 export default function CollectionsPage() {
   return (
     <SitePage>
-      <PageHero eyebrow="Collections" title="Toutes les pièces">
-        Explorez les costumes, vestes, pantalons, chemises, accessoires et nouveautés de la maison.
+      <PageHero eyebrow="Collections" title="Costumes & Smokings Homme">
+        Explorez les smokings, costumes, vestes, pantalons, chemises et accessoires de la maison Aziz EL Mire.
       </PageHero>
       <Suspense>
         <CollectionBrowser products={products} initialFilter="Tous" />

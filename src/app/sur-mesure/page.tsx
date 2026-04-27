@@ -1,44 +1,68 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import { PageHero, SectionHeader, SitePage } from '@/components/SitePage';
+import { PageHero, SitePage } from '@/components/SitePage';
 
 export const metadata: Metadata = {
-  title: 'Sur Mesure',
-  description: 'Service sur mesure Aziz EL Mire Haute Couture.',
+  title: 'Costume sur mesure a Casablanca',
+  description:
+    'Service de costume sur mesure a Casablanca. Rendez-vous personnalise, choix du tissu et coupe adaptee a votre morphologie.',
 };
 
 const steps = [
-  ['01', 'Prise de rendez-vous', 'Définition du besoin, de l’occasion, du style et du budget.'],
-  ['02', 'Choix du tissu', 'Sélection de matières premium, couleurs, doublures et détails.'],
-  ['03', 'Prise des mesures', 'Étude de la morphologie pour construire une coupe précise.'],
-  ['04', 'Essayage', 'Ajustements en atelier pour un tombé net et confortable.'],
-  ['05', 'Livraison finale', 'Dernière vérification et conseils pour porter la pièce.'],
+  ['01', 'Rendez-vous', "Definition de l'occasion, de la silhouette souhaitee et du niveau de personnalisation."],
+  ['02', 'Mesures', 'Prise de mesures precise, choix du tissu, de la doublure et des finitions.'],
+  ['03', 'Livraison', 'Essayage, ajustements et conseils pour porter la piece avec justesse.'],
 ];
 
 export default function SurMesurePage() {
   return (
     <SitePage>
-      <PageHero eyebrow="Sur mesure" title="Sur Mesure">
-        Un service sur mesure adapté à votre style, votre morphologie et votre occasion.
+      <PageHero eyebrow="Sur Mesure" title="Un costume cree pour vous.">
+        Un accompagnement calme et precis pour transformer une occasion en silhouette.
       </PageHero>
-      <section style={{ background: '#07100c', padding: '88px 20px' }}>
+      <section className="section-pad" style={{ background: 'var(--color-linen)', paddingTop: 0 }}>
         <style>{`
-          .sur-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-          @media (max-width: 980px) { .sur-grid { grid-template-columns: repeat(2, 1fr); } }
-          @media (max-width: 560px) { .sur-grid { grid-template-columns: 1fr; } }
+          .sur-layout {
+            align-items: center;
+            display: grid;
+            gap: 56px;
+            grid-template-columns: 1fr 1fr;
+          }
+          .sur-steps {
+            display: grid;
+            gap: 18px;
+            margin: 34px 0;
+          }
+          .sur-step {
+            border-top: 1px solid rgba(184,151,90,0.42);
+            padding-top: 18px;
+          }
+          @media (max-width: 840px) {
+            .sur-layout { grid-template-columns: 1fr; }
+          }
         `}</style>
-        <SectionHeader eyebrow="Processus" title="Le parcours couture" />
-        <div className="container-rc sur-grid">
-          {steps.map(([number, title, text]) => (
-            <article key={title} style={{ background: '#050706', border: '1px solid rgba(183,154,85,0.16)', boxShadow: 'inset 0 1px 0 rgba(122,30,30,0.18)', padding: '28px' }}>
-              <p className="eyebrow">{number}</p>
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '26px', margin: '0 0 16px', textTransform: 'uppercase' }}>{title}</h2>
-              <p style={{ color: '#b8ad96', lineHeight: 1.7, margin: 0 }}>{text}</p>
-            </article>
-          ))}
-        </div>
-        <div style={{ marginTop: '46px', textAlign: 'center' }}>
-          <Link className="btn btn-gold" href="/reservation">Réserver une séance de mesure</Link>
+        <div className="container-rc sur-layout">
+          <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
+            <Image src="/aziz-media/ref-tailor-measuring-fabric.jpg" alt="Prise de mesures costume sur mesure Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+          </div>
+          <div>
+            <p className="eyebrow">Atelier Sidi Maarouf</p>
+            <h2 className="section-title">Du tissu au tombe final.</h2>
+            <p className="body-large">
+              Le sur mesure commence par une conversation: votre evenement, votre confort, votre facon de bouger. L&apos;atelier ajuste ensuite chaque choix, du tissu a la doublure, pour composer un costume qui vous appartient vraiment.
+            </p>
+            <div className="sur-steps">
+              {steps.map(([number, title, text]) => (
+                <article key={title} className="sur-step">
+                  <p className="eyebrow" style={{ marginBottom: 8 }}>{number}</p>
+                  <h3 style={{ fontSize: 26, margin: '0 0 8px' }}>{title}</h3>
+                  <p style={{ margin: 0 }}>{text}</p>
+                </article>
+              ))}
+            </div>
+            <Link className="btn btn-gold" href="/contact">Reserver une seance de mesure</Link>
+          </div>
         </div>
       </section>
     </SitePage>

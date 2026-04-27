@@ -1,21 +1,21 @@
 import type { Metadata } from 'next';
-import ReservationForm from '@/components/ReservationForm';
-import { PageHero, SitePage } from '@/components/SitePage';
+import Link from 'next/link';
+import { SitePage } from '@/components/SitePage';
 
 export const metadata: Metadata = {
-  title: 'Réservation',
-  description: 'Réservez un rendez-vous Aziz EL Mire Haute Couture.',
+  title: 'Reservation',
+  description: 'La page reservation a ete regroupee avec la page contact.',
 };
 
 export default function ReservationPage() {
   return (
     <SitePage>
-      <PageHero eyebrow="Rendez-vous" title="Réservation">
-        Prenez rendez-vous pour un costume sur mesure, une veste, un pantalon, des retouches ou un conseil style.
-      </PageHero>
-      <section style={{ background: '#07100c', padding: '70px 20px 110px' }}>
-        <div className="container-rc" style={{ maxWidth: '760px' }}>
-          <ReservationForm />
+      <section className="section-pad" style={{ minHeight: '70vh', paddingTop: 180, textAlign: 'center' }}>
+        <div className="container-rc" style={{ maxWidth: 680 }}>
+          <p className="eyebrow">Reservation</p>
+          <h1 className="section-title">Contact & Reservation</h1>
+          <p className="body-large">Les demandes de rendez-vous sont maintenant centralisees sur une seule page.</p>
+          <Link className="btn btn-gold" href="/contact">Aller a la page contact</Link>
         </div>
       </section>
     </SitePage>

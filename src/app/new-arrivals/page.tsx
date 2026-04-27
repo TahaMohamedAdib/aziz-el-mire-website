@@ -1,20 +1,23 @@
 import type { Metadata } from 'next';
-import ProductGrid from '@/components/ProductGrid';
+import { Suspense } from 'react';
+import CollectionBrowser from '@/components/CollectionBrowser';
 import { PageHero, SitePage } from '@/components/SitePage';
-import { newArrivals } from '@/lib/catalog';
+import { products } from '@/lib/catalog';
 
 export const metadata: Metadata = {
-  title: 'Nouveautés',
-  description: 'Découvrez les nouveautés Aziz EL Mire Haute Couture.',
+  title: 'Nouveautes',
+  description: "Decouvrez les dernieres pieces Aziz EL Mire Haute Couture disponibles a Casablanca.",
 };
 
 export default function NewArrivalsPage() {
   return (
     <SitePage>
-      <PageHero eyebrow="Nouveautés" title="Dernières pièces">
-        Les dernières pièces premium ajoutées à la collection.
+      <PageHero eyebrow="Nouveautes" title="Dernieres pieces">
+        Une selection recente de smokings, vestes et finitions pour composer une silhouette de ceremonie.
       </PageHero>
-      <ProductGrid products={newArrivals} />
+      <Suspense>
+        <CollectionBrowser products={products} initialFilter="Tous" initialNewOnly />
+      </Suspense>
     </SitePage>
   );
 }

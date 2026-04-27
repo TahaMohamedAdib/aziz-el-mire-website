@@ -1,51 +1,68 @@
-import { whatsappUrl } from '@/lib/catalog';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa6';
+import { whatsappUrl } from '@/lib/catalog';
 
 export default function FloatingWhatsApp() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setVisible(window.scrollY > 300 || window.innerWidth < 768);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <style>{`
         .floating-whatsapp {
           align-items: center;
-          background: #07140f;
-          border: 1px solid rgba(183, 154, 85, 0.7);
+          background: #25D366;
           border-radius: 999px;
           bottom: 22px;
-          box-shadow: 0 16px 34px rgba(0,0,0,0.34), inset 0 1px 0 rgba(122, 30, 30, 0.34);
-          color: var(--ivory);
+          box-shadow: 0 16px 34px rgba(0,0,0,0.22);
+          color: white;
           display: flex;
-          font-family: var(--font-montserrat);
-          font-size: 12px;
-          font-weight: 800;
-          gap: 8px;
+          height: 56px;
           justify-content: center;
-          padding: 14px 18px;
+          opacity: 0;
+          pointer-events: none;
           position: fixed;
           right: 22px;
-          text-transform: uppercase;
-          z-index: 1200;
+          transform: translateY(8px);
+          transition: opacity 200ms ease, transform 200ms ease;
+          width: 56px;
+          z-index: 9999;
         }
-        @media (max-width: 520px) {
+        .floating-whatsapp.is-visible {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+        @media (max-width: 767px) {
           .floating-whatsapp {
             bottom: 14px;
-            font-size: 11px;
-            height: 52px;
-            padding: 0;
+            opacity: 1;
+            pointer-events: auto;
             right: 14px;
-            width: 52px;
+            transform: none;
           }
-          .floating-whatsapp span { display: none; }
         }
       `}</style>
       <a
-        className="floating-whatsapp"
-        href={whatsappUrl('Bonjour, je suis intéressé par vos costumes d’exception et pièces sur mesure.')}
+        className={`floating-whatsapp ${visible ? 'is-visible' : ''}`}
+        href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous a l'atelier.")}
         target="_blank"
         rel="noreferrer"
-        aria-label="Contact WhatsApp"
+        aria-label="Ecrire sur WhatsApp"
       >
-        <FaWhatsapp aria-hidden="true" size={17} />
-        <span>WhatsApp</span>
+        <FaWhatsapp aria-hidden="true" size={25} />
       </a>
     </>
   );

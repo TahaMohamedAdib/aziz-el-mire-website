@@ -9,11 +9,11 @@ export default function ContactForm() {
   const buildContactMessage = (formData: FormData) => {
     const getValue = (field: string) => String(formData.get(field) ?? '').trim();
     return [
-      'Bonjour, je souhaite contacter Aziz EL Mire Haute Couture pour une création sur mesure.',
+      "Bonjour, je souhaite prendre rendez-vous a l'atelier.",
       `Nom : ${getValue('name')}`,
-      `Email : ${getValue('email')}`,
-      getValue('phone') ? `Téléphone : ${getValue('phone')}` : '',
-      `Message : ${getValue('message')}`,
+      `Telephone : ${getValue('phone')}`,
+      `Date souhaitee : ${getValue('date')}`,
+      getValue('message') ? `Message : ${getValue('message')}` : '',
     ]
       .filter(Boolean)
       .join('\n');
@@ -34,15 +34,15 @@ export default function ContactForm() {
       }}
     >
       {submitted ? (
-        <div role="status" aria-live="polite" style={{ background: 'rgba(183,154,85,0.12)', border: '1px solid rgba(183,154,85,0.32)', color: 'var(--ivory)', padding: '18px' }}>
-          Merci. WhatsApp s&apos;ouvre avec votre message.
+        <div role="status" aria-live="polite" style={{ background: 'var(--color-linen)', color: 'var(--color-dark)', padding: '18px' }}>
+          Merci. WhatsApp s&apos;ouvre avec votre demande.
         </div>
       ) : null}
-      <input className="input-field" name="name" placeholder="Nom complet" aria-label="Nom complet" autoComplete="name" required />
-      <input className="input-field" name="email" type="email" placeholder="Adresse e-mail" aria-label="Adresse e-mail" autoComplete="email" spellCheck={false} required />
-      <input className="input-field" name="phone" type="tel" inputMode="tel" placeholder="Téléphone" aria-label="Téléphone" autoComplete="tel" />
-      <textarea className="input-field" name="message" placeholder="Votre message" aria-label="Votre message" rows={6} required />
-      <button className="btn btn-gold" type="submit">Envoyer</button>
+      <input className="input-field" name="name" placeholder="Nom" aria-label="Nom" autoComplete="name" required />
+      <input className="input-field" name="phone" type="tel" inputMode="tel" placeholder="Telephone" aria-label="Telephone" autoComplete="tel" required />
+      <input className="input-field" name="date" type="date" aria-label="Date souhaitee" required />
+      <textarea className="input-field" name="message" placeholder="Message (optionnel)" aria-label="Message optionnel" rows={4} />
+      <button className="btn btn-gold" type="submit">Envoyer la demande</button>
     </form>
   );
 }
