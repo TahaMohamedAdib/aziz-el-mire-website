@@ -120,24 +120,27 @@ export default function Header() {
           justify-content: center;
         }
         .nav-link {
+          align-items: center;
           color: var(--color-white);
+          display: inline-flex;
           font-size: 16px;
           font-weight: 700;
-          min-height: 44px;
-          padding-top: 16px;
+          min-height: 64px;
+          padding: 0 0 2px;
           position: relative;
           text-transform: uppercase;
         }
         .nav-link::after {
           background: var(--color-gold);
-          bottom: 8px;
+          bottom: 12px;
           content: "";
           height: 1px;
           left: 0;
           opacity: 0;
           position: absolute;
           right: 0;
-          transform: scaleX(0.4);
+          transform: scaleX(0.35);
+          transform-origin: center;
           transition: opacity 200ms ease, transform 200ms ease;
         }
         .nav-link:hover::after,
