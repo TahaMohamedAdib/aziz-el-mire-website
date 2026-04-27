@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PageHero, SitePage } from '@/components/SitePage';
 import { BRAND_OFFER, BRAND_SIGNATURE, BRAND_TAGLINE } from '@/lib/catalog';
+import { asset } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'À propos',
@@ -21,7 +22,7 @@ export default function AboutPage() {
         `}</style>
         <div className="container-rc about-grid">
           <div style={{ position: 'relative', aspectRatio: '4 / 5', background: '#101813' }}>
-            <Image src="/aziz-media/costume4.webp" alt="Atelier tailoring Aziz EL Mire" fill sizes="(max-width: 820px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={asset('/aziz-media/costume4.webp')} alt="Atelier tailoring Aziz EL Mire" fill sizes="(max-width: 820px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
           </div>
           <div>
             {[

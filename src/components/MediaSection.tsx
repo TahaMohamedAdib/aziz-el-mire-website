@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '';
+
 const mediaItems = [
   {
     id: 1,
@@ -7,7 +9,7 @@ const mediaItems = [
     month: 'LOOK',
     channel: 'Costumes signature',
     title: 'Des coupes élégantes pour le quotidien, les rendez-vous et les occasions importantes.',
-    image: '/aziz-media/costume1.webp',
+    image: `${BASE}/aziz-media/costume1.webp`,
   },
   {
     id: 2,
@@ -15,7 +17,7 @@ const mediaItems = [
     month: 'FIT',
     channel: 'Sur mesure',
     title: 'Un accompagnement personnalisé pour choisir la coupe, le tissu et les finitions.',
-    image: '/aziz-media/costume4.webp',
+    image: `${BASE}/aziz-media/costume4.webp`,
   },
   {
     id: 3,
@@ -23,7 +25,7 @@ const mediaItems = [
     month: 'EVENT',
     channel: 'Cérémonie',
     title: 'Costumes de mariage, vestes habillées et pièces fortes pour vos grands événements.',
-    image: '/aziz-media/costume7.webp',
+    image: `${BASE}/aziz-media/costume7.webp`,
   },
 ];
 

@@ -111,7 +111,7 @@ export default function HeroCarousel() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '22px', marginBottom: '54px' }}>
-                <Image src="/images/slide-title-border.png" alt="" width={37} height={10} style={{ width: '37px', height: '10px' }} unoptimized />
+                <Image src={asset('/images/slide-title-border.png')} alt="" width={37} height={10} style={{ width: '37px', height: '10px' }} unoptimized />
                 <h3
                   style={{
                     fontFamily: 'var(--font-heading)',
@@ -125,7 +125,7 @@ export default function HeroCarousel() {
                 >
                   {slide.subtitle}
                 </h3>
-                <Image src="/images/slide-title-border.png" alt="" width={37} height={10} style={{ width: '37px', height: '10px', transform: 'scaleX(-1)' }} unoptimized />
+                <Image src={asset('/images/slide-title-border.png')} alt="" width={37} height={10} style={{ width: '37px', height: '10px', transform: 'scaleX(-1)' }} unoptimized />
               </div>
 
               {slide.title ? (

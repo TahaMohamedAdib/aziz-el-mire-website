@@ -2,33 +2,36 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, CalendarDays, Ruler, Scissors, Shirt, Sparkles } from 'lucide-react';
 
+const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '';
+const IG = `${BASE}/aziz-media/instagram`;
+
 const editorialBlocks = [
   {
     eyebrow: 'Histoire',
     title: "Une maison pensée pour l'élégance masculine",
     text: 'Aziz EL Mire Haute Couture accompagne les hommes qui recherchent une tenue précise, élégante et adaptée aux grandes occasions.',
-    image: '/aziz-media/instagram/atelier-boutique-window.jpg',
+    image: `${IG}/atelier-boutique-window.jpg`,
     href: '/about',
   },
   {
     eyebrow: 'Passion',
     title: 'Chaque costume passe par plusieurs mains',
     text: 'Sélection du tissu, coupe, montage, essayage et finitions : chaque étape donne de la tenue, du confort et du caractère à la pièce.',
-    image: '/aziz-media/instagram/accessoire-lining-detail.jpg',
+    image: `${IG}/accessoire-lining-detail.jpg`,
     href: '/sur-mesure',
   },
   {
     eyebrow: 'Signature',
     title: 'Une coupe proche du corps, jamais contrainte',
     text: 'La silhouette est structurée avec discrétion pour garder une allure naturelle, moderne et durable.',
-    image: '/aziz-media/instagram/veste-bordeaux-green-duo.jpg',
+    image: `${IG}/veste-bordeaux-green-duo.jpg`,
     href: '/collections',
   },
   {
     eyebrow: 'Création',
     title: 'De la mesure à la veste finale',
     text: 'Le client suit un parcours clair: rendez-vous, choix du tissu, mesures, essayage, ajustements et livraison.',
-    image: '/aziz-media/instagram/accessoire-maison-elmire-label.jpg',
+    image: `${IG}/accessoire-maison-elmire-label.jpg`,
     href: '/reservation',
   },
 ];
@@ -88,12 +91,12 @@ export default function ReferenceInspiredSections() {
             </div>
           </div>
           <div className="capsule-image">
-            <Image src="/aziz-media/instagram/costume-black-tuxedo-front.jpg" alt="Costume cérémonie Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={`${IG}/costume-black-tuxedo-front.jpg`} alt="Costume cérémonie Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
           </div>
         </div>
         <div className="container-rc dual-panels">
           <Link className="dual-panel" href="/collections">
-            <Image src="/aziz-media/instagram/veste-green-mannequin.jpg" alt="Le vestiaire Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={`${IG}/veste-green-mannequin.jpg`} alt="Le vestiaire Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             <div style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), transparent)', inset: 0, position: 'absolute', zIndex: 1 }} />
             <div className="dual-panel-content">
               <p className="eyebrow">Le vestiaire</p>
@@ -102,7 +105,7 @@ export default function ReferenceInspiredSections() {
             </div>
           </Link>
           <Link className="dual-panel" href="/sur-mesure">
-            <Image src="/aziz-media/instagram/accessoire-initials-lining.jpg" alt="Expérience sur mesure Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={`${IG}/accessoire-initials-lining.jpg`} alt="Expérience sur mesure Aziz EL Mire" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             <div style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82), transparent)', inset: 0, position: 'absolute', zIndex: 1 }} />
             <div className="dual-panel-content">
               <p className="eyebrow">Bespoke</p>
