@@ -50,8 +50,8 @@ export default function Home() {
               height: 100%;
               inset: 0;
               object-fit: cover;
+              object-position: center center;
               position: absolute;
-              transform: scale(1.08);
               width: 100%;
             }
             .home-hero::after {
@@ -62,14 +62,14 @@ export default function Home() {
             }
             .hero-copy {
               color: white;
-              max-width: 820px;
-              padding-top: 96px;
+              max-width: 760px;
+              padding-top: 18px;
               position: relative;
               z-index: 2;
             }
             .hero-copy h1 {
               color: white;
-              font-size: clamp(64px, 8.4vw, 96px);
+              font-size: clamp(72px, 7.2vw, 124px);
               font-weight: 300;
               line-height: 0.95;
               margin: 0 0 22px;
@@ -89,10 +89,15 @@ export default function Home() {
               min-height: 52px;
               padding: 15px 28px;
             }
+            .home-hero .container-rc {
+              margin: 0;
+              max-width: none;
+              padding-left: clamp(28px, 5vw, 96px);
+              padding-right: clamp(28px, 5vw, 96px);
+            }
             @media (max-width: 720px) {
               .home-hero { min-height: 100svh; }
               .home-hero video { display: none; }
-              .home-hero .poster { transform: scale(1.04); }
               .hero-copy { padding-top: 84px; }
               .hero-copy h1 { font-size: clamp(48px, 14vw, 64px); }
               .hero-copy p { font-size: 16px; }

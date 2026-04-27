@@ -37,7 +37,7 @@ export default function Header() {
           background: rgba(9, 48, 37, 0.96);
           border-bottom: 1px solid transparent;
           left: 0;
-          min-height: 88px;
+          min-height: 134px;
           position: fixed;
           right: 0;
           top: 0;
@@ -47,24 +47,47 @@ export default function Header() {
         .site-header.is-solid {
           background: rgba(9, 48, 37, 0.98);
           border-bottom-color: rgba(184,151,90,0.35);
-          min-height: 72px;
+          min-height: 92px;
         }
         .header-inner {
           align-items: center;
           display: grid;
-          gap: 24px;
-          grid-template-columns: 220px 1fr 140px;
+          gap: 36px;
+          grid-template-columns: 180px 1fr 220px;
+          margin: 0;
+          max-width: none;
           min-height: inherit;
+          padding-left: clamp(28px, 4.7vw, 88px);
+          padding-right: clamp(28px, 4.7vw, 88px);
         }
         .brand-link {
           align-items: center;
+          background: rgba(9,48,37,0.82);
+          border: 1px solid rgba(216,178,90,0.52);
+          box-shadow: 0 0 0 4px rgba(216,178,90,0.08), 0 10px 28px rgba(0,0,0,0.18);
           color: var(--color-white);
           display: inline-flex;
           font-family: var(--font-serif);
           font-size: 25px;
-          height: 72px;
+          height: 110px;
+          justify-content: center;
           line-height: 0.95;
-          width: 72px;
+          overflow: hidden;
+          padding: 5px;
+          position: relative;
+          transition: box-shadow 220ms ease, height var(--transition-base), transform 220ms ease, width var(--transition-base);
+          width: 110px;
+        }
+        .brand-link::after {
+          border: 1px solid rgba(255,229,164,0.36);
+          content: "";
+          inset: 4px;
+          pointer-events: none;
+          position: absolute;
+        }
+        .brand-link:hover {
+          box-shadow: 0 0 0 4px rgba(216,178,90,0.12), 0 0 18px rgba(216,178,90,0.28), 0 12px 30px rgba(0,0,0,0.2);
+          transform: translateY(-1px);
         }
         .site-header.is-solid .brand-link,
         .site-header.is-solid .nav-link,
@@ -72,11 +95,10 @@ export default function Header() {
           color: var(--color-ivory);
         }
         .site-header.is-solid .brand-link {
-          height: 58px;
-          width: 58px;
+          height: 68px;
+          width: 68px;
         }
         .brand-logo {
-          border: 1px solid rgba(184,151,90,0.4);
           display: block;
           height: 100%;
           object-fit: cover;
@@ -94,13 +116,13 @@ export default function Header() {
         .main-nav {
           align-items: center;
           display: flex;
-          gap: 26px;
+          gap: clamp(28px, 2vw, 40px);
           justify-content: center;
         }
         .nav-link {
           color: var(--color-white);
-          font-size: 12px;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 700;
           min-height: 44px;
           padding-top: 16px;
           position: relative;
@@ -125,8 +147,9 @@ export default function Header() {
         }
         .header-cta {
           justify-self: end;
-          min-height: 40px;
-          padding: 10px 16px;
+          font-size: 18px;
+          min-height: 64px;
+          padding: 18px 30px;
           position: relative;
           box-shadow: 0 0 0 1px rgba(216,178,90,0.45), 0 0 16px rgba(216,178,90,0.36);
           overflow: hidden;
@@ -223,6 +246,19 @@ export default function Header() {
           .header-inner { grid-template-columns: 1fr 44px; }
           .main-nav, .header-cta { display: none; }
           .menu-button { display: block; }
+          .brand-link {
+            height: 78px;
+            width: 78px;
+          }
+        }
+        @media (max-width: 720px) {
+          .site-header { min-height: 96px; }
+          .site-header.is-solid { min-height: 82px; }
+          .brand-link,
+          .site-header.is-solid .brand-link {
+            height: 66px;
+            width: 66px;
+          }
         }
       `}</style>
       <div className="container-rc header-inner">
