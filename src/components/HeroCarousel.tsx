@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { asset } from '@/lib/utils';
 
 interface Slide {
   id: number;
@@ -15,7 +16,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    videoSrc: '/aziz-media/video-home-page.mp4',
+    videoSrc: asset('/aziz-media/video-home-page.mp4'),
     subtitle: 'AZIZ EL MIRE HAUTE COUTURE',
     title: 'Costumes de caractère',
     btnText: 'Découvrir',
@@ -23,7 +24,7 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    videoSrc: '/aziz-media/video-home-page.mp4',
+    videoSrc: asset('/aziz-media/video-home-page.mp4'),
     subtitle: 'COSTUMES SUR MESURE',
     title: 'L’élégance taillée pour vous',
     btnText: 'Prendre rendez-vous',
@@ -31,7 +32,7 @@ const slides: Slide[] = [
   },
   {
     id: 3,
-    videoSrc: '/aziz-media/video-home-page.mp4',
+    videoSrc: asset('/aziz-media/video-home-page.mp4'),
     subtitle: 'CÉRÉMONIES & SOIRÉES',
     title: 'Tenues raffinées pour vos grands moments',
     btnText: 'Voir la collection',
@@ -39,7 +40,7 @@ const slides: Slide[] = [
   },
   {
     id: 4,
-    videoSrc: '/aziz-media/video-home-page.mp4',
+    videoSrc: asset('/aziz-media/video-home-page.mp4'),
     subtitle: 'NOUVELLE COLLECTION',
     title: 'Vestes, costumes et finitions couture',
     btnText: 'Explorer',

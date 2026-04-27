@@ -6,6 +6,7 @@ import ProductCard from '@/components/ProductCard';
 import ReferenceInspiredSections from '@/components/ReferenceInspiredSections';
 import { SectionHeader } from '@/components/SitePage';
 import { BRAND_OFFER, BRAND_SIGNATURE, BRAND_TAGLINE, lookbookImages, newArrivals, productCategories, productCategoryImages, whatsappUrl } from '@/lib/catalog';
+import { asset } from '@/lib/utils';
 
 const processSteps = [
   'Prise de rendez-vous',
@@ -22,7 +23,7 @@ export default function Home() {
       <main id="main-content">
         <section style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative' }}>
           <video
-            src="/aziz-media/video-home-page.mp4"
+            src={asset('/aziz-media/video-home-page.mp4')}
             autoPlay
             loop
             muted

@@ -1,5 +1,7 @@
 'use client';
 
+import { asset } from '@/lib/utils';
+
 export default function ParallaxSection() {
   return (
     <section style={{ background: '#07100c' }}>
@@ -47,7 +49,7 @@ export default function ParallaxSection() {
           className="parallax-bg"
           style={{
             minHeight: '505px',
-            backgroundImage: 'url(/aziz-media/costume5.webp)',
+            backgroundImage: `url(${asset('/aziz-media/costume5.webp')})`,
             backgroundAttachment: 'scroll',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
