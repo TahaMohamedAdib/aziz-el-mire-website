@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import type { Product } from '@/lib/catalog';
 import { productCategories } from '@/lib/catalog';
@@ -8,7 +9,15 @@ import { productCategories } from '@/lib/catalog';
 const filters = ['Tous', ...productCategories, 'Nouveautés'] as const;
 
 export default function CollectionBrowser({ products, initialFilter = 'Tous' }: { products: Product[]; initialFilter?: string }) {
+  const searchParams = useSearchParams();
   const [activeFilter, setActiveFilter] = useState(initialFilter);
+
+  useEffect(() => {
+    const category = searchParams.get('category');
+    if (category && filters.includes(category as never)) {
+      setActiveFilter(category);
+    }
+  }, [searchParams]);
 
   const filteredProducts = useMemo(() => {
     if (activeFilter === 'Tous') return products;

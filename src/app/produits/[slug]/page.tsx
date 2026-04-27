@@ -1,10 +1,16 @@
-import { redirect } from 'next/navigation';
+import { products } from '@/lib/catalog';
+import LegacyRedirect from './redirect';
 
-export default async function LegacyProductPage({
+export function generateStaticParams() {
+  return products.flatMap((p) =>
+    [p.slug, ...(p.aliases ?? [])].map((slug) => ({ slug }))
+  );
+}
+
+export default function LegacyProductPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
-  redirect(`/product/${slug}`);
+  return <LegacyRedirect slug={params.slug} />;
 }
