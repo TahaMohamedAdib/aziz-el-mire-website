@@ -241,6 +241,11 @@ select:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+main > .section-pad:last-child {
+  padding-bottom: 64px;
+  padding-top: 64px;
+}
+
 .footer-title {
   color: var(--color-ivory);
   font-family: var(--font-serif);
@@ -293,6 +298,11 @@ select:focus-visible {
 
   .section-pad {
     padding: 46px 0;
+  }
+
+  main > .section-pad:last-child {
+    padding-bottom: 36px;
+    padding-top: 36px;
   }
 
   .section-title {

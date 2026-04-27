@@ -25,17 +25,20 @@ export default function Footer() {
   ];
 
   return (
-    <footer style={{ background: 'var(--color-emerald)', borderTop: '1px solid var(--color-gold)', padding: '72px 0 28px' }}>
+    <footer className="site-footer" style={{ background: 'var(--color-emerald)', borderTop: '1px solid var(--color-gold)' }}>
       <style>{`
+        .site-footer {
+          padding: 48px 0 20px;
+        }
         .footer-grid {
           display: grid;
-          gap: 48px;
+          gap: 34px;
           grid-template-columns: 1.3fr 0.7fr 1fr;
         }
         .footer-socials {
           display: flex;
           gap: 12px;
-          margin-top: 24px;
+          margin-top: 16px;
         }
         .footer-socials a {
           align-items: center;
@@ -53,13 +56,38 @@ export default function Footer() {
         }
         .footer-logo {
           display: block;
-          height: 128px;
-          margin: 0 0 18px;
+          height: 92px;
+          margin: 0 0 14px;
           object-fit: cover;
-          width: 128px;
+          width: 92px;
+        }
+        .footer-copyright {
+          border-top: 1px solid rgba(248,245,240,0.14);
+          color: rgba(248,245,240,0.58);
+          font-size: 12px;
+          margin: 34px 0 0;
+          padding-top: 18px;
+          text-align: center;
         }
         @media (max-width: 820px) {
-          .footer-grid { grid-template-columns: 1fr; }
+          .site-footer {
+            padding: 34px 0 18px;
+          }
+          .footer-grid {
+            gap: 24px;
+            grid-template-columns: 1fr;
+          }
+          .footer-logo {
+            height: 72px;
+            width: 72px;
+          }
+          .footer-socials {
+            margin-top: 12px;
+          }
+          .footer-copyright {
+            margin-top: 24px;
+            padding-top: 16px;
+          }
         }
       `}</style>
       <div className="container-rc">
@@ -99,8 +127,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <p style={{ borderTop: '1px solid rgba(248,245,240,0.14)', color: 'rgba(248,245,240,0.58)', fontSize: 12, margin: '56px 0 0', paddingTop: 24, textAlign: 'center' }}>
-          © 2026 {BRAND_NAME}. Tous droits reserves.
+        <p className="footer-copyright">
+          © 2026 {BRAND_NAME}. Tous droits réservés.
         </p>
       </div>
     </footer>
