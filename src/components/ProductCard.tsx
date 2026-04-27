@@ -190,8 +190,43 @@ export default function ProductCard({ product }: { product: Product }) {
           }
         }
         @media (max-width: 620px) {
+          .product-card {
+            padding: 6px;
+          }
+          .product-card-image {
+            aspect-ratio: 1 / 1.08;
+          }
+          .product-card-badge {
+            font-size: 9px;
+            left: 8px;
+            padding: 5px 7px;
+            top: 8px;
+          }
+          .product-card-body {
+            padding: 12px 4px 4px;
+          }
+          .product-card-meta {
+            font-size: 9px;
+            gap: 5px;
+            letter-spacing: 1px;
+            margin-bottom: 7px;
+          }
+          .product-card-meta span + span::before {
+            margin-right: 5px;
+          }
+          .product-card-title {
+            font-size: clamp(18px, 5.4vw, 22px);
+            margin-bottom: 8px;
+          }
           .product-card-description {
+            display: none;
             min-height: 0;
+          }
+          .product-card-footer {
+            padding-top: 10px;
+          }
+          .product-card-price {
+            font-size: 13px;
           }
         }
       `}</style>

@@ -214,7 +214,7 @@ export default function Header() {
         .mobile-menu {
           background: var(--color-emerald);
           inset: 0;
-          padding: 120px 28px 32px;
+          padding: 104px 28px 32px;
           position: fixed;
           transform: translateX(100%);
           transition: transform 300ms ease;
@@ -255,12 +255,23 @@ export default function Header() {
           }
         }
         @media (max-width: 720px) {
-          .site-header { min-height: 96px; }
-          .site-header.is-solid { min-height: 82px; }
+          .site-header { min-height: 78px; }
+          .site-header.is-solid { min-height: 72px; }
+          .header-inner {
+            padding-left: 18px;
+            padding-right: 18px;
+          }
           .brand-link,
           .site-header.is-solid .brand-link {
-            height: 66px;
-            width: 66px;
+            height: 54px;
+            width: 54px;
+          }
+          .mobile-menu {
+            padding-top: 92px;
+          }
+          .mobile-menu a {
+            font-size: 28px;
+            padding: 14px 0;
           }
         }
       `}</style>

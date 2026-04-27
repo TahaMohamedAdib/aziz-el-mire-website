@@ -96,11 +96,24 @@ export default function Home() {
               padding-right: clamp(28px, 5vw, 96px);
             }
             @media (max-width: 720px) {
-              .home-hero { min-height: 100svh; }
+              .home-hero { min-height: 84svh; }
               .home-hero video { display: none; }
-              .hero-copy { padding-top: 84px; }
-              .hero-copy h1 { font-size: clamp(48px, 14vw, 64px); }
-              .hero-copy p { font-size: 16px; }
+              .hero-copy { padding-top: 72px; }
+              .hero-copy h1 {
+                font-size: clamp(44px, 13vw, 58px);
+                margin-bottom: 14px;
+              }
+              .hero-copy p {
+                font-size: 15px;
+                margin-bottom: 24px;
+              }
+              .hero-actions {
+                gap: 14px;
+              }
+              .hero-actions .btn {
+                min-height: 46px;
+                padding: 12px 16px;
+              }
             }
           `}</style>
           <Image className="poster" src={heroPoster} alt="Smoking noir revers satin Maison El Mire Casablanca" fill priority sizes="100vw" />
@@ -272,11 +285,47 @@ export default function Home() {
               }
             }
             @media (max-width: 560px) {
+              .collections-home-head {
+                gap: 10px;
+                margin-bottom: 22px;
+              }
+              .collections-home-head p:last-child {
+                font-size: 14px;
+                line-height: 1.55;
+              }
               .category-tiles {
                 grid-template-columns: 1fr;
+                gap: 10px;
+              }
+              .category-tile {
+                align-items: center;
+                gap: 12px;
+                grid-template-columns: 92px 1fr;
+                padding: 7px;
+              }
+              .category-tile::after {
+                inset: 4px;
+              }
+              .category-tile-media {
+                aspect-ratio: 1;
+              }
+              .category-index {
+                font-size: 10px;
+                margin-bottom: 6px;
+              }
+              .category-name {
+                font-size: 25px;
               }
               .category-note {
+                display: none;
                 min-height: 0;
+              }
+              .category-action {
+                font-size: 10px;
+                margin-top: 10px;
+              }
+              .category-tile-copy {
+                padding: 0;
               }
             }
           `}</style>
@@ -331,6 +380,17 @@ export default function Home() {
               gap: 56px;
               grid-template-columns: 1fr 1fr;
             }
+            .bespoke-media,
+            .atelier-media {
+              aspect-ratio: 4 / 5;
+              position: relative;
+            }
+            .atelier-home {
+              align-items: center;
+              display: grid;
+              gap: 56px;
+              grid-template-columns: 1fr 1fr;
+            }
             .bespoke-steps {
               display: grid;
               gap: 18px;
@@ -344,11 +404,29 @@ export default function Home() {
               margin-bottom: 8px;
             }
             @media (max-width: 860px) {
-              .bespoke-home, .bespoke-steps { grid-template-columns: 1fr; }
+              .bespoke-home,
+              .bespoke-steps,
+              .atelier-home {
+                grid-template-columns: 1fr;
+              }
+            }
+            @media (max-width: 560px) {
+              .bespoke-home,
+              .atelier-home {
+                gap: 24px;
+              }
+              .bespoke-media,
+              .atelier-media {
+                aspect-ratio: 16 / 11;
+              }
+              .bespoke-steps {
+                gap: 10px;
+                margin: 20px 0;
+              }
             }
           `}</style>
           <div className="container-rc bespoke-home">
-            <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
+            <div className="bespoke-media">
               <Image src={asset('/aziz-media/instagram/accessoire-lining-detail.jpg')} alt="Détail de doublure sur mesure Maison El Mire" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             </div>
             <div>
@@ -371,7 +449,7 @@ export default function Home() {
         </section>
 
         <section className="section-pad" style={{ background: 'var(--color-ivory)' }}>
-          <div className="container-rc" style={{ alignItems: 'center', display: 'grid', gap: 56, gridTemplateColumns: '1fr 1fr' }}>
+          <div className="container-rc atelier-home">
             <div>
               <p className="eyebrow">Atelier</p>
               <h2 className="section-title">Héritage & Savoir-faire</h2>
@@ -380,7 +458,7 @@ export default function Home() {
               </p>
               <Link className="text-link" href="/about">Découvrir la maison</Link>
             </div>
-            <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
+            <div className="atelier-media">
               <Image src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')} alt="Atelier Maison El Mire à Casablanca" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             </div>
           </div>

@@ -219,16 +219,38 @@ export default function ReservationPage() {
           }
           @media (max-width: 760px) {
             .reservation-hero {
-              padding: 128px 0 64px;
+              padding: 104px 0 42px;
+            }
+            .reservation-hero-grid {
+              gap: 28px;
+            }
+            .reservation-title {
+              font-size: clamp(40px, 13vw, 58px);
+              margin-bottom: 16px;
             }
             .reservation-copy {
               font-size: 16px;
+              line-height: 1.6;
+              margin-bottom: 22px;
+            }
+            .reservation-flow {
+              padding: 44px 0;
             }
             .reservation-flow-grid {
               grid-template-columns: 1fr;
+              gap: 18px;
+            }
+            .reservation-step {
+              padding-top: 16px;
+            }
+            .reservation-step h2 {
+              font-size: 28px;
+            }
+            .reservation-step p {
+              line-height: 1.55;
             }
             .reservation-media {
-              min-height: 420px;
+              min-height: 260px;
             }
             .reservation-media-main {
               right: 0;
@@ -237,7 +259,26 @@ export default function ReservationPage() {
               display: none;
             }
             .reservation-booking {
-              padding: 64px 0;
+              padding: 46px 0;
+            }
+            .reservation-info-panel {
+              padding: 24px;
+            }
+            .reservation-info-panel h2 {
+              font-size: 34px;
+              margin-bottom: 12px;
+            }
+            .reservation-info-panel p {
+              line-height: 1.6;
+              margin: 0;
+            }
+            .reservation-promises {
+              gap: 12px;
+              margin-top: 22px;
+            }
+            .reservation-promise {
+              gap: 10px;
+              grid-template-columns: 30px 1fr;
             }
           }
         `}</style>

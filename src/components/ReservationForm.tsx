@@ -147,10 +147,37 @@ export default function ReservationForm() {
           gap: 7px;
         }
         @media (max-width: 680px) {
-          .reservation-form-shell { padding: 22px; }
+          .reservation-form-shell { padding: 18px; }
+          .reservation-form-head {
+            gap: 10px;
+            margin-bottom: 18px;
+          }
+          .reservation-form-icon {
+            height: 40px;
+            width: 40px;
+          }
           .service-options,
           .reservation-field-grid { grid-template-columns: 1fr; }
-          .service-option span { min-height: 112px; }
+          .service-options,
+          .reservation-fields {
+            gap: 10px;
+          }
+          .service-option span {
+            min-height: 0;
+            padding: 13px;
+          }
+          .service-option strong {
+            font-size: 21px;
+            margin-bottom: 5px;
+          }
+          .service-option small {
+            font-size: 12px;
+            line-height: 1.35;
+          }
+          .reservation-note {
+            gap: 8px;
+            margin-top: 12px;
+          }
         }
       `}</style>
       <div className="reservation-form-head">
