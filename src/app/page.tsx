@@ -388,8 +388,15 @@ export default function Home() {
             .atelier-home {
               align-items: center;
               display: grid;
-              gap: 56px;
+              gap: 42px;
               grid-template-columns: 1fr 1fr;
+            }
+            .atelier-media {
+              aspect-ratio: 16 / 11;
+            }
+            .atelier-home .body-large {
+              line-height: 1.65;
+              margin-bottom: 18px;
             }
             .bespoke-steps {
               display: grid;
@@ -413,11 +420,11 @@ export default function Home() {
             @media (max-width: 560px) {
               .bespoke-home,
               .atelier-home {
-                gap: 24px;
+                gap: 22px;
               }
               .bespoke-media,
               .atelier-media {
-                aspect-ratio: 16 / 11;
+                aspect-ratio: 16 / 10;
               }
               .bespoke-steps {
                 gap: 10px;
