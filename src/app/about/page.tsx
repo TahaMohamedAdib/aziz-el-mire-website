@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PageHero, SitePage } from '@/components/SitePage';
+import { asset } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'La Maison El Mire - Haute couture masculine Casablanca',
@@ -37,7 +38,7 @@ export default function AboutPage() {
         `}</style>
         <div className="container-rc about-layout">
           <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
-            <Image src="/aziz-media/instagram/atelier-boutique-window.jpg" alt="Portrait atelier Maison El Mire Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 45vw" style={{ objectFit: 'cover' }} />
+            <Image src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')} alt="Portrait atelier Maison El Mire Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 45vw" style={{ objectFit: 'cover' }} />
           </div>
           <div>
             <p className="eyebrow">Histoire</p>

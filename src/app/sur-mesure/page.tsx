@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero, SitePage } from '@/components/SitePage';
+import { asset } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Costume sur mesure à Casablanca',
@@ -44,7 +45,7 @@ export default function SurMesurePage() {
         `}</style>
         <div className="container-rc sur-layout">
           <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
-            <Image src="/aziz-media/ref-tailor-measuring-fabric.jpg" alt="Prise de mesures costume sur mesure Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+            <Image src={asset('/aziz-media/ref-tailor-measuring-fabric.jpg')} alt="Prise de mesures costume sur mesure Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
           </div>
           <div>
             <p className="eyebrow">Atelier Sidi Maarouf</p>

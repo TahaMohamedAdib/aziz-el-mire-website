@@ -5,6 +5,7 @@ import { ArrowRight, Clock, MapPin, MessageCircle, Ruler, Scissors } from 'lucid
 import ReservationForm from '@/components/ReservationForm';
 import { SitePage } from '@/components/SitePage';
 import { ADDRESS_DISPLAY, PHONE_DISPLAY, PHONE_TEL } from '@/lib/catalog';
+import { asset } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Réserver un rendez-vous - Maison El Mire Atelier Casablanca',
@@ -259,10 +260,10 @@ export default function ReservationPage() {
 
           <div className="reservation-media" aria-hidden="true">
             <div className="reservation-media-main">
-              <Image src="/aziz-media/instagram/atelier-boutique-window.jpg" alt="" fill priority sizes="(max-width: 980px) 100vw, 48vw" style={{ objectFit: 'cover' }} />
+              <Image src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')} alt="" fill priority sizes="(max-width: 980px) 100vw, 48vw" style={{ objectFit: 'cover' }} />
             </div>
             <div className="reservation-media-detail">
-              <Image src="/aziz-media/ref-fabric-measurement.jpg" alt="" fill sizes="230px" style={{ objectFit: 'cover' }} />
+              <Image src={asset('/aziz-media/ref-fabric-measurement.jpg')} alt="" fill sizes="230px" style={{ objectFit: 'cover' }} />
             </div>
             <div className="reservation-badge">
               <strong>Sidi Maarouf</strong>

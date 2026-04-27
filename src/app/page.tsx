@@ -344,7 +344,7 @@ export default function Home() {
           `}</style>
           <div className="container-rc bespoke-home">
             <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
-              <Image src="/aziz-media/instagram/accessoire-lining-detail.jpg" alt="Détail de doublure sur mesure Maison El Mire" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image src={asset('/aziz-media/instagram/accessoire-lining-detail.jpg')} alt="Détail de doublure sur mesure Maison El Mire" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             </div>
             <div>
               <p className="eyebrow">Sur mesure</p>
@@ -376,7 +376,7 @@ export default function Home() {
               <Link className="text-link" href="/about">Découvrir la maison</Link>
             </div>
             <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
-              <Image src="/aziz-media/instagram/atelier-boutique-window.jpg" alt="Atelier Maison El Mire à Casablanca" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')} alt="Atelier Maison El Mire à Casablanca" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
             </div>
           </div>
         </section>
