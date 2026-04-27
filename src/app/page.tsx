@@ -356,8 +356,38 @@ export default function Home() {
         </section>
 
         <section className="section-pad" style={{ background: 'var(--color-white)' }}>
+          <style>{`
+            .new-arrivals-head {
+              align-items: end;
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 36px;
+            }
+            @media (max-width: 560px) {
+              .new-arrivals-head {
+                align-items: start;
+                display: grid;
+                gap: 14px;
+                margin-bottom: 22px;
+              }
+              .new-arrivals-head .section-title {
+                margin: 0;
+              }
+              .new-arrivals-head .text-link {
+                border: 1px solid rgba(184,151,90,0.42);
+                display: inline-flex;
+                font-size: 12px;
+                justify-self: start;
+                letter-spacing: 1.1px;
+                min-height: 38px;
+                padding: 10px 12px;
+                text-decoration: none;
+                text-transform: uppercase;
+              }
+            }
+          `}</style>
           <div className="container-rc">
-            <div style={{ alignItems: 'end', display: 'flex', justifyContent: 'space-between', marginBottom: 36 }}>
+            <div className="new-arrivals-head">
               <div>
                 <p className="eyebrow">Dernières pièces</p>
                 <h2 className="section-title" style={{ margin: 0 }}>Nouveautés</h2>

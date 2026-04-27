@@ -221,6 +221,34 @@ export default function Header() {
           z-index: 990;
         }
         .mobile-menu.is-open { transform: translateX(0); }
+        .mobile-close {
+          align-items: center;
+          background: transparent;
+          border: 1px solid rgba(216,178,90,0.5);
+          color: var(--color-ivory);
+          cursor: pointer;
+          display: none;
+          height: 46px;
+          justify-content: center;
+          position: absolute;
+          right: 28px;
+          top: 26px;
+          width: 46px;
+        }
+        .mobile-close::before,
+        .mobile-close::after {
+          background: currentColor;
+          content: "";
+          height: 1px;
+          position: absolute;
+          width: 22px;
+        }
+        .mobile-close::before {
+          transform: rotate(45deg);
+        }
+        .mobile-close::after {
+          transform: rotate(-45deg);
+        }
         .mobile-menu a {
           border-bottom: 1px solid rgba(184,151,90,0.24);
           color: var(--color-ivory);
@@ -258,8 +286,17 @@ export default function Header() {
           .site-header { min-height: 78px; }
           .site-header.is-solid { min-height: 72px; }
           .header-inner {
+            gap: 10px;
+            grid-template-columns: 1fr auto 44px;
             padding-left: 18px;
             padding-right: 18px;
+          }
+          .header-cta {
+            display: inline-flex;
+            font-size: 11px;
+            justify-self: end;
+            min-height: 38px;
+            padding: 10px 12px;
           }
           .brand-link,
           .site-header.is-solid .brand-link {
@@ -268,6 +305,11 @@ export default function Header() {
           }
           .mobile-menu {
             padding-top: 92px;
+          }
+          .mobile-close {
+            display: inline-flex;
+            right: 18px;
+            top: 18px;
           }
           .mobile-menu a {
             font-size: 28px;
@@ -309,6 +351,7 @@ export default function Header() {
         </button>
       </div>
       <div className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        <button type="button" className="mobile-close" aria-label="Fermer le menu" onClick={() => setOpen(false)} />
         {navItems.map((item) => (
           <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
             {item.label}
