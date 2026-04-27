@@ -39,7 +39,7 @@ export default function Home() {
           <style>{`
             .home-hero {
               align-items: center;
-              background: var(--color-emerald);
+              background: var(--color-dark);
               display: flex;
               min-height: 108vh;
               overflow: hidden;
@@ -55,7 +55,7 @@ export default function Home() {
               width: 100%;
             }
             .home-hero::after {
-              background: linear-gradient(90deg, rgba(9,48,37,0.78), rgba(9,48,37,0.46) 48%, rgba(0,0,0,0.5));
+              background: rgba(0,0,0,0.45);
               content: "";
               inset: 0;
               position: absolute;
