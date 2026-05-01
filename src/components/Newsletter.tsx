@@ -6,7 +6,7 @@ export default function Newsletter() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <section style={{ width: '100%', background: '#0c1410', borderTop: '1px solid rgba(183,154,85,0.12)', padding: '42px 0' }}>
+    <section style={{ width: '100%', background: 'var(--color-brown)', borderTop: '1px solid rgba(201,169,110,0.12)', padding: '42px 0' }}>
       <style>{`
         @media (max-width: 767px) {
           .newsletter-inner { flex-direction: column !important; text-align: left !important; align-items: stretch !important; }
@@ -21,7 +21,7 @@ export default function Newsletter() {
             <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '28px', color: 'var(--ivory)', margin: '0 0 10px', textTransform: 'uppercase' }}>
               Restez informés
             </h3>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: '#b8ad96', margin: 0 }}>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(245,245,245,0.72)', margin: 0 }}>
               Recevez les nouvelles collections, les conseils de style et les ouvertures de rendez-vous.
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function Newsletter() {
             </button>
           </form>
           {submitted ? (
-            <p role="status" aria-live="polite" style={{ color: '#b79a55', fontSize: '13px', margin: '14px 0 0' }}>
+            <p role="status" aria-live="polite" style={{ color: 'var(--color-gold)', fontSize: '13px', margin: '14px 0 0' }}>
               Merci. Votre demande d&apos;inscription est prête pour la démonstration client.
             </p>
           ) : null}

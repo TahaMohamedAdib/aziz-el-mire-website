@@ -159,7 +159,7 @@ export default function Home() {
             }
             .category-tile {
               background: var(--color-white);
-              border: 1px solid rgba(184,151,90,0.28);
+              border: 1px solid rgba(201,169,110,0.28);
               color: var(--color-dark);
               display: grid;
               gap: 16px;
@@ -190,18 +190,18 @@ export default function Home() {
             .category-tile:hover,
             .category-tile:focus-visible {
               border-color: var(--color-gold);
-              box-shadow: 0 16px 34px rgba(6,63,50,0.12);
+              box-shadow: 0 16px 34px rgba(31,92,91,0.12);
               transform: translateY(-3px);
             }
             .category-tile:hover::before,
             .category-tile:focus-visible::before {
-              border-color: rgba(255,225,151,0.96);
-              box-shadow: 0 0 0 1px rgba(184,151,90,0.5), 0 0 12px rgba(255,220,132,0.62), inset 0 0 10px rgba(255,220,132,0.22);
+              border-color: rgba(201,169,110,0.96);
+              box-shadow: 0 0 0 1px rgba(201,169,110,0.5), 0 0 12px rgba(201,169,110,0.62), inset 0 0 10px rgba(201,169,110,0.22);
               opacity: 1;
             }
             .category-tile:hover::after,
             .category-tile:focus-visible::after {
-              border-color: rgba(184,151,90,0.42);
+              border-color: rgba(201,169,110,0.42);
               box-shadow: none;
             }
             .category-tile-media {
@@ -212,7 +212,7 @@ export default function Home() {
               z-index: 1;
             }
             .category-tile-media::after {
-              background: linear-gradient(to top, rgba(6,63,50,0.44), transparent 55%);
+              background: linear-gradient(to top, rgba(31,92,91,0.44), transparent 55%);
               content: "";
               inset: 0;
               position: absolute;
@@ -374,7 +374,7 @@ export default function Home() {
                 margin: 0;
               }
               .new-arrivals-head .text-link {
-                border: 1px solid rgba(184,151,90,0.42);
+                border: 1px solid rgba(201,169,110,0.42);
                 display: inline-flex;
                 font-size: 12px;
                 justify-self: start;

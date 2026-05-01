@@ -81,8 +81,8 @@ export default function CollectionBrowser({
           text-transform: uppercase;
         }
         .filter-pill.is-active {
-          background: var(--color-gold);
-          border-color: var(--color-gold);
+          background: var(--color-brown);
+          border-color: var(--color-brown);
           color: white;
         }
         .sort-select {

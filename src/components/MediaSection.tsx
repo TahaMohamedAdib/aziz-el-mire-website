@@ -31,7 +31,7 @@ const mediaItems = [
 
 export default function MediaSection() {
   return (
-    <section style={{ width: '100%', background: '#07100c', padding: '92px 12px 96px' }}>
+    <section style={{ width: '100%', background: 'var(--color-emerald)', padding: '92px 12px 96px' }}>
       <style>{`
         .media-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 900px) { .media-card-grid { grid-template-columns: 1fr !important; } }
@@ -51,19 +51,19 @@ export default function MediaSection() {
             L’art du costume sur mesure
           </h2>
           <div style={{ width: '50px', height: '3px', background: 'var(--ivory)', margin: '0 auto 24px' }} />
-          <p style={{ color: '#b8ad96', margin: 0, fontFamily: 'var(--font-sans)' }}>
+          <p style={{ color: 'rgba(245,245,245,0.72)', margin: 0, fontFamily: 'var(--font-sans)' }}>
             Une garde-robe masculine pensée avec précision, sobriété et caractère.
           </p>
         </div>
 
         <div className="media-card-grid">
           {mediaItems.map((item) => (
-            <a key={item.id} href="/collections" style={{ display: 'block', background: '#050706', textDecoration: 'none', overflow: 'hidden' }}>
+            <a key={item.id} href="/collections" style={{ display: 'block', background: 'var(--color-emerald-soft)', textDecoration: 'none', overflow: 'hidden' }}>
               <div style={{ position: 'relative', aspectRatio: '1.72 / 1', overflow: 'hidden' }}>
                 <Image src={item.image} alt={item.channel} fill loading="eager" sizes="(max-width: 900px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', left: '36px', top: '36px', width: '56px', textAlign: 'center' }}>
-                  <div style={{ background: '#07100c', color: 'var(--ivory)', fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, padding: '9px 0' }}>{item.day}</div>
-                  <div style={{ background: 'var(--ivory)', color: '#07100c', fontFamily: 'var(--font-mono)', fontSize: '9px', padding: '8px 0' }}>{item.month}</div>
+                  <div style={{ background: 'var(--color-emerald)', color: 'var(--ivory)', fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, padding: '9px 0' }}>{item.day}</div>
+                  <div style={{ background: 'var(--ivory)', color: 'var(--color-emerald)', fontFamily: 'var(--font-mono)', fontSize: '9px', padding: '8px 0' }}>{item.month}</div>
                 </div>
               </div>
 
@@ -80,7 +80,7 @@ export default function MediaSection() {
                 >
                   {item.channel}
                 </h3>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '16px', color: '#b8ad96', margin: 0, lineHeight: 1.6 }}>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '16px', color: 'rgba(245,245,245,0.72)', margin: 0, lineHeight: 1.6 }}>
                   {item.title}
                 </p>
               </div>
@@ -95,7 +95,7 @@ export default function MediaSection() {
               display: 'inline-block',
               background: 'var(--ivory)',
               borderRadius: '4px',
-              color: '#07100c',
+              color: 'var(--color-emerald)',
               fontFamily: 'var(--font-mono)',
               fontSize: '14px',
               padding: '18px 42px',

@@ -8,7 +8,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <style>{`
         .product-card {
           background: rgba(255,255,255,0.92);
-          border: 1px solid rgba(184,151,90,0.18);
+          border: 1px solid rgba(201,169,110,0.18);
           color: var(--color-dark);
           display: grid;
           isolation: isolate;
@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: Product }) {
           transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
         }
         .product-card::before {
-          border: 1px solid rgba(255,224,153,0);
+          border: 1px solid rgba(201,169,110,0);
           content: "";
           inset: 0;
           pointer-events: none;
@@ -40,14 +40,14 @@ export default function ProductCard({ product }: { product: Product }) {
         }
         .product-card:hover,
         .product-card:focus-within {
-          border-color: rgba(184,151,90,0.64);
-          box-shadow: 0 18px 46px rgba(6,63,50,0.14), 0 0 18px rgba(184,151,90,0.24);
+          border-color: rgba(201,169,110,0.64);
+          box-shadow: 0 18px 46px rgba(31,92,91,0.14), 0 0 18px rgba(201,169,110,0.24);
           transform: translateY(-4px);
         }
         .product-card:hover::before,
         .product-card:focus-within::before {
-          border-color: rgba(255,224,153,0.92);
-          box-shadow: inset 0 0 16px rgba(255,224,153,0.18), 0 0 12px rgba(184,151,90,0.34);
+          border-color: rgba(201,169,110,0.92);
+          box-shadow: inset 0 0 16px rgba(201,169,110,0.18), 0 0 12px rgba(201,169,110,0.34);
         }
         .product-card:hover::after,
         .product-card:focus-within::after {
@@ -63,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
           z-index: 1;
         }
         .product-card-image::after {
-          background: linear-gradient(to top, rgba(6,63,50,0.66), transparent 54%);
+          background: linear-gradient(to top, rgba(31,92,91,0.66), transparent 54%);
           content: "";
           inset: 0;
           opacity: 0.7;
@@ -85,7 +85,7 @@ export default function ProductCard({ product }: { product: Product }) {
         }
         .product-card-cta {
           align-items: center;
-          background: rgba(6,63,50,0.94);
+          background: rgba(31,92,91,0.94);
           bottom: 16px;
           color: var(--color-ivory);
           display: inline-flex;
@@ -171,7 +171,7 @@ export default function ProductCard({ product }: { product: Product }) {
         }
         .product-card-footer {
           align-items: center;
-          border-top: 1px solid rgba(184,151,90,0.18);
+          border-top: 1px solid rgba(201,169,110,0.18);
           display: flex;
           justify-content: space-between;
           padding-top: 14px;

@@ -3,7 +3,7 @@ import type { Product } from '@/lib/catalog';
 
 export default function ProductGrid({ products }: { products: Product[] }) {
   return (
-    <section style={{ background: '#07100c', padding: '70px 20px 100px' }}>
+    <section style={{ background: 'var(--color-emerald)', padding: '70px 20px 100px' }}>
       <style>{`
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
         @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
