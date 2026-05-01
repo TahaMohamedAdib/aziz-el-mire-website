@@ -5,31 +5,30 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: #F0E9DD;
+  --color-background: var(--color-ivory);
   --color-foreground: var(--color-dark);
   --font-sans: var(--font-sans);
   --font-heading: var(--font-serif);
   --font-mono: var(--font-sans);
-  --color-primary: var(--color-emerald);
+  --color-primary: var(--color-gold);
   --color-primary-foreground: var(--color-white);
-  --color-secondary: var(--color-brown);
-  --color-secondary-foreground: var(--color-white);
+  --color-secondary: var(--color-linen);
+  --color-secondary-foreground: var(--color-dark);
   --color-muted: var(--color-linen);
   --color-muted-foreground: var(--color-gray);
-  --color-border: rgba(201, 169, 110, 0.3);
-  --color-ring: rgba(201, 169, 110, 0.48);
+  --color-border: rgba(184, 151, 90, 0.28);
+  --color-ring: rgba(184, 151, 90, 0.45);
 }
 
 :root {
-  --color-dark: #1F5C5B;
-  --color-emerald: #1F5C5B;
-  --color-emerald-soft: #174746;
-  --color-brown: #8B5E3C;
-  --color-ivory: rgba(240, 233, 221, 0.88);
-  --color-gold: #C9A96E;
-  --color-gray: #5A514B;
-  --color-linen: rgba(228, 218, 204, 0.86);
-  --color-white: rgba(252, 248, 242, 0.93);
+  --color-dark: #1A1A1A;
+  --color-emerald: #093025;
+  --color-emerald-soft: #0F4033;
+  --color-ivory: #F8F5F0;
+  --color-gold: #B8975A;
+  --color-gray: #4A4A4A;
+  --color-linen: #EDE8DF;
+  --color-white: #FFFFFF;
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-inter), Inter, Arial, sans-serif;
   --font-heading: var(--font-serif);
@@ -46,9 +45,9 @@
   --transition-image: 400ms ease;
   --radius: 2px;
   --gold: var(--color-gold);
-  --beige: var(--color-brown);
+  --beige: #D7C28B;
   --ivory: var(--color-ivory);
-  --burgundy: var(--color-brown);
+  --burgundy: #7A1E1E;
   --navy: var(--color-emerald);
   --grey: var(--color-gray);
   --black: var(--color-dark);
@@ -61,51 +60,18 @@
   }
 
   html {
-    background-color: #D6C9B5;
-    background-image:
-      repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 74px,
-        rgba(28, 14, 4, 0.13) 74px,
-        rgba(28, 14, 4, 0.13) 76px,
-        transparent 76px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        rgba(45, 24, 6, 0.035) 14px,
-        transparent 28px,
-        transparent 44px,
-        rgba(45, 24, 6, 0.028) 60px,
-        transparent 76px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent 0px,
-        transparent 160px,
-        rgba(28, 14, 4, 0.018) 160px,
-        rgba(28, 14, 4, 0.018) 163px,
-        transparent 163px
-      );
-    background-attachment: fixed;
+    background: var(--color-ivory);
     color: var(--color-dark);
     scroll-behavior: smooth;
     scroll-padding-top: 88px;
   }
 
   body {
-    background: transparent;
+    background: var(--color-ivory);
     color: var(--color-gray);
     font-family: var(--font-sans);
     margin: 0;
     overflow-x: hidden;
-  }
-
-  @media (max-width: 768px) {
-    html {
-      background-attachment: scroll;
-    }
   }
 
   h1,
@@ -197,8 +163,8 @@
 }
 
 .btn-gold {
-  background: var(--color-brown);
-  border: 1px solid var(--color-brown);
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
   color: var(--color-white);
 }
 
@@ -227,7 +193,7 @@
 }
 
 .text-link:hover {
-  color: var(--color-brown);
+  color: var(--color-emerald);
 }
 
 .skip-link {

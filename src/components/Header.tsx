@@ -34,7 +34,7 @@ export default function Header() {
     <header className={`site-header ${isSolid ? 'is-solid' : ''}`}>
       <style>{`
         .site-header {
-          background: rgba(31, 92, 91, 0.96);
+          background: rgba(9, 48, 37, 0.96);
           border-bottom: 1px solid transparent;
           left: 0;
           min-height: 134px;
@@ -45,8 +45,8 @@ export default function Header() {
           z-index: 1000;
         }
         .site-header.is-solid {
-          background: rgba(31, 92, 91, 0.98);
-          border-bottom-color: rgba(201,169,110,0.35);
+          background: rgba(9, 48, 37, 0.98);
+          border-bottom-color: rgba(184,151,90,0.35);
           min-height: 92px;
         }
         .header-inner {
@@ -62,9 +62,9 @@ export default function Header() {
         }
         .brand-link {
           align-items: center;
-          background: rgba(31,92,91,0.82);
-          border: 1px solid rgba(201,169,110,0.52);
-          box-shadow: 0 0 0 4px rgba(201,169,110,0.08), 0 10px 28px rgba(0,0,0,0.18);
+          background: rgba(9,48,37,0.82);
+          border: 1px solid rgba(216,178,90,0.52);
+          box-shadow: 0 0 0 4px rgba(216,178,90,0.08), 0 10px 28px rgba(0,0,0,0.18);
           color: var(--color-white);
           display: inline-flex;
           font-family: var(--font-serif);
@@ -79,14 +79,14 @@ export default function Header() {
           width: 110px;
         }
         .brand-link::after {
-          border: 1px solid rgba(201,169,110,0.36);
+          border: 1px solid rgba(255,229,164,0.36);
           content: "";
           inset: 4px;
           pointer-events: none;
           position: absolute;
         }
         .brand-link:hover {
-          box-shadow: 0 0 0 4px rgba(201,169,110,0.12), 0 0 18px rgba(201,169,110,0.28), 0 12px 30px rgba(0,0,0,0.2);
+          box-shadow: 0 0 0 4px rgba(216,178,90,0.12), 0 0 18px rgba(216,178,90,0.28), 0 12px 30px rgba(0,0,0,0.2);
           transform: translateY(-1px);
         }
         .site-header.is-solid .brand-link,
@@ -154,18 +154,18 @@ export default function Header() {
           min-height: 64px;
           padding: 18px 30px;
           position: relative;
-          box-shadow: 0 0 0 1px rgba(201,169,110,0.45), 0 0 16px rgba(201,169,110,0.36);
+          box-shadow: 0 0 0 1px rgba(216,178,90,0.45), 0 0 16px rgba(216,178,90,0.36);
           overflow: hidden;
         }
         .header-cta::before {
-          border: 1px solid rgba(201,169,110,0.85);
+          border: 1px solid rgba(255,225,148,0.85);
           content: "";
           inset: 3px;
           pointer-events: none;
           position: absolute;
         }
         .header-cta::after {
-          background: linear-gradient(120deg, transparent 22%, rgba(245,245,245,0.75), transparent 48%);
+          background: linear-gradient(120deg, transparent 22%, rgba(255,238,184,0.75), transparent 48%);
           content: "";
           inset: -45%;
           opacity: 0.75;
@@ -176,9 +176,9 @@ export default function Header() {
         }
         .header-cta:hover,
         .header-cta:focus-visible {
-          background: var(--color-brown);
-          border-color: var(--color-brown);
-          box-shadow: 0 0 0 1px rgba(201,169,110,0.75), 0 0 22px rgba(201,169,110,0.58);
+          background: #D8B25A;
+          border-color: #D8B25A;
+          box-shadow: 0 0 0 1px rgba(216,178,90,0.75), 0 0 22px rgba(216,178,90,0.58);
         }
         .header-cta:hover::after,
         .header-cta:focus-visible::after {
@@ -224,7 +224,7 @@ export default function Header() {
         .mobile-close {
           align-items: center;
           background: transparent;
-          border: 1px solid rgba(201,169,110,0.5);
+          border: 1px solid rgba(216,178,90,0.5);
           color: var(--color-ivory);
           cursor: pointer;
           display: none;
@@ -250,7 +250,7 @@ export default function Header() {
           transform: rotate(-45deg);
         }
         .mobile-menu a {
-          border-bottom: 1px solid rgba(201,169,110,0.24);
+          border-bottom: 1px solid rgba(184,151,90,0.24);
           color: var(--color-ivory);
           display: block;
           font-family: var(--font-serif);

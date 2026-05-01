@@ -60,7 +60,7 @@ const serviceCards = [
 export default function ReferenceInspiredSections() {
   return (
     <>
-      <section style={{ background: 'var(--color-emerald-soft)', padding: '96px 20px' }}>
+      <section style={{ background: '#050706', padding: '96px 20px' }}>
         <style>{`
           .capsule-section { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 44px; align-items: center; }
           .capsule-image { min-height: 560px; position: relative; }
@@ -116,10 +116,10 @@ export default function ReferenceInspiredSections() {
         </div>
       </section>
 
-      <section style={{ background: 'var(--color-emerald)', padding: '96px 20px' }}>
+      <section style={{ background: '#07100c', padding: '96px 20px' }}>
         <style>{`
           .service-pathways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-          .service-pathways article { background: var(--color-brown); border: 1px solid rgba(201,169,110,0.16); min-height: 300px; padding: 34px; }
+          .service-pathways article { background: #0c1410; border: 1px solid rgba(183,154,85,0.16); min-height: 300px; padding: 34px; }
           @media (max-width: 820px) { .service-pathways { grid-template-columns: 1fr; } }
         `}</style>
         <div className="container-rc" style={{ textAlign: 'center' }}>
@@ -129,10 +129,10 @@ export default function ReferenceInspiredSections() {
         <div className="container-rc service-pathways">
           {serviceCards.map(({ title, text, href, Icon }) => (
             <article key={title}>
-              <Icon size={30} color="var(--color-gold)" aria-hidden="true" />
+              <Icon size={30} color="#b79a55" aria-hidden="true" />
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '34px', margin: '28px 0 16px', textTransform: 'uppercase' }}>{title}</h3>
               <p style={{ color: 'var(--grey)', fontSize: '15px', lineHeight: 1.8, margin: '0 0 28px' }}>{text}</p>
-              <Link href={href} style={{ alignItems: 'center', color: 'var(--color-gold)', display: 'inline-flex', fontFamily: 'var(--font-montserrat)', fontSize: '12px', fontWeight: 800, gap: '8px', textTransform: 'uppercase' }}>
+              <Link href={href} style={{ alignItems: 'center', color: '#b79a55', display: 'inline-flex', fontFamily: 'var(--font-montserrat)', fontSize: '12px', fontWeight: 800, gap: '8px', textTransform: 'uppercase' }}>
                 Découvrir <ArrowRight size={15} aria-hidden="true" />
               </Link>
             </article>
@@ -140,14 +140,14 @@ export default function ReferenceInspiredSections() {
         </div>
       </section>
 
-      <section style={{ background: 'var(--color-emerald-soft)', padding: '96px 20px' }}>
+      <section style={{ background: '#050706', padding: '96px 20px' }}>
         <style>{`
-          .editorial-scroll { margin: 0 auto; max-width: 1080px; overflow-x: auto; padding: 0 18px 18px; scroll-snap-type: x mandatory; scrollbar-color: rgba(201,169,110,0.52) rgba(245,245,245,0.08); }
+          .editorial-scroll { margin: 0 auto; max-width: 1080px; overflow-x: auto; padding: 0 18px 18px; scroll-snap-type: x mandatory; scrollbar-color: rgba(183,154,85,0.52) rgba(239,230,209,0.08); }
           .editorial-track { display: grid; gap: 20px; grid-auto-columns: minmax(620px, 72%); grid-auto-flow: column; }
-          .editorial-card { background: var(--color-brown); border: 1px solid rgba(201,169,110,0.18); box-shadow: inset 0 1px 0 rgba(139,94,60,0.18); display: grid; grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr); min-height: 410px; overflow: hidden; scroll-snap-align: start; }
+          .editorial-card { background: #0c1410; border: 1px solid rgba(183,154,85,0.18); box-shadow: inset 0 1px 0 rgba(122,30,30,0.18); display: grid; grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr); min-height: 410px; overflow: hidden; scroll-snap-align: start; }
           .editorial-card-image { min-height: 410px; position: relative; }
           .editorial-card-content { align-self: center; padding: 34px; }
-          .editorial-progress { background: rgba(245,245,245,0.08); height: 1px; margin: 28px auto 0; max-width: 1200px; position: relative; }
+          .editorial-progress { background: rgba(239,230,209,0.08); height: 1px; margin: 28px auto 0; max-width: 1200px; position: relative; }
           .editorial-progress::after { background: linear-gradient(90deg, var(--burgundy), var(--gold)); content: ''; height: 1px; left: 0; position: absolute; top: 0; width: 28%; }
           @media (max-width: 820px) {
             .editorial-scroll { padding-inline: 18px; }

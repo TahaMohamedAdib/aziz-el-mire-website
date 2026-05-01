@@ -36,7 +36,7 @@ export default function SurMesurePage() {
             margin: 34px 0;
           }
           .sur-step {
-            border-top: 1px solid rgba(201,169,110,0.42);
+            border-top: 1px solid rgba(184,151,90,0.42);
             padding-top: 18px;
           }
           @media (max-width: 840px) {

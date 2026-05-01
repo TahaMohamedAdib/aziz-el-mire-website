@@ -29,8 +29,8 @@ export function HeaderSocialLinks() {
           title={label}
           style={{
             alignItems: 'center',
-            border: '1px solid rgba(201,169,110,0.28)',
-            color: 'var(--color-gold)',
+            border: '1px solid rgba(183,154,85,0.28)',
+            color: '#b79a55',
             display: 'inline-flex',
             height: '32px',
             justifyContent: 'center',

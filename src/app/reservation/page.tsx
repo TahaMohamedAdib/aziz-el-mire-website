@@ -14,10 +14,9 @@ export const metadata: Metadata = {
 };
 
 const steps = [
-  ['01', 'Lieu', "Confirmez l'atelier Maison El Mire à Sidi Maarouf, Casablanca."],
-  ['02', 'Service', 'Choisissez découverte, prise de mesure ou essayage après mesure.'],
-  ['03', 'Heure', 'Sélectionnez une date disponible et un créneau atelier.'],
-  ['04', 'Client', 'Ajoutez vos coordonnées, accompagnants et remarques.'],
+  ['01', 'Choisir', 'Sélectionnez le service et partagez le contexte de votre événement.'],
+  ['02', 'Mesurer', "À l'atelier, nous définissons coupe, tissu, posture et finitions."],
+  ['03', 'Confirmer', 'Votre demande part sur WhatsApp pour une confirmation rapide.'],
 ];
 
 const promises = [
@@ -126,7 +125,7 @@ export default function ReservationPage() {
           .reservation-flow-grid {
             display: grid;
             gap: 20px;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
           }
           .reservation-step {
             border-top: 1px solid var(--color-gold);
@@ -331,9 +330,9 @@ export default function ReservationPage() {
         <div className="container-rc reservation-booking-grid">
           <aside className="reservation-info-panel">
             <Ruler aria-hidden="true" color="var(--color-gold)" size={28} />
-            <h2>Une réservation guidée, étape par étape.</h2>
+            <h2>Un rendez-vous, pas un formulaire.</h2>
             <p>
-              Le parcours reprend le rythme d&apos;une réservation en ligne: lieu, service, prestataire, heure puis client. La confirmation finale part sur WhatsApp avec les détails déjà préparés.
+              La demande ouvre WhatsApp avec les détails déjà préparés. L&apos;atelier peut ensuite confirmer l&apos;horaire et vous guider avant votre visite.
             </p>
             <div className="reservation-promises">
               {promises.map(({ icon: Icon, title, text }) => (
