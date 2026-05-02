@@ -1,33 +1,35 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { CalendarDays, Check, Clock, House, MapPin, MessageCircle, TicketCheck, UserRound } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { CalendarDays, Check, Clock, House, Loader2, MapPin, MessageCircle, Scissors, TicketCheck, UserRound } from 'lucide-react';
 import { ADDRESS_DISPLAY, whatsappUrl } from '@/lib/catalog';
+import { createReservation, getAvailableSlots } from '@/lib/db';
+import type { DbSlot, LocationType, ServiceType, SlotsByDate } from '@/lib/db';
 
-const locations = [
+const locations: { value: LocationType; title: string; text: string; Icon: React.ElementType }[] = [
   {
-    value: `Atelier - ${ADDRESS_DISPLAY}`,
+    value: 'atelier',
     title: 'Atelier',
     text: ADDRESS_DISPLAY,
     Icon: MapPin,
   },
   {
-    value: 'À domicile',
+    value: 'domicile',
     title: 'À domicile',
     text: 'Rendez-vous personnalisé chez vous, à confirmer selon votre adresse.',
     Icon: House,
   },
 ];
 
-const services = [
+const services: { value: ServiceType; title: string; text: string }[] = [
   {
     value: 'Rendez-vous découverte',
     title: 'Rendez-vous découverte',
     text: 'Une première consultation pour comprendre votre besoin, votre occasion et votre style.',
   },
   {
-    value: 'Rendez vous prise de mesure',
-    title: 'Rendez vous prise de mesure',
+    value: 'Prise de mesure',
+    title: 'Prise de mesure',
     text: 'Prise de mesures complète, choix du tissu, coupe et finitions.',
   },
   {
@@ -38,76 +40,83 @@ const services = [
 ];
 
 const provider = {
-  value: 'Maison El Mire Atelier Casablanca',
   title: 'Maison El Mire Atelier Casablanca',
   text: 'Atelier privé à Sidi Maarouf, Casablanca.',
 };
 
-const timeSlots = ['10:00', '11:00', '12:00', '15:00', '16:00', '17:30', '19:00'];
-
 const steps = ['Le lieu', 'Service', 'Prestataire', 'Heure', 'Client'];
 
-const buildAvailableDays = () => {
-  const formatter = new Intl.DateTimeFormat('fr-FR', {
-    day: '2-digit',
-    month: 'short',
-    weekday: 'short',
-  });
-  const toLocalDateValue = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+const FR_DAY = new Intl.DateTimeFormat('fr-FR', { weekday: 'short', day: '2-digit', month: 'short' });
+const FR_DATE = new Intl.DateTimeFormat('fr-MA');
 
-    return `${year}-${month}-${day}`;
-  };
+function formatDateLabel(dateStr: string) {
+  const d = new Date(`${dateStr}T00:00:00`);
+  return FR_DAY.format(d).replace(/\./g, '');
+}
 
-  return Array.from({ length: 6 }, (_, index) => {
-    const date = new Date();
-    date.setDate(date.getDate() + index + 1);
-
-    return {
-      value: toLocalDateValue(date),
-      label: formatter.format(date).replace('.', ''),
-      day: date.getDate().toString().padStart(2, '0'),
-    };
-  });
-};
+function formatDateDisplay(dateStr: string) {
+  const d = new Date(`${dateStr}T00:00:00`);
+  return FR_DATE.format(d);
+}
 
 export default function ReservationForm() {
-  const availableDays = useMemo(() => buildAvailableDays(), []);
   const [activeStep, setActiveStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(locations[0].value);
-  const [selectedService, setSelectedService] = useState(services[0].value);
-  const [selectedDate, setSelectedDate] = useState(availableDays[0]?.value ?? '');
-  const [selectedTime, setSelectedTime] = useState(timeSlots[0]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const [selectedLocation, setSelectedLocation] = useState<LocationType>('atelier');
+  const [selectedService, setSelectedService] = useState<ServiceType>('Rendez-vous découverte');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedSlot, setSelectedSlot] = useState<DbSlot | null>(null);
   const [homeAddress, setHomeAddress] = useState('');
 
-  const buildReservationMessage = (formData: FormData) => {
-    const getValue = (field: string) => String(formData.get(field) ?? '').trim();
-    const dateValue = selectedDate;
-    const date = dateValue ? new Date(`${dateValue}T00:00:00`) : null;
-    const formattedDate = date && !Number.isNaN(date.getTime()) ? new Intl.DateTimeFormat('fr-MA').format(date) : dateValue;
-    const remarks = getValue('remarks');
-    const promoOptIn = formData.get('promo') ? 'Oui' : 'Non';
+  const [slots, setSlots] = useState<SlotsByDate>({});
+  const [slotsLoading, setSlotsLoading] = useState(true);
+  const [slotsError, setSlotsError] = useState('');
 
+  useEffect(() => {
+    getAvailableSlots(30).then((data) => {
+      setSlots(data);
+      const firstDate = Object.keys(data)[0] ?? '';
+      setSelectedDate(firstDate);
+      setSelectedSlot(data[firstDate]?.[0] ?? null);
+      setSlotsLoading(false);
+    }).catch(() => {
+      setSlotsError('Impossible de charger les créneaux. Veuillez réessayer.');
+      setSlotsLoading(false);
+    });
+  }, []);
+
+  const sortedDates = useMemo(() => Object.keys(slots).sort(), [slots]);
+
+  const timeSlotsForDate: DbSlot[] = useMemo(
+    () => (selectedDate ? (slots[selectedDate] ?? []) : []),
+    [slots, selectedDate],
+  );
+
+  const handleDateChange = (date: string) => {
+    setSelectedDate(date);
+    const firstSlot = slots[date]?.[0] ?? null;
+    setSelectedSlot(firstSlot);
+  };
+
+  const buildWhatsAppMessage = (name: string, email: string, phone: string, companions: string, remarks: string, promoOptIn: boolean) => {
     return [
       'Bonjour, je souhaite réserver un rendez-vous Maison El Mire.',
-      `Lieu : ${selectedLocation}`,
-      homeAddress ? `Adresse domicile : ${homeAddress}` : '',
+      `Lieu : ${selectedLocation === 'atelier' ? `Atelier - ${ADDRESS_DISPLAY}` : 'À domicile'}`,
+      homeAddress && selectedLocation === 'domicile' ? `Adresse domicile : ${homeAddress}` : '',
       `Service : ${selectedService}`,
-      `Prestataire : ${provider.value}`,
-      `Date souhaitée : ${formattedDate}`,
-      `Heure souhaitée : ${selectedTime}`,
-      `Nom : ${getValue('name')}`,
-      `E-mail : ${getValue('email')}`,
-      `Téléphone : ${getValue('phone')}`,
-      `Accompagnants : ${getValue('companions') || '0'}`,
-      `Offres / promotions : ${promoOptIn}`,
+      `Prestataire : ${provider.title}`,
+      `Date souhaitée : ${selectedDate ? formatDateDisplay(selectedDate) : ''}`,
+      `Heure souhaitée : ${selectedSlot?.time ?? ''}`,
+      `Nom : ${name}`,
+      `E-mail : ${email}`,
+      `Téléphone : ${phone}`,
+      `Accompagnants : ${companions || '0'}`,
+      `Offres / promotions : ${promoOptIn ? 'Oui' : 'Non'}`,
       remarks ? `Remarques : ${remarks}` : '',
-    ]
-      .filter(Boolean)
-      .join('\n');
+    ].filter(Boolean).join('\n');
   };
 
   return (
@@ -336,6 +345,17 @@ export default function ReservationForm() {
           display: inline-flex;
           gap: 7px;
         }
+        .slots-empty {
+          align-items: center;
+          color: var(--color-gray);
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+          gap: 10px;
+          justify-content: center;
+          min-height: 200px;
+          text-align: center;
+        }
         @media (max-width: 760px) {
           .reservation-form-shell { padding: 18px; }
           .reservation-form-head {
@@ -406,19 +426,55 @@ export default function ReservationForm() {
       </div>
       {submitted ? (
         <div role="status" aria-live="polite" style={{ background: 'rgba(184,151,90,0.12)', border: '1px solid rgba(184,151,90,0.32)', color: 'var(--color-dark)', marginBottom: '20px', padding: '18px' }}>
-          Merci. WhatsApp s&apos;ouvre avec les informations de votre rendez-vous.
+          Merci. Votre réservation est confirmée. WhatsApp s&apos;ouvre avec les détails.
+        </div>
+      ) : null}
+      {submitError ? (
+        <div role="alert" style={{ background: 'rgba(180,30,30,0.08)', border: '1px solid rgba(180,30,30,0.3)', color: '#b01e1e', marginBottom: '20px', padding: '14px', fontSize: '14px' }}>
+          {submitError}
         </div>
       ) : null}
       <form
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
+          if (!selectedSlot) return;
           const formData = new FormData(event.currentTarget);
-          const url = whatsappUrl(buildReservationMessage(formData));
-          setSubmitted(true);
-          const openedWindow = window.open(url, '_blank', 'noopener,noreferrer');
-          if (!openedWindow) {
-            window.location.href = url;
+          const getValue = (field: string) => String(formData.get(field) ?? '').trim();
+          const name = getValue('name');
+          const email = getValue('email');
+          const phone = getValue('phone');
+          const companions = getValue('companions');
+          const remarks = getValue('remarks');
+          const promoOptIn = formData.get('promo') === 'Oui';
+
+          setSubmitting(true);
+          setSubmitError('');
+
+          const result = await createReservation({
+            slot_id: selectedSlot.id,
+            client_name: name,
+            client_email: email,
+            client_phone: phone,
+            service: selectedService,
+            location: selectedLocation,
+            home_address: selectedLocation === 'domicile' ? homeAddress : undefined,
+            companions: Number(companions) || 0,
+            remarks: remarks || undefined,
+            promo_optin: promoOptIn,
+          });
+
+          setSubmitting(false);
+
+          if (!result.ok) {
+            setSubmitError(result.error ?? 'Une erreur est survenue. Réessayez.');
+            return;
           }
+
+          setSubmitted(true);
+          const msg = buildWhatsAppMessage(name, email, phone, companions, remarks, promoOptIn);
+          const url = whatsappUrl(msg);
+          const opened = window.open(url, '_blank', 'noopener,noreferrer');
+          if (!opened) window.location.href = url;
         }}
       >
         {activeStep === 0 ? (
@@ -441,7 +497,7 @@ export default function ReservationForm() {
                 </label>
               ))}
             </div>
-            {selectedLocation === 'À domicile' ? (
+            {selectedLocation === 'domicile' ? (
               <div style={{ marginTop: 12 }}>
                 <input
                   className="input-field"
@@ -494,37 +550,54 @@ export default function ReservationForm() {
         {activeStep === 3 ? (
           <section className="booking-step" aria-labelledby="booking-time">
             <h3 id="booking-time" className="booking-step-title"><span>Heure</span></h3>
-            <div className="date-grid" aria-label="Calendrier">
-              {availableDays.map((day) => (
-                <label key={day.value} className="date-option">
-                  <input
-                    type="radio"
-                    name="date"
-                    value={day.value}
-                    checked={selectedDate === day.value}
-                    onChange={() => setSelectedDate(day.value)}
-                  />
-                  <span>
-                    {day.label}
-                    <small>Jour {day.day}</small>
-                  </span>
-                </label>
-              ))}
-            </div>
-            <div className="time-grid">
-              {timeSlots.map((slot) => (
-                <label key={slot} className="time-option">
-                  <input
-                    type="radio"
-                    name="time"
-                    value={slot}
-                    checked={selectedTime === slot}
-                    onChange={() => setSelectedTime(slot)}
-                  />
-                  <span>{slot}</span>
-                </label>
-              ))}
-            </div>
+            {slotsLoading ? (
+              <div className="slots-empty">
+                <Loader2 size={28} style={{ animation: 'spin 1s linear infinite' }} aria-hidden="true" />
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                Chargement des créneaux…
+              </div>
+            ) : slotsError ? (
+              <div className="slots-empty" style={{ color: '#b01e1e' }}>{slotsError}</div>
+            ) : sortedDates.length === 0 ? (
+              <div className="slots-empty">
+                <Scissors size={28} aria-hidden="true" />
+                Aucun créneau disponible pour le moment. Contactez-nous directement.
+              </div>
+            ) : (
+              <>
+                <div className="date-grid" aria-label="Calendrier">
+                  {sortedDates.map((date) => (
+                    <label key={date} className="date-option">
+                      <input
+                        type="radio"
+                        name="date"
+                        value={date}
+                        checked={selectedDate === date}
+                        onChange={() => handleDateChange(date)}
+                      />
+                      <span>
+                        {formatDateLabel(date)}
+                        <small>{new Date(`${date}T00:00:00`).getDate().toString().padStart(2, '0')}</small>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+                <div className="time-grid">
+                  {timeSlotsForDate.map((slot) => (
+                    <label key={slot.id} className="time-option">
+                      <input
+                        type="radio"
+                        name="time"
+                        value={slot.id}
+                        checked={selectedSlot?.id === slot.id}
+                        onChange={() => setSelectedSlot(slot)}
+                      />
+                      <span>{slot.time.slice(0, 5)}</span>
+                    </label>
+                  ))}
+                </div>
+              </>
+            )}
           </section>
         ) : null}
 
@@ -545,8 +618,12 @@ export default function ReservationForm() {
                 <input type="checkbox" name="promo" value="Oui" />
                 <span>Je souhaite recevoir les offres et informations Maison El Mire.</span>
               </label>
-              <button className="btn btn-gold reservation-submit" type="submit">
-                <MessageCircle aria-hidden="true" size={17} /> Réserver
+              <button className="btn btn-gold reservation-submit" type="submit" disabled={submitting || !selectedSlot}>
+                {submitting ? (
+                  <><Loader2 aria-hidden="true" size={17} style={{ animation: 'spin 1s linear infinite' }} /> Envoi en cours…</>
+                ) : (
+                  <><MessageCircle aria-hidden="true" size={17} /> Réserver</>
+                )}
               </button>
             </div>
           </section>
@@ -573,7 +650,7 @@ export default function ReservationForm() {
         </div>
       </form>
       <div className="reservation-note">
-        <span><Clock aria-hidden="true" size={15} /> Créneaux personnalisés</span>
+        <span><Clock aria-hidden="true" size={15} /> Créneaux en temps réel</span>
         <span><TicketCheck aria-hidden="true" size={15} /> Confirmation via WhatsApp</span>
         <span><UserRound aria-hidden="true" size={15} /> Maison El Mire Atelier Casablanca</span>
       </div>

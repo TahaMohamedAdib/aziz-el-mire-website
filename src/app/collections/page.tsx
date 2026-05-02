@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import CollectionBrowser from '@/components/CollectionBrowser';
 import { PageHero, SitePage } from '@/components/SitePage';
-import { products } from '@/lib/catalog';
+import { getProducts, toProduct } from '@/lib/db';
 
 export const metadata: Metadata = {
   title: 'Collections - Costumes et smokings homme',
@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     "Explorez notre collection de costumes, smokings, vestes et pantalons homme. Pièces d'exception disponibles à Casablanca.",
 };
 
-export default function CollectionsPage() {
+export default async function CollectionsPage() {
+  const dbProducts = await getProducts();
+  const products = dbProducts.map(toProduct);
+
   return (
     <SitePage>
       <PageHero eyebrow="Collections" title="Costumes et smokings homme">

@@ -8,11 +8,11 @@ import ProductCard from '@/components/ProductCard';
 import {
   ADDRESS_DISPLAY,
   PHONE_DISPLAY,
-  newArrivals,
   productCategories,
   productCategoryImages,
   whatsappUrl,
 } from '@/lib/catalog';
+import { getNewArrivals, toProduct } from '@/lib/db';
 import { asset } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -21,7 +21,9 @@ export const metadata: Metadata = {
     'Maison de création masculine à Casablanca. Smokings, costumes et vestes sur mesure pour mariage, cérémonie et événement. Prenez rendez-vous.',
 };
 
-export default function Home() {
+export default async function Home() {
+  const dbNewArrivals = await getNewArrivals();
+  const newArrivals = dbNewArrivals.map(toProduct);
   const heroPoster = productCategoryImages.Smokings;
   const tiles = productCategories.filter((category) => category !== 'Smokings').slice(0, 5);
   const collectionDetails: Record<string, string> = {

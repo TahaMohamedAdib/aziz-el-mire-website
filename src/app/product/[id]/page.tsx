@@ -3,13 +3,21 @@ import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa6';
 import ProductCard from '@/components/ProductCard';
 import ProductGallery from '@/components/ProductGallery';
-import { getProduct, getRelatedProducts, products, whatsappUrl } from '@/lib/catalog';
+import { whatsappUrl, products as staticProducts } from '@/lib/catalog';
+import { getProductBySlug, getRelatedProducts, getProducts, toProduct } from '@/lib/db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
 
-export function generateStaticParams() {
-  return products.flatMap((product) => [product.slug, ...(product.aliases ?? [])].map((id) => ({ id })));
+export async function generateStaticParams() {
+  const dbProducts = await getProducts();
+  if (dbProducts.length > 0) {
+    return dbProducts.flatMap((p) =>
+      [p.slug, ...(p.aliases ?? [])].map((id) => ({ id }))
+    );
+  }
+  // Fallback to static catalog during build if DB is unreachable
+  return staticProducts.flatMap((p) => [p.slug, ...(p.aliases ?? [])].map((id) => ({ id })));
 }
 
 export async function generateMetadata({
@@ -18,7 +26,8 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const product = getProduct(id);
+  const dbProduct = await getProductBySlug(id);
+  const product = dbProduct ? toProduct(dbProduct) : null;
   return {
     title: product ? product.name : 'Produit',
     description: product?.description,
@@ -31,9 +40,13 @@ export default async function ProductDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = getProduct(id);
+  const dbProduct = await getProductBySlug(id);
 
-  if (!product) notFound();
+  if (!dbProduct) notFound();
+
+  const product = toProduct(dbProduct);
+  const relatedDb = await getRelatedProducts(dbProduct);
+  const related = relatedDb.map(toProduct);
 
   return (
     <>
@@ -151,7 +164,7 @@ export default async function ProductDetailPage({
           <div className="container-rc">
             <h2 className="section-title">Vous aimerez aussi</h2>
             <div className="product-grid">
-              {getRelatedProducts(product).map((item) => (
+              {related.map((item) => (
                 <ProductCard key={item.slug} product={item} />
               ))}
             </div>
