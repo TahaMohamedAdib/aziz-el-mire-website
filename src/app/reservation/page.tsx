@@ -10,13 +10,13 @@ import { asset } from '@/lib/utils';
 export const metadata: Metadata = {
   title: 'Réserver un rendez-vous - Maison El Mire Atelier Casablanca',
   description:
-    "Réservez une consultation à l'atelier Maison El Mire de Casablanca pour un costume sur mesure, un smoking de mariage ou une séance de retouches.",
+    "Réservez un rendez-vous Maison El Mire à Sidi Maarouf, Casablanca: découverte, prise de mesure ou essayage après prise de mesure.",
 };
 
 const steps = [
-  ['01', 'Choisir', 'Sélectionnez le service et partagez le contexte de votre événement.'],
-  ['02', 'Mesurer', "À l'atelier, nous définissons coupe, tissu, posture et finitions."],
-  ['03', 'Confirmer', 'Votre demande part sur WhatsApp pour une confirmation rapide.'],
+  ['01', 'Lieu & service', 'Choisissez l’atelier ou le domicile, puis le type de rendez-vous adapté.'],
+  ['02', 'Créneau', 'Sélectionnez Maison El Mire Atelier Casablanca, une date et une heure disponibles.'],
+  ['03', 'Client', 'Ajoutez vos coordonnées, accompagnants et remarques avant la confirmation WhatsApp.'],
 ];
 
 const promises = [
@@ -287,9 +287,9 @@ export default function ReservationPage() {
             <div className="reservation-kicker">
               <Scissors aria-hidden="true" size={15} /> Atelier privé
             </div>
-            <h1 className="reservation-title">Réservez votre séance de mesure.</h1>
+            <h1 className="reservation-title">Réservez votre rendez-vous.</h1>
             <p className="reservation-copy">
-              Un rendez-vous simple pour définir votre silhouette, votre occasion et les finitions qui feront la différence.
+              Un parcours guidé en cinq étapes pour choisir le lieu, le service, le prestataire, l’heure et vos informations client.
             </p>
             <div className="reservation-quick">
               <a className="btn btn-gold" href="#booking">
@@ -330,9 +330,9 @@ export default function ReservationPage() {
         <div className="container-rc reservation-booking-grid">
           <aside className="reservation-info-panel">
             <Ruler aria-hidden="true" color="var(--color-gold)" size={28} />
-            <h2>Un rendez-vous, pas un formulaire.</h2>
+            <h2>Une réservation guidée.</h2>
             <p>
-              La demande ouvre WhatsApp avec les détails déjà préparés. L&apos;atelier peut ensuite confirmer l&apos;horaire et vous guider avant votre visite.
+              Choisissez votre type de rendez-vous, votre créneau et vos détails client. La demande ouvre WhatsApp avec toutes les informations préparées.
             </p>
             <div className="reservation-promises">
               {promises.map(({ icon: Icon, title, text }) => (
