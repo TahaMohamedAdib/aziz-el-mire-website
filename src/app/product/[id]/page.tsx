@@ -117,7 +117,7 @@ export default async function ProductDetailPage({
                   key={color}
                   className="color-swatch"
                   title={color}
-                  style={{ background: color.toLowerCase().includes('noir') ? '#111' : color.toLowerCase().includes('bleu') ? '#1e3152' : color.toLowerCase().includes('gris') ? '#777' : color.toLowerCase().includes('bordeaux') ? '#5c1f2b' : color.toLowerCase().includes('vert') ? '#233b2d' : '#f1eee6' }}
+                  style={{ background: color.toLowerCase().includes('noir') ? '#111' : color.toLowerCase().includes('bleu') ? '#1e3152' : color.toLowerCase().includes('gris') ? '#777' : color.toLowerCase().includes('bordeaux') ? '#5c1f2b' : color.toLowerCase().includes('vert') ? '#001a10' : '#f1eee6' }}
                 />
               ))}
             </div>

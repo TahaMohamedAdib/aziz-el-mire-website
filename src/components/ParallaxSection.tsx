@@ -4,7 +4,7 @@ import { asset } from '@/lib/utils';
 
 export default function ParallaxSection() {
   return (
-    <section style={{ background: '#07100c' }}>
+    <section style={{ background: '#001a10' }}>
       <style>{`
         .malaga-feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 505px; }
         .malaga-copy { padding: 92px 60px 80px; display: flex; align-items: center; }

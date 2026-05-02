@@ -6,7 +6,7 @@ export default function Newsletter() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <section style={{ width: '100%', background: '#0c1410', borderTop: '1px solid rgba(183,154,85,0.12)', padding: '42px 0' }}>
+    <section style={{ width: '100%', background: '#001a10', borderTop: '1px solid rgba(183,154,85,0.12)', padding: '42px 0' }}>
       <style>{`
         @media (max-width: 767px) {
           .newsletter-inner { flex-direction: column !important; text-align: left !important; align-items: stretch !important; }

@@ -151,7 +151,7 @@ export default function HeroCarousel() {
                   fontFamily: 'var(--font-mono)',
                   fontSize: '14px',
                   fontWeight: 500,
-                  color: '#07100c',
+                  color: '#001a10',
                   background: 'var(--ivory)',
                   border: '1px solid var(--ivory)',
                   borderRadius: '3px',

@@ -34,7 +34,7 @@ export default function Header() {
     <header className={`site-header ${isSolid ? 'is-solid' : ''}`}>
       <style>{`
         .site-header {
-          background: rgba(9, 48, 37, 0.96);
+          background: rgba(0, 26, 16, 0.96);
           border-bottom: 1px solid transparent;
           left: 0;
           min-height: 134px;
@@ -45,7 +45,7 @@ export default function Header() {
           z-index: 1000;
         }
         .site-header.is-solid {
-          background: rgba(9, 48, 37, 0.98);
+          background: rgba(0, 26, 16, 0.98);
           border-bottom-color: rgba(184,151,90,0.35);
           min-height: 92px;
         }
@@ -62,7 +62,7 @@ export default function Header() {
         }
         .brand-link {
           align-items: center;
-          background: rgba(9,48,37,0.82);
+          background: rgba(0,26,16,0.82);
           border: 1px solid rgba(216,178,90,0.52);
           box-shadow: 0 0 0 4px rgba(216,178,90,0.08), 0 10px 28px rgba(0,0,0,0.18);
           color: var(--color-white);
@@ -150,9 +150,9 @@ export default function Header() {
         }
         .header-cta {
           justify-self: end;
-          font-size: 18px;
-          min-height: 64px;
-          padding: 18px 30px;
+          font-size: 14px;
+          min-height: 48px;
+          padding: 13px 22px;
           position: relative;
           box-shadow: 0 0 0 1px rgba(216,178,90,0.45), 0 0 16px rgba(216,178,90,0.36);
           overflow: hidden;
@@ -293,10 +293,10 @@ export default function Header() {
           }
           .header-cta {
             display: inline-flex;
-            font-size: 11px;
+            font-size: 10px;
             justify-self: end;
-            min-height: 38px;
-            padding: 10px 12px;
+            min-height: 34px;
+            padding: 8px 10px;
           }
           .brand-link,
           .site-header.is-solid .brand-link {

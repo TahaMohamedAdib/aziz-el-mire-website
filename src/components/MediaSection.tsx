@@ -31,7 +31,7 @@ const mediaItems = [
 
 export default function MediaSection() {
   return (
-    <section style={{ width: '100%', background: '#07100c', padding: '92px 12px 96px' }}>
+    <section style={{ width: '100%', background: '#001a10', padding: '92px 12px 96px' }}>
       <style>{`
         .media-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 900px) { .media-card-grid { grid-template-columns: 1fr !important; } }
@@ -62,8 +62,8 @@ export default function MediaSection() {
               <div style={{ position: 'relative', aspectRatio: '1.72 / 1', overflow: 'hidden' }}>
                 <Image src={item.image} alt={item.channel} fill loading="eager" sizes="(max-width: 900px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', left: '36px', top: '36px', width: '56px', textAlign: 'center' }}>
-                  <div style={{ background: '#07100c', color: 'var(--ivory)', fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, padding: '9px 0' }}>{item.day}</div>
-                  <div style={{ background: 'var(--ivory)', color: '#07100c', fontFamily: 'var(--font-mono)', fontSize: '9px', padding: '8px 0' }}>{item.month}</div>
+                  <div style={{ background: '#001a10', color: 'var(--ivory)', fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, padding: '9px 0' }}>{item.day}</div>
+                  <div style={{ background: 'var(--ivory)', color: '#001a10', fontFamily: 'var(--font-mono)', fontSize: '9px', padding: '8px 0' }}>{item.month}</div>
                 </div>
               </div>
 
@@ -95,7 +95,7 @@ export default function MediaSection() {
               display: 'inline-block',
               background: 'var(--ivory)',
               borderRadius: '4px',
-              color: '#07100c',
+              color: '#001a10',
               fontFamily: 'var(--font-mono)',
               fontSize: '14px',
               padding: '18px 42px',

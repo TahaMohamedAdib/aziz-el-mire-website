@@ -54,7 +54,7 @@ const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '
 const IG = `${BASE}/aziz-media/instagram`;
 const MEDIA = `${BASE}/aziz-media`;
 
-export const BRAND_LOGO = `${MEDIA}/logo-website.png`;
+export const BRAND_LOGO = `${MEDIA}/logo-website2.png`;
 
 export const instagramCategoryImages: Record<ProductCategory, string[]> = {
   Smokings: [

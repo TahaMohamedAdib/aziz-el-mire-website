@@ -29,7 +29,7 @@ function InstagramTile({ post }: { post: (typeof posts)[number] }) {
 
 export default function InstagramGrid() {
   return (
-    <section style={{ position: 'relative', backgroundColor: '#07100c' }}>
+    <section style={{ position: 'relative', backgroundColor: '#001a10' }}>
       <style>{`
         .instagram-grid-inner { display: grid; grid-template-columns: repeat(6, 1fr); }
         .instagram-overlay {

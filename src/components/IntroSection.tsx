@@ -1,6 +1,6 @@
 export default function IntroSection() {
   return (
-    <section style={{ background: '#07100c', padding: '86px 20px 78px', textAlign: 'center' }}>
+    <section style={{ background: '#001a10', padding: '86px 20px 78px', textAlign: 'center' }}>
       <h2
         style={{
           color: 'var(--ivory)',

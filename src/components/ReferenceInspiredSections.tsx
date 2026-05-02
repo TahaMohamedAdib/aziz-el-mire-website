@@ -116,10 +116,10 @@ export default function ReferenceInspiredSections() {
         </div>
       </section>
 
-      <section style={{ background: '#07100c', padding: '96px 20px' }}>
+      <section style={{ background: '#001a10', padding: '96px 20px' }}>
         <style>{`
           .service-pathways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-          .service-pathways article { background: #0c1410; border: 1px solid rgba(183,154,85,0.16); min-height: 300px; padding: 34px; }
+          .service-pathways article { background: #001a10; border: 1px solid rgba(183,154,85,0.16); min-height: 300px; padding: 34px; }
           @media (max-width: 820px) { .service-pathways { grid-template-columns: 1fr; } }
         `}</style>
         <div className="container-rc" style={{ textAlign: 'center' }}>
@@ -144,7 +144,7 @@ export default function ReferenceInspiredSections() {
         <style>{`
           .editorial-scroll { margin: 0 auto; max-width: 1080px; overflow-x: auto; padding: 0 18px 18px; scroll-snap-type: x mandatory; scrollbar-color: rgba(183,154,85,0.52) rgba(239,230,209,0.08); }
           .editorial-track { display: grid; gap: 20px; grid-auto-columns: minmax(620px, 72%); grid-auto-flow: column; }
-          .editorial-card { background: #0c1410; border: 1px solid rgba(183,154,85,0.18); box-shadow: inset 0 1px 0 rgba(122,30,30,0.18); display: grid; grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr); min-height: 410px; overflow: hidden; scroll-snap-align: start; }
+          .editorial-card { background: #001a10; border: 1px solid rgba(183,154,85,0.18); box-shadow: inset 0 1px 0 rgba(122,30,30,0.18); display: grid; grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr); min-height: 410px; overflow: hidden; scroll-snap-align: start; }
           .editorial-card-image { min-height: 410px; position: relative; }
           .editorial-card-content { align-self: center; padding: 34px; }
           .editorial-progress { background: rgba(239,230,209,0.08); height: 1px; margin: 28px auto 0; max-width: 1200px; position: relative; }
