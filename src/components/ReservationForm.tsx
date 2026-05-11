@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { CalendarDays, Check, Clock, House, Loader2, MapPin, MessageCircle, Scissors, TicketCheck, UserRound } from 'lucide-react';
+import { CalendarDays, Check, ChevronLeft, ChevronRight, Clock, House, Loader2, MapPin, MessageCircle, Scissors, TicketCheck, UserRound } from 'lucide-react';
 import { ADDRESS_DISPLAY, whatsappUrl } from '@/lib/catalog';
 import { createReservation, getAvailableSlots } from '@/lib/db';
 import type { DbSlot, LocationType, ServiceType, SlotsByDate } from '@/lib/db';
@@ -46,12 +46,41 @@ const provider = {
 
 const steps = ['Le lieu', 'Service', 'Prestataire', 'Heure', 'Client'];
 
-const FR_DAY = new Intl.DateTimeFormat('fr-FR', { weekday: 'short', day: '2-digit', month: 'short' });
 const FR_DATE = new Intl.DateTimeFormat('fr-MA');
+const FR_MONTH = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
+const WEEKDAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
-function formatDateLabel(dateStr: string) {
-  const d = new Date(`${dateStr}T00:00:00`);
-  return FR_DAY.format(d).replace(/\./g, '');
+function dateKey(date: Date) {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
+}
+
+function monthKey(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function startOfMonth(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+function addMonths(date: Date, amount: number) {
+  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
+}
+
+function getCalendarDays(month: Date) {
+  const first = startOfMonth(month);
+  const mondayOffset = (first.getDay() + 6) % 7;
+  const start = new Date(first);
+  start.setDate(first.getDate() - mondayOffset);
+
+  return Array.from({ length: 42 }, (_, index) => {
+    const day = new Date(start);
+    day.setDate(start.getDate() + index);
+    return day;
+  });
 }
 
 function formatDateDisplay(dateStr: string) {
@@ -69,6 +98,7 @@ export default function ReservationForm() {
   const [selectedService, setSelectedService] = useState<ServiceType>('Rendez-vous découverte');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState<DbSlot | null>(null);
+  const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(new Date()));
   const [homeAddress, setHomeAddress] = useState('');
 
   const [slots, setSlots] = useState<SlotsByDate>({});
@@ -76,11 +106,12 @@ export default function ReservationForm() {
   const [slotsError, setSlotsError] = useState('');
 
   useEffect(() => {
-    getAvailableSlots(30).then((data) => {
+    getAvailableSlots(120).then((data) => {
       setSlots(data);
       const firstDate = Object.keys(data)[0] ?? '';
       setSelectedDate(firstDate);
       setSelectedSlot(data[firstDate]?.[0] ?? null);
+      if (firstDate) setVisibleMonth(startOfMonth(new Date(`${firstDate}T00:00:00`)));
       setSlotsLoading(false);
     }).catch(() => {
       setSlotsError('Impossible de charger les créneaux. Veuillez réessayer.');
@@ -89,6 +120,25 @@ export default function ReservationForm() {
   }, []);
 
   const sortedDates = useMemo(() => Object.keys(slots).sort(), [slots]);
+
+  const availableDateSet = useMemo(() => new Set(sortedDates), [sortedDates]);
+
+  const calendarDays = useMemo(() => getCalendarDays(visibleMonth), [visibleMonth]);
+
+  const availableMonthKeys = useMemo(
+    () => new Set(sortedDates.map((date) => date.slice(0, 7))),
+    [sortedDates],
+  );
+
+  const canGoToPreviousMonth = useMemo(
+    () => sortedDates.some((date) => date.slice(0, 7) < monthKey(visibleMonth)),
+    [sortedDates, visibleMonth],
+  );
+
+  const canGoToNextMonth = useMemo(
+    () => sortedDates.some((date) => date.slice(0, 7) > monthKey(visibleMonth)),
+    [sortedDates, visibleMonth],
+  );
 
   const timeSlotsForDate: DbSlot[] = useMemo(
     () => (selectedDate ? (slots[selectedDate] ?? []) : []),
@@ -99,6 +149,17 @@ export default function ReservationForm() {
     setSelectedDate(date);
     const firstSlot = slots[date]?.[0] ?? null;
     setSelectedSlot(firstSlot);
+  };
+
+  const goToMonth = (direction: -1 | 1) => {
+    setVisibleMonth((month) => {
+      let next = addMonths(month, direction);
+      for (let i = 0; i < 12; i += 1) {
+        if (availableMonthKeys.has(monthKey(next))) return next;
+        next = addMonths(next, direction);
+      }
+      return month;
+    });
   };
 
   const buildWhatsAppMessage = (name: string, email: string, phone: string, companions: string, remarks: string, promoOptIn: boolean) => {
@@ -121,295 +182,13 @@ export default function ReservationForm() {
 
   return (
     <div className="reservation-form-shell">
-      <style>{`
-        .reservation-form-shell {
-          background: var(--color-white);
-          border: 1px solid rgba(184,151,90,0.24);
-          padding: 30px;
-        }
-        .reservation-form-head {
-          display: flex;
-          gap: 14px;
-          margin-bottom: 28px;
-        }
-        .reservation-form-icon {
-          align-items: center;
-          background: var(--color-dark);
-          color: var(--color-ivory);
-          display: inline-flex;
-          height: 46px;
-          justify-content: center;
-          width: 46px;
-        }
-        .booking-progress {
-          display: grid;
-          gap: 8px;
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-          margin-bottom: 28px;
-        }
-        .booking-progress-step {
-          background: transparent;
-          border: 0;
-          border-top: 2px solid var(--color-linen);
-          color: var(--color-gray);
-          cursor: pointer;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 1.1px;
-          min-height: 42px;
-          padding: 10px 0 0;
-          text-align: left;
-          text-transform: uppercase;
-        }
-        .booking-progress-step.is-active,
-        .booking-progress-step.is-done {
-          border-top-color: var(--color-gold);
-          color: var(--color-dark);
-        }
-        .booking-step {
-          border-top: 1px solid var(--color-linen);
-          min-height: 360px;
-          padding: 24px 0;
-        }
-        .booking-step:first-of-type {
-          border-top: 1px solid var(--color-linen);
-          padding-top: 0;
-        }
-        .booking-step-title {
-          align-items: center;
-          color: var(--color-dark);
-          display: flex;
-          font-family: var(--font-serif);
-          font-size: 26px;
-          font-weight: 500;
-          gap: 10px;
-          line-height: 1;
-          margin: 0 0 16px;
-        }
-        .booking-step-title span {
-          color: var(--color-gold);
-          font-family: var(--font-sans);
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: 1.6px;
-          text-transform: uppercase;
-        }
-        .booking-options {
-          display: grid;
-          gap: 12px;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        .booking-options.is-three {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-        .booking-option input,
-        .date-option input,
-        .time-option input {
-          opacity: 0;
-          pointer-events: none;
-          position: absolute;
-        }
-        .booking-option-card {
-          border: 1px solid var(--color-linen);
-          color: var(--color-dark);
-          cursor: pointer;
-          display: grid;
-          gap: 10px;
-          min-height: 124px;
-          padding: 18px;
-          transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
-        }
-        .booking-option-card:hover {
-          transform: translateY(-1px);
-        }
-        .booking-option-card strong {
-          align-items: flex-start;
-          display: flex;
-          font-family: var(--font-serif);
-          font-size: 24px;
-          font-weight: 500;
-          justify-content: space-between;
-          line-height: 1;
-        }
-        .booking-option-card small {
-          color: var(--color-gray);
-          font-size: 13px;
-          line-height: 1.5;
-        }
-        .booking-option-check {
-          color: transparent;
-          flex: 0 0 auto;
-        }
-        .booking-option input:checked + .booking-option-card,
-        .provider-card {
-          background: var(--color-ivory);
-          border-color: var(--color-gold);
-        }
-        .booking-option input:checked + .booking-option-card .booking-option-check,
-        .provider-card .booking-option-check {
-          color: var(--color-gold);
-        }
-        .date-grid {
-          display: grid;
-          gap: 10px;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          margin-bottom: 12px;
-        }
-        .date-option span,
-        .time-option span {
-          align-items: center;
-          border: 1px solid var(--color-linen);
-          color: var(--color-dark);
-          cursor: pointer;
-          display: flex;
-          font-size: 14px;
-          font-weight: 600;
-          justify-content: center;
-          min-height: 46px;
-          text-align: center;
-          transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
-        }
-        .date-option span {
-          flex-direction: column;
-          gap: 4px;
-          min-height: 68px;
-          text-transform: capitalize;
-        }
-        .date-option small {
-          color: var(--color-gray);
-          font-size: 11px;
-          font-weight: 500;
-          text-transform: uppercase;
-        }
-        .date-option input:checked + span,
-        .time-option input:checked + span {
-          background: var(--color-dark);
-          border-color: var(--color-dark);
-          color: var(--color-ivory);
-        }
-        .date-option input:checked + span small {
-          color: var(--color-ivory);
-        }
-        .time-grid {
-          display: grid;
-          gap: 10px;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-        .reservation-fields {
-          display: grid;
-          gap: 16px;
-        }
-        .reservation-field-grid {
-          display: grid;
-          gap: 16px;
-          grid-template-columns: 1fr 1fr;
-        }
-        .promo-check {
-          align-items: flex-start;
-          color: var(--color-gray);
-          display: flex;
-          font-size: 13px;
-          gap: 10px;
-          line-height: 1.5;
-        }
-        .promo-check input {
-          accent-color: var(--color-gold);
-          margin-top: 3px;
-        }
-        .reservation-submit {
-          margin-top: 2px;
-          width: 100%;
-        }
-        .booking-actions {
-          align-items: center;
-          border-top: 1px solid var(--color-linen);
-          display: flex;
-          gap: 12px;
-          justify-content: space-between;
-          padding-top: 20px;
-        }
-        .booking-actions .btn {
-          min-width: 128px;
-        }
-        .reservation-note {
-          align-items: center;
-          color: var(--color-gray);
-          display: flex;
-          flex-wrap: wrap;
-          font-size: 13px;
-          gap: 12px;
-          margin-top: 16px;
-        }
-        .reservation-note span {
-          align-items: center;
-          display: inline-flex;
-          gap: 7px;
-        }
-        .slots-empty {
-          align-items: center;
-          color: var(--color-gray);
-          display: flex;
-          flex-direction: column;
-          font-size: 14px;
-          gap: 10px;
-          justify-content: center;
-          min-height: 200px;
-          text-align: center;
-        }
-        @media (max-width: 760px) {
-          .reservation-form-shell { padding: 18px; }
-          .reservation-form-head {
-            gap: 10px;
-            margin-bottom: 18px;
-          }
-          .reservation-form-icon {
-            height: 40px;
-            width: 40px;
-          }
-          .booking-options,
-          .booking-options.is-three,
-          .reservation-field-grid,
-          .date-grid,
-          .time-grid,
-          .booking-progress {
-            grid-template-columns: 1fr;
-          }
-          .booking-progress {
-            gap: 0;
-            margin-bottom: 18px;
-          }
-          .booking-progress-step {
-            min-height: 32px;
-            padding-top: 7px;
-          }
-          .booking-step {
-            min-height: 0;
-            padding: 18px 0;
-          }
-          .booking-step-title {
-            font-size: 22px;
-            margin-bottom: 12px;
-          }
-          .booking-option-card {
-            min-height: 0;
-            padding: 13px;
-          }
-          .booking-option-card strong {
-            font-size: 21px;
-          }
-          .booking-option-card small {
-            font-size: 12px;
-            line-height: 1.35;
-          }
-        }
-      `}</style>
       <div className="reservation-form-head">
         <span className="reservation-form-icon">
           <CalendarDays aria-hidden="true" size={20} />
         </span>
         <div>
           <p className="eyebrow" style={{ marginBottom: 8 }}>Votre rendez-vous</p>
-          <h2 className="section-title" style={{ fontSize: 36, margin: 0 }}>Réserver</h2>
+          <h2 className="section-title" style={{ fontSize: 30, margin: 0 }}>Réserver</h2>
         </div>
       </div>
       <div className="booking-progress" aria-label="Étapes de réservation">
@@ -425,7 +204,7 @@ export default function ReservationForm() {
         ))}
       </div>
       {submitted ? (
-        <div role="status" aria-live="polite" style={{ background: 'rgba(184,151,90,0.12)', border: '1px solid rgba(184,151,90,0.32)', color: 'var(--color-dark)', marginBottom: '20px', padding: '18px' }}>
+        <div role="status" aria-live="polite" style={{ background: 'rgba(248,130,2,0.12)', border: '1px solid rgba(248,130,2,0.32)', color: 'var(--color-dark)', marginBottom: '20px', padding: '18px' }}>
           Merci. Votre réservation est confirmée. WhatsApp s&apos;ouvre avec les détails.
         </div>
       ) : null}
@@ -553,7 +332,6 @@ export default function ReservationForm() {
             {slotsLoading ? (
               <div className="slots-empty">
                 <Loader2 size={28} style={{ animation: 'spin 1s linear infinite' }} aria-hidden="true" />
-                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 Chargement des créneaux…
               </div>
             ) : slotsError ? (
@@ -565,23 +343,56 @@ export default function ReservationForm() {
               </div>
             ) : (
               <>
-                <div className="date-grid" aria-label="Calendrier">
-                  {sortedDates.map((date) => (
-                    <label key={date} className="date-option">
-                      <input
-                        type="radio"
-                        name="date"
-                        value={date}
-                        checked={selectedDate === date}
-                        onChange={() => handleDateChange(date)}
-                      />
-                      <span>
-                        {formatDateLabel(date)}
-                        <small>{new Date(`${date}T00:00:00`).getDate().toString().padStart(2, '0')}</small>
-                      </span>
-                    </label>
-                  ))}
+                <div className="calendar-panel" aria-label="Calendrier">
+                  <div className="calendar-head">
+                    <p className="calendar-month">{FR_MONTH.format(visibleMonth)}</p>
+                    <div className="calendar-nav">
+                      <button
+                        type="button"
+                        aria-label="Mois précédent"
+                        disabled={!canGoToPreviousMonth}
+                        onClick={() => goToMonth(-1)}
+                      >
+                        <ChevronLeft size={17} aria-hidden="true" />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Mois suivant"
+                        disabled={!canGoToNextMonth}
+                        onClick={() => goToMonth(1)}
+                      >
+                        <ChevronRight size={17} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="calendar-weekdays" aria-hidden="true">
+                    {WEEKDAYS.map((day) => <span key={day} className="calendar-weekday">{day}</span>)}
+                  </div>
+                  <div className="calendar-grid">
+                    {calendarDays.map((day) => {
+                      const key = dateKey(day);
+                      const isAvailable = availableDateSet.has(key);
+                      const isOutside = day.getMonth() !== visibleMonth.getMonth();
+                      const isSelected = key === selectedDate;
+                      return (
+                        <button
+                          key={key}
+                          type="button"
+                          className={`calendar-day ${isOutside ? 'is-outside' : ''} ${isAvailable ? 'is-available' : ''} ${isSelected ? 'is-selected' : ''}`}
+                          disabled={!isAvailable}
+                          aria-pressed={isSelected}
+                          aria-label={`${formatDateDisplay(key)}${isAvailable ? ', disponible' : ', indisponible'}`}
+                          onClick={() => handleDateChange(key)}
+                        >
+                          {day.getDate()}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
+                <p className="selected-date-summary">
+                  Date sélectionnée : <strong>{selectedDate ? formatDateDisplay(selectedDate) : 'Choisissez une date'}</strong>
+                </p>
                 <div className="time-grid">
                   {timeSlotsForDate.map((slot) => (
                     <label key={slot.id} className="time-option">

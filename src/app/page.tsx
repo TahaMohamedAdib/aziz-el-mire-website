@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa6';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FabricStorySection from '@/components/FabricStorySection';
 import ProductCard from '@/components/ProductCard';
 import {
   ADDRESS_DISPLAY,
@@ -33,102 +34,40 @@ export default async function Home() {
     Chemises: 'Bases lumineuses pensées pour le costume et le smoking.',
     Accessoires: 'Finitions, doublures et détails personnels.',
   };
+
   return (
     <>
       <Header />
       <main id="main-content">
+
+        {/* ── Hero ── */}
         <section className="home-hero">
-          <style>{`
-            .home-hero {
-              align-items: center;
-              background: var(--color-dark);
-              display: flex;
-              min-height: 108vh;
-              overflow: hidden;
-              position: relative;
-            }
-            .home-hero video,
-            .home-hero .poster {
-              height: 100%;
-              inset: 0;
-              object-fit: cover;
-              object-position: center center;
-              position: absolute;
-              width: 100%;
-            }
-            .home-hero::after {
-              background: rgba(0,0,0,0.45);
-              content: "";
-              inset: 0;
-              position: absolute;
-            }
-            .hero-copy {
-              color: white;
-              max-width: 760px;
-              padding-top: 18px;
-              position: relative;
-              z-index: 2;
-            }
-            .hero-copy h1 {
-              color: white;
-              font-size: clamp(72px, 7.2vw, 124px);
-              font-weight: 300;
-              line-height: 0.95;
-              margin: 0 0 22px;
-            }
-            .hero-copy p {
-              color: rgba(255,255,255,0.82);
-              font-size: 18px;
-              margin: 0 0 36px;
-            }
-            .hero-actions {
-              align-items: center;
-              display: flex;
-              flex-wrap: wrap;
-              gap: 22px;
-            }
-            .hero-actions .btn {
-              min-height: 52px;
-              padding: 15px 28px;
-            }
-            .home-hero .container-rc {
-              margin: 0;
-              max-width: none;
-              padding-left: clamp(28px, 5vw, 96px);
-              padding-right: clamp(28px, 5vw, 96px);
-            }
-            @media (max-width: 720px) {
-              .home-hero { min-height: 84svh; }
-              .home-hero video { display: none; }
-              .hero-copy { padding-top: 72px; }
-              .hero-copy h1 {
-                font-size: clamp(44px, 13vw, 58px);
-                margin-bottom: 14px;
-              }
-              .hero-copy p {
-                font-size: 15px;
-                margin-bottom: 24px;
-              }
-              .hero-actions {
-                gap: 14px;
-              }
-              .hero-actions .btn {
-                min-height: 46px;
-                padding: 12px 16px;
-              }
-            }
-          `}</style>
-          <Image className="poster" src={heroPoster} alt="Smoking noir revers satin Maison El Mire Casablanca" fill priority sizes="100vw" />
-          <video src={asset('/aziz-media/video-home-page.mp4')} poster={heroPoster} autoPlay loop muted playsInline preload="none" />
+          <Image
+            className="poster"
+            src={heroPoster}
+            alt="Smoking noir revers satin Maison El Mire Casablanca"
+            fill
+            priority
+            sizes="100vw"
+          />
+          <video
+            src={asset('/aziz-media/video-home-page.mp4')}
+            poster={heroPoster}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+          />
           <div className="container-rc">
             <div className="hero-copy">
               <h1>Costumes d&apos;exception.</h1>
-              <p>Maison de création et sur mesure - Casablanca</p>
+              <p>Maison de création et sur mesure — Casablanca</p>
               <div className="hero-actions">
-                <Link className="btn btn-outline" href="/collections">
+                <Link className="btn" style={{ background: '#F88202', border: '1px solid #F88202', color: '#fff', boxShadow: '0 8px 24px rgba(248,130,2,0.28)' }} href="/collections">
                   Découvrir les collections
                 </Link>
-                <Link className="text-link" href="/reservation">
+                <Link className="btn" style={{ background: 'transparent', border: '1px solid #F88202', color: '#F88202' }} href="/reservation">
                   Prendre rendez-vous
                 </Link>
               </div>
@@ -136,201 +75,8 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* ── Collections ── */}
         <section className="section-pad" style={{ background: 'var(--color-ivory)' }}>
-          <style>{`
-            .collections-home-head {
-              align-items: end;
-              display: flex;
-              gap: 28px;
-              justify-content: space-between;
-              margin-bottom: 34px;
-            }
-            .collections-home-head h2 {
-              margin: 0;
-            }
-            .collections-home-head p:last-child {
-              color: var(--color-gray);
-              line-height: 1.7;
-              margin: 0;
-              max-width: 420px;
-            }
-            .category-tiles {
-              display: grid;
-              gap: 18px;
-              grid-template-columns: repeat(5, minmax(0, 1fr));
-            }
-            .category-tile {
-              background: var(--color-white);
-              border: 1px solid rgba(184,151,90,0.28);
-              color: var(--color-dark);
-              display: grid;
-              gap: 16px;
-              overflow: hidden;
-              padding: 10px;
-              position: relative;
-              transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
-            }
-            .category-tile::before {
-              border: 1px solid rgba(232,200,128,0);
-              content: "";
-              inset: 0;
-              opacity: 0;
-              pointer-events: none;
-              position: absolute;
-              transition: border-color 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
-              z-index: 3;
-            }
-            .category-tile::after {
-              border: 1px solid transparent;
-              content: "";
-              inset: 5px;
-              pointer-events: none;
-              position: absolute;
-              transition: border-color 200ms ease, box-shadow 200ms ease;
-              z-index: 3;
-            }
-            .category-tile:hover,
-            .category-tile:focus-visible {
-              border-color: var(--color-gold);
-              box-shadow: 0 16px 34px rgba(6,63,50,0.12);
-              transform: translateY(-3px);
-            }
-            .category-tile:hover::before,
-            .category-tile:focus-visible::before {
-              border-color: rgba(255,225,151,0.96);
-              box-shadow: 0 0 0 1px rgba(184,151,90,0.5), 0 0 12px rgba(255,220,132,0.62), inset 0 0 10px rgba(255,220,132,0.22);
-              opacity: 1;
-            }
-            .category-tile:hover::after,
-            .category-tile:focus-visible::after {
-              border-color: rgba(184,151,90,0.42);
-              box-shadow: none;
-            }
-            .category-tile-media {
-              aspect-ratio: 4 / 5;
-              background: var(--color-linen);
-              overflow: hidden;
-              position: relative;
-              z-index: 1;
-            }
-            .category-tile-media::after {
-              background: linear-gradient(to top, rgba(6,63,50,0.44), transparent 55%);
-              content: "";
-              inset: 0;
-              position: absolute;
-              z-index: 1;
-            }
-            .category-tile img {
-              transition: transform var(--transition-image), filter var(--transition-image);
-            }
-            .category-tile:hover img {
-              filter: saturate(1.08) contrast(1.04);
-              transform: scale(1.045);
-            }
-            .category-index {
-              color: var(--color-gold);
-              display: block;
-              font-size: 11px;
-              font-weight: 600;
-              letter-spacing: 1.8px;
-              line-height: 1;
-              margin-bottom: 10px;
-            }
-            .category-name {
-              color: var(--color-dark);
-              display: block;
-              font-family: var(--font-serif);
-              font-size: clamp(26px, 2vw, 32px);
-              line-height: 0.95;
-            }
-            .category-note {
-              color: var(--color-gray);
-              display: block;
-              font-size: 13px;
-              line-height: 1.55;
-              margin-top: 12px;
-              min-height: 62px;
-            }
-            .category-action {
-              align-items: center;
-              color: var(--color-gold);
-              display: inline-flex;
-              font-size: 11px;
-              font-weight: 600;
-              gap: 8px;
-              letter-spacing: 1.5px;
-              margin-top: 16px;
-              text-transform: uppercase;
-            }
-            .category-action::after {
-              background: currentColor;
-              content: "";
-              height: 1px;
-              transition: width 200ms ease;
-              width: 22px;
-            }
-            .category-tile:hover .category-action::after {
-              width: 38px;
-            }
-            .category-tile-copy {
-              padding: 0 6px 8px;
-              position: relative;
-              z-index: 1;
-            }
-            @media (max-width: 980px) {
-              .collections-home-head {
-                align-items: start;
-                flex-direction: column;
-              }
-              .category-tiles {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-              }
-            }
-            @media (max-width: 560px) {
-              .collections-home-head {
-                gap: 10px;
-                margin-bottom: 22px;
-              }
-              .collections-home-head p:last-child {
-                font-size: 14px;
-                line-height: 1.55;
-              }
-              .category-tiles {
-                grid-template-columns: 1fr;
-                gap: 10px;
-              }
-              .category-tile {
-                align-items: center;
-                gap: 12px;
-                grid-template-columns: 92px 1fr;
-                padding: 7px;
-              }
-              .category-tile::after {
-                inset: 4px;
-              }
-              .category-tile-media {
-                aspect-ratio: 1;
-              }
-              .category-index {
-                font-size: 10px;
-                margin-bottom: 6px;
-              }
-              .category-name {
-                font-size: 25px;
-              }
-              .category-note {
-                display: none;
-                min-height: 0;
-              }
-              .category-action {
-                font-size: 10px;
-                margin-top: 10px;
-              }
-              .category-tile-copy {
-                padding: 0;
-              }
-            }
-          `}</style>
           <div className="container-rc">
             <div className="collections-home-head">
               <div>
@@ -341,9 +87,20 @@ export default async function Home() {
             </div>
             <div className="category-tiles">
               {tiles.map((category, index) => (
-                <Link key={category} className="category-tile" href={`/collections?category=${encodeURIComponent(category)}`}>
+                <Link
+                  key={category}
+                  className="category-tile"
+                  href={`/collections?category=${encodeURIComponent(category)}`}
+                >
                   <span className="category-tile-media">
-                    <Image src={productCategoryImages[category]} alt={`${category} Maison El Mire Casablanca`} fill loading="lazy" sizes="(max-width: 560px) 100vw, (max-width: 980px) 50vw, 20vw" style={{ objectFit: 'cover' }} />
+                    <Image
+                      src={productCategoryImages[category]}
+                      alt={`${category} Maison El Mire Casablanca`}
+                      fill
+                      loading="lazy"
+                      sizes="(max-width: 560px) 100vw, (max-width: 980px) 50vw, 20vw"
+                      style={{ objectFit: 'cover' }}
+                    />
                   </span>
                   <span className="category-tile-copy">
                     <span className="category-index">{String(index + 1).padStart(2, '0')}</span>
@@ -357,37 +114,8 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* ── New arrivals ── */}
         <section className="section-pad" style={{ background: 'var(--color-white)' }}>
-          <style>{`
-            .new-arrivals-head {
-              align-items: end;
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 36px;
-            }
-            @media (max-width: 560px) {
-              .new-arrivals-head {
-                align-items: start;
-                display: grid;
-                gap: 14px;
-                margin-bottom: 22px;
-              }
-              .new-arrivals-head .section-title {
-                margin: 0;
-              }
-              .new-arrivals-head .text-link {
-                border: 1px solid rgba(184,151,90,0.42);
-                display: inline-flex;
-                font-size: 12px;
-                justify-self: start;
-                letter-spacing: 1.1px;
-                min-height: 38px;
-                padding: 10px 12px;
-                text-decoration: none;
-                text-transform: uppercase;
-              }
-            }
-          `}</style>
           <div className="container-rc">
             <div className="new-arrivals-head">
               <div>
@@ -397,76 +125,25 @@ export default async function Home() {
               <Link className="text-link" href="/new-arrivals">Voir toutes les nouveautés</Link>
             </div>
             <div className="product-grid">
-              {newArrivals.slice(0, 3).map((product) => (
-                <ProductCard key={product.slug} product={product} />
+              {newArrivals.slice(0, 3).map((product, index) => (
+                <ProductCard key={product.slug} product={product} index={index} />
               ))}
             </div>
           </div>
         </section>
 
+        {/* ── Sur mesure ── */}
         <section className="section-pad" style={{ background: 'var(--color-linen)' }}>
-          <style>{`
-            .bespoke-home {
-              align-items: center;
-              display: grid;
-              gap: 56px;
-              grid-template-columns: 1fr 1fr;
-            }
-            .bespoke-media,
-            .atelier-media {
-              aspect-ratio: 4 / 5;
-              position: relative;
-            }
-            .atelier-home {
-              align-items: center;
-              display: grid;
-              gap: 42px;
-              grid-template-columns: 1fr 1fr;
-            }
-            .atelier-media {
-              aspect-ratio: 16 / 11;
-            }
-            .atelier-home .body-large {
-              line-height: 1.65;
-              margin-bottom: 18px;
-            }
-            .bespoke-steps {
-              display: grid;
-              gap: 18px;
-              grid-template-columns: repeat(3, 1fr);
-              margin: 30px 0;
-            }
-            .bespoke-steps strong {
-              color: var(--color-gold);
-              display: block;
-              font-size: 13px;
-              margin-bottom: 8px;
-            }
-            @media (max-width: 860px) {
-              .bespoke-home,
-              .bespoke-steps,
-              .atelier-home {
-                grid-template-columns: 1fr;
-              }
-            }
-            @media (max-width: 560px) {
-              .bespoke-home,
-              .atelier-home {
-                gap: 22px;
-              }
-              .bespoke-media,
-              .atelier-media {
-                aspect-ratio: 16 / 10;
-              }
-              .bespoke-steps {
-                gap: 10px;
-                margin: 20px 0;
-              }
-            }
-          `}</style>
           <div className="container-rc bespoke-home">
             <div className="bespoke-media">
-              <Image src={asset('/aziz-media/instagram/accessoire-lining-detail.jpg')} alt="Détail de doublure sur mesure Maison El Mire" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image
+                src={asset('/aziz-media/instagram/accessoire-lining-detail.jpg')}
+                alt="Détail de doublure sur mesure Maison El Mire"
+                fill
+                loading="lazy"
+                sizes="(max-width: 860px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
+              />
             </div>
             <div>
               <p className="eyebrow">Sur mesure</p>
@@ -487,39 +164,53 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* ── Fabric story ── */}
+        <FabricStorySection showProcess={false} />
+
+        {/* ── Atelier ── */}
         <section className="section-pad" style={{ background: 'var(--color-ivory)' }}>
           <div className="container-rc atelier-home">
             <div>
               <p className="eyebrow">Atelier</p>
-              <h2 className="section-title">Héritage & Savoir-faire</h2>
+              <h2 className="section-title">Héritage &amp; Savoir-faire</h2>
               <p className="body-large">
                 Maison El Mire travaille la silhouette masculine depuis Casablanca avec une attention particulière pour la coupe, les matières et les détails intérieurs. Chaque pièce est pensée comme une rencontre entre cérémonie marocaine, exigence contemporaine et discrétion du beau geste. À Sidi Maarouf, l&apos;atelier accompagne les clients dans un parcours simple, précis et personnel.
               </p>
               <Link className="text-link" href="/about">Découvrir la maison</Link>
             </div>
             <div className="atelier-media">
-              <Image src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')} alt="Atelier Maison El Mire à Casablanca" fill loading="lazy" sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image
+                src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')}
+                alt="Atelier Maison El Mire à Casablanca"
+                fill
+                loading="lazy"
+                sizes="(max-width: 860px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
+              />
             </div>
           </div>
         </section>
 
-        <section className="section-pad" style={{ background: 'var(--color-emerald)', color: 'var(--color-ivory)', textAlign: 'center' }}>
+        {/* ── CTA ── */}
+        <section className="cta-section">
           <div className="container-rc">
-            <h2 style={{ color: 'var(--color-ivory)', fontFamily: 'var(--font-serif)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 400, lineHeight: 1, margin: '0 0 18px' }}>
-              Prêt à composer votre costume?
-            </h2>
-            <p style={{ color: 'rgba(248,245,240,0.72)', margin: '0 0 30px' }}>
-              Prenez rendez-vous à l&apos;atelier ou contactez-nous sur WhatsApp.
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center', marginBottom: 24 }}>
+            <h2>Prêt à composer votre costume&nbsp;?</h2>
+            <p>Prenez rendez-vous à l&apos;atelier ou contactez-nous sur WhatsApp.</p>
+            <div className="cta-actions">
               <Link className="btn btn-outline" href="/reservation">Prendre rendez-vous</Link>
-              <a className="btn btn-gold" href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier.")} target="_blank" rel="noreferrer">
+              <a
+                className="btn btn-gold"
+                href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier.")}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FaWhatsapp aria-hidden="true" /> WhatsApp
               </a>
             </div>
-            <p style={{ color: 'rgba(248,245,240,0.6)', fontSize: 13, margin: 0 }}>{PHONE_DISPLAY} - {ADDRESS_DISPLAY}</p>
+            <p className="cta-note">{PHONE_DISPLAY} — {ADDRESS_DISPLAY}</p>
           </div>
         </section>
+
       </main>
       <Footer />
     </>

@@ -54,7 +54,7 @@ const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '
 const IG = `${BASE}/aziz-media/instagram`;
 const MEDIA = `${BASE}/aziz-media`;
 
-export const BRAND_LOGO = `${MEDIA}/logo-website2.png`;
+export const BRAND_LOGO = `${MEDIA}/Logo/logo-website3.png`;
 
 export const instagramCategoryImages: Record<ProductCategory, string[]> = {
   Smokings: [
@@ -93,9 +93,9 @@ export const instagramCategoryImages: Record<ProductCategory, string[]> = {
     `${IG}/pantalon-navy-suit-look.jpg`,
   ],
   Chemises: [
-    `${MEDIA}/web-chemises-white-shirt.jpg`,
     `${IG}/costume-grey-boutique.jpg`,
     `${IG}/costume-navy-boutique.jpg`,
+    `${IG}/accessoire-pocket-square-buttons.jpg`,
   ],
   Accessoires: [
     `${IG}/accessoire-lining-detail.jpg`,
@@ -264,7 +264,7 @@ export const products: Product[] = [
       `${IG}/pantalon-black-tuxedo-side.jpg`,
       `${IG}/pantalon-navy-suit-look.jpg`,
       `${IG}/pantalon-city-look.jpg`,
-      `${MEDIA}/web-pantalons-tailored-trousers.jpg`,
+      `${IG}/costume-navy-red-tie.jpg`,
     ],
     colors: ['Noir', 'Gris', 'Bleu nuit'],
     sizes: ['Sur mesure', 'M', 'L', 'XL'],
@@ -285,7 +285,7 @@ export const products: Product[] = [
     shortDescription: 'Chemise blanche premium pour costumes et smokings.',
     price: 'Sur demande',
     images: [
-      `${MEDIA}/web-chemises-white-shirt.jpg`,
+      `${IG}/costume-grey-boutique.jpg`,
       `${IG}/accessoire-pocket-square-buttons.jpg`,
       `${IG}/costume-grey-boutique.jpg`,
       `${IG}/costume-navy-boutique.jpg`,

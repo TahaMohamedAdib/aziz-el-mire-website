@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import FabricStorySection from '@/components/FabricStorySection';
 import { PageHero, SitePage } from '@/components/SitePage';
 import { asset } from '@/lib/utils';
 
@@ -23,26 +24,6 @@ export default function SurMesurePage() {
         Un accompagnement calme et précis pour transformer une occasion en silhouette.
       </PageHero>
       <section className="section-pad" style={{ background: 'var(--color-linen)', paddingTop: 0 }}>
-        <style>{`
-          .sur-layout {
-            align-items: center;
-            display: grid;
-            gap: 56px;
-            grid-template-columns: 1fr 1fr;
-          }
-          .sur-steps {
-            display: grid;
-            gap: 18px;
-            margin: 34px 0;
-          }
-          .sur-step {
-            border-top: 1px solid rgba(184,151,90,0.42);
-            padding-top: 18px;
-          }
-          @media (max-width: 840px) {
-            .sur-layout { grid-template-columns: 1fr; }
-          }
-        `}</style>
         <div className="container-rc sur-layout">
           <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
             <Image src={asset('/aziz-media/ref-tailor-measuring-fabric.jpg')} alt="Prise de mesures costume sur mesure Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
@@ -57,7 +38,7 @@ export default function SurMesurePage() {
               {steps.map(([number, title, text]) => (
                 <article key={title} className="sur-step">
                   <p className="eyebrow" style={{ marginBottom: 8 }}>{number}</p>
-                  <h3 style={{ fontSize: 26, margin: '0 0 8px' }}>{title}</h3>
+                  <h3 style={{ fontSize: 22, margin: '0 0 7px' }}>{title}</h3>
                   <p style={{ margin: 0 }}>{text}</p>
                 </article>
               ))}
@@ -66,6 +47,7 @@ export default function SurMesurePage() {
           </div>
         </div>
       </section>
+      <FabricStorySection />
     </SitePage>
   );
 }

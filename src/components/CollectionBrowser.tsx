@@ -45,60 +45,7 @@ export default function CollectionBrowser({
   }, [activeFilter, newOnly, products, sortMode]);
 
   return (
-    <section style={{ background: 'var(--color-ivory)', padding: '0 0 100px' }}>
-      <style>{`
-        .filter-bar {
-          background: rgba(248,245,240,0.96);
-          border-bottom: 1px solid var(--color-linen);
-          border-top: 1px solid var(--color-linen);
-          margin-bottom: 48px;
-          position: sticky;
-          top: 72px;
-          z-index: 20;
-        }
-        .filter-inner {
-          align-items: center;
-          display: flex;
-          gap: 12px;
-          justify-content: space-between;
-          padding-bottom: 14px;
-          padding-top: 14px;
-        }
-        .filter-pills {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-        .filter-pill {
-          background: transparent;
-          border: 1px solid var(--color-linen);
-          color: var(--color-dark);
-          cursor: pointer;
-          font-size: 12px;
-          font-weight: 600;
-          min-height: 38px;
-          padding: 0 14px;
-          text-transform: uppercase;
-        }
-        .filter-pill.is-active {
-          background: var(--color-gold);
-          border-color: var(--color-gold);
-          color: white;
-        }
-        .sort-select {
-          background: white;
-          border: 1px solid var(--color-linen);
-          color: var(--color-dark);
-          min-height: 38px;
-          padding: 0 12px;
-        }
-        @media (max-width: 760px) {
-          .filter-bar { top: 72px; }
-          .filter-inner { align-items: stretch; flex-direction: column; }
-          .filter-pills { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
-          .filter-pill { flex: 0 0 auto; }
-        }
-      `}</style>
+    <section className="collection-browser-section">
       <div className="filter-bar">
         <div className="container-rc filter-inner">
           <div className="filter-pills" role="tablist" aria-label="Filtres produits">
@@ -122,7 +69,12 @@ export default function CollectionBrowser({
               Nouveau
             </button>
           </div>
-          <select className="sort-select" value={sortMode} onChange={(event) => setSortMode(event.target.value as SortMode)} aria-label="Trier les produits">
+          <select
+            className="sort-select"
+            value={sortMode}
+            onChange={(event) => setSortMode(event.target.value as SortMode)}
+            aria-label="Trier les produits"
+          >
             <option>Nouveautés</option>
             <option>Prix croissant</option>
             <option>Prix décroissant</option>
@@ -131,8 +83,8 @@ export default function CollectionBrowser({
       </div>
       <div className="container-rc">
         <div className="product-grid">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.slug} product={product} index={index} />
           ))}
         </div>
       </div>

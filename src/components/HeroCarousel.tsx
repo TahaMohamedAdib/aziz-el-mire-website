@@ -71,7 +71,7 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: '100vh', minHeight: '760px', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', width: '100%', height: '92vh', minHeight: '660px', overflow: 'hidden' }}>
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -107,15 +107,15 @@ export default function HeroCarousel() {
                 zIndex: 2,
                 textAlign: 'center',
                 width: '90%',
-                maxWidth: '820px',
+                maxWidth: '720px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '22px', marginBottom: '54px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '18px', marginBottom: '42px' }}>
                 <Image src={asset('/images/slide-title-border.png')} alt="" width={37} height={10} style={{ width: '37px', height: '10px' }} unoptimized />
                 <h3
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: '20px',
+                    fontSize: '17px',
                     fontWeight: 400,
                     color: 'var(--ivory)',
                     margin: 0,
@@ -132,10 +132,10 @@ export default function HeroCarousel() {
                 <h2
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(24px, 3vw, 40px)',
+                    fontSize: 'clamp(22px, 2.6vw, 34px)',
                     fontWeight: 400,
                     color: 'var(--ivory)',
-                    margin: '-30px 0 42px',
+                    margin: '-22px 0 34px',
                     textTransform: 'uppercase',
                     animation: 'blurIn 0.8s ease 400ms both',
                   }}
@@ -149,13 +149,13 @@ export default function HeroCarousel() {
                 style={{
                   display: 'inline-block',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
+                  fontSize: '12px',
                   fontWeight: 500,
-                  color: '#001a10',
+                  color: '#001D14',
                   background: 'var(--ivory)',
                   border: '1px solid var(--ivory)',
                   borderRadius: '3px',
-                  padding: '17px 50px',
+                  padding: '14px 38px',
                   textDecoration: 'none',
                   textTransform: 'uppercase',
                   animation: 'fadeInUpShorter 0.6s ease 800ms both',
@@ -168,7 +168,7 @@ export default function HeroCarousel() {
         </div>
       ))}
 
-      <div style={{ position: 'absolute', bottom: '34px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '10px', zIndex: 4 }}>
+      <div style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '9px', zIndex: 4 }}>
         {slides.map((slide, index) => (
           <button
             key={slide.id}

@@ -1,13 +1,13 @@
 export default function IntroSection() {
   return (
-    <section style={{ background: '#001a10', padding: '86px 20px 78px', textAlign: 'center' }}>
+    <section style={{ background: '#001D14', padding: '70px 18px 64px', textAlign: 'center' }}>
       <h2
         style={{
           color: 'var(--ivory)',
           fontFamily: 'var(--font-heading)',
-          fontSize: '28px',
+          fontSize: '24px',
           fontWeight: 700,
-          margin: '0 0 18px',
+          margin: '0 0 14px',
         }}
       >
         Costumes d’exception et tailoring moderne
@@ -16,10 +16,10 @@ export default function IntroSection() {
         style={{
           color: '#b8ad96',
           fontFamily: 'var(--font-sans)',
-          fontSize: '16px',
-          lineHeight: 1.7,
+          fontSize: '14.5px',
+          lineHeight: 1.62,
           margin: '0 auto',
-          maxWidth: '620px',
+          maxWidth: '560px',
         }}
       >
         Maison El Mire imagine des costumes élégants pour les mariages,

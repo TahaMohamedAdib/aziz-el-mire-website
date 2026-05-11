@@ -16,26 +16,6 @@ export default function AboutPage() {
         Haute couture masculine à Sidi Maarouf, Casablanca.
       </PageHero>
       <section className="section-pad" style={{ background: 'var(--color-ivory)', paddingTop: 0 }}>
-        <style>{`
-          .about-layout {
-            align-items: center;
-            display: grid;
-            gap: 56px;
-            grid-template-columns: 0.9fr 1.1fr;
-          }
-          .timeline {
-            display: grid;
-            gap: 18px;
-            margin-top: 34px;
-          }
-          .timeline article {
-            border-top: 1px solid var(--color-linen);
-            padding-top: 18px;
-          }
-          @media (max-width: 840px) {
-            .about-layout { grid-template-columns: 1fr; }
-          }
-        `}</style>
         <div className="container-rc about-layout">
           <div style={{ aspectRatio: '4 / 5', position: 'relative' }}>
             <Image src={asset('/aziz-media/instagram/atelier-boutique-window.jpg')} alt="Portrait atelier Maison El Mire Casablanca" fill loading="lazy" sizes="(max-width: 840px) 100vw, 45vw" style={{ objectFit: 'cover' }} />

@@ -19,45 +19,11 @@ export default function ContactPage() {
         WhatsApp, téléphone, e-mail et adresse: retrouvez les informations essentielles de Maison El Mire.
       </PageHero>
       <section className="section-pad" style={{ background: 'var(--color-ivory)', paddingTop: 0 }}>
-        <style>{`
-          .contact-layout {
-            display: grid;
-            gap: 28px;
-            grid-template-columns: 0.9fr 1.1fr;
-          }
-          .contact-card {
-            background: white;
-            border: 1px solid var(--color-linen);
-            padding: 28px;
-          }
-          .whatsapp-large {
-            align-items: center;
-            background: #25D366;
-            color: white;
-            display: inline-flex;
-            font-weight: 600;
-            gap: 10px;
-            justify-content: center;
-            min-height: 54px;
-            padding: 0 22px;
-            text-transform: uppercase;
-            width: 100%;
-          }
-          .contact-map {
-            border: 0;
-            height: 300px;
-            width: 100%;
-          }
-          @media (max-width: 840px) {
-            .contact-layout { grid-template-columns: 1fr; }
-            .contact-map { height: 200px; }
-          }
-        `}</style>
         <div className="container-rc contact-layout">
-          <div style={{ display: 'grid', gap: 24 }}>
+          <div style={{ display: 'grid', gap: 18 }}>
             <div className="contact-card">
               <p className="eyebrow">WhatsApp</p>
-              <h2 className="section-title" style={{ fontSize: 34 }}>Action directe</h2>
+              <h2 className="section-title" style={{ fontSize: 28 }}>Action directe</h2>
               <a className="whatsapp-large" href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous à l'atelier.")} target="_blank" rel="noreferrer">
                 <FaWhatsapp aria-hidden="true" /> Écrire sur WhatsApp
               </a>
@@ -81,10 +47,10 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gap: 24 }}>
+          <div style={{ display: 'grid', gap: 18 }}>
             <div className="contact-card">
               <p className="eyebrow">Informations</p>
-              <h2 className="section-title" style={{ fontSize: 34 }}>Atelier Casablanca</h2>
+              <h2 className="section-title" style={{ fontSize: 28 }}>Atelier Casablanca</h2>
               <p className="body-large" style={{ marginBottom: 12 }}>{ADDRESS_DISPLAY}</p>
               <p style={{ margin: '0 0 10px' }}>
                 <a className="text-link" href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
