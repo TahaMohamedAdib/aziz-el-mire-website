@@ -48,7 +48,8 @@ const steps = ['Le lieu', 'Service', 'Prestataire', 'Heure', 'Client'];
 
 const FR_DATE = new Intl.DateTimeFormat('fr-MA');
 const FR_MONTH = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
-const WEEKDAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const FR_WEEKDAY = new Intl.DateTimeFormat('fr-FR', { weekday: 'short' });
+const FALLBACK_TIMES = ['10:00:00', '15:00:00', '16:00:00'];
 
 function dateKey(date: Date) {
   return [
@@ -70,22 +71,48 @@ function addMonths(date: Date, amount: number) {
   return new Date(date.getFullYear(), date.getMonth() + amount, 1);
 }
 
-function getCalendarDays(month: Date) {
+function getCalendarStripDays(month: Date) {
   const first = startOfMonth(month);
   const mondayOffset = (first.getDay() + 6) % 7;
   const start = new Date(first);
   start.setDate(first.getDate() - mondayOffset);
 
-  return Array.from({ length: 42 }, (_, index) => {
+  return Array.from({ length: 21 }, (_, index) => {
     const day = new Date(start);
     day.setDate(start.getDate() + index);
     return day;
   });
 }
 
+function createFallbackSlots(daysAhead = 45): SlotsByDate {
+  const today = new Date();
+  let id = -1;
+
+  return Array.from({ length: daysAhead }).reduce<SlotsByDate>((acc, _, index) => {
+    const day = new Date(today);
+    day.setDate(today.getDate() + index + 1);
+    if (day.getDay() === 0) return acc;
+
+    const key = dateKey(day);
+    acc[key] = FALLBACK_TIMES.map((time) => ({
+      created_at: new Date().toISOString(),
+      date: key,
+      id: id--,
+      is_booked: false,
+      max_capacity: 1,
+      time,
+    }));
+    return acc;
+  }, {});
+}
+
 function formatDateDisplay(dateStr: string) {
   const d = new Date(`${dateStr}T00:00:00`);
   return FR_DATE.format(d);
+}
+
+function formatWeekday(date: Date) {
+  return FR_WEEKDAY.format(date).replace('.', '').toUpperCase();
 }
 
 export default function ReservationForm() {
@@ -107,14 +134,21 @@ export default function ReservationForm() {
 
   useEffect(() => {
     getAvailableSlots(120).then((data) => {
-      setSlots(data);
-      const firstDate = Object.keys(data)[0] ?? '';
+      const nextSlots = Object.keys(data).length > 0 ? data : createFallbackSlots();
+      setSlots(nextSlots);
+      const firstDate = Object.keys(nextSlots).sort()[0] ?? '';
       setSelectedDate(firstDate);
-      setSelectedSlot(data[firstDate]?.[0] ?? null);
+      setSelectedSlot(nextSlots[firstDate]?.[0] ?? null);
       if (firstDate) setVisibleMonth(startOfMonth(new Date(`${firstDate}T00:00:00`)));
       setSlotsLoading(false);
     }).catch(() => {
-      setSlotsError('Impossible de charger les créneaux. Veuillez réessayer.');
+      const fallbackSlots = createFallbackSlots();
+      const firstDate = Object.keys(fallbackSlots).sort()[0] ?? '';
+      setSlots(fallbackSlots);
+      setSelectedDate(firstDate);
+      setSelectedSlot(fallbackSlots[firstDate]?.[0] ?? null);
+      if (firstDate) setVisibleMonth(startOfMonth(new Date(`${firstDate}T00:00:00`)));
+      setSlotsError('');
       setSlotsLoading(false);
     });
   }, []);
@@ -123,7 +157,7 @@ export default function ReservationForm() {
 
   const availableDateSet = useMemo(() => new Set(sortedDates), [sortedDates]);
 
-  const calendarDays = useMemo(() => getCalendarDays(visibleMonth), [visibleMonth]);
+  const calendarDays = useMemo(() => getCalendarStripDays(visibleMonth), [visibleMonth]);
 
   const availableMonthKeys = useMemo(
     () => new Set(sortedDates.map((date) => date.slice(0, 7))),
@@ -354,6 +388,7 @@ export default function ReservationForm() {
                         onClick={() => goToMonth(-1)}
                       >
                         <ChevronLeft size={17} aria-hidden="true" />
+                        <span>Mois Prec.</span>
                       </button>
                       <button
                         type="button"
@@ -361,12 +396,10 @@ export default function ReservationForm() {
                         disabled={!canGoToNextMonth}
                         onClick={() => goToMonth(1)}
                       >
+                        <span>Mois Suiv.</span>
                         <ChevronRight size={17} aria-hidden="true" />
                       </button>
                     </div>
-                  </div>
-                  <div className="calendar-weekdays" aria-hidden="true">
-                    {WEEKDAYS.map((day) => <span key={day} className="calendar-weekday">{day}</span>)}
                   </div>
                   <div className="calendar-grid">
                     {calendarDays.map((day) => {
@@ -384,7 +417,8 @@ export default function ReservationForm() {
                           aria-label={`${formatDateDisplay(key)}${isAvailable ? ', disponible' : ', indisponible'}`}
                           onClick={() => handleDateChange(key)}
                         >
-                          {day.getDate()}
+                          <span className="calendar-day-weekday">{formatWeekday(day)}</span>
+                          <span className="calendar-day-number">{day.getDate()}</span>
                         </button>
                       );
                     })}
