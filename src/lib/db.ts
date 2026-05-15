@@ -49,7 +49,7 @@ export function toProduct(p: DbProduct): Product {
 // ─────────────────────────────────────────
 
 async function attachVariants(products: Tables<'products'>[]): Promise<DbProduct[]> {
-  if (products.length === 0) return [];
+  if (!supabase || products.length === 0) return [];
   const ids = products.map((p) => p.id);
 
   const [{ data: images }, { data: variants }] = await Promise.all([
@@ -74,6 +74,7 @@ async function attachVariants(products: Tables<'products'>[]): Promise<DbProduct
 }
 
 export async function getProducts(category?: ProductCategory): Promise<DbProduct[]> {
+  if (!supabase) return [];
   let query = supabase.from('products').select('*').order('position');
   if (category) query = query.eq('category', category);
   const { data, error } = await query;
@@ -82,6 +83,7 @@ export async function getProducts(category?: ProductCategory): Promise<DbProduct
 }
 
 export async function getNewArrivals(): Promise<DbProduct[]> {
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('products')
     .select('*')
@@ -92,6 +94,7 @@ export async function getNewArrivals(): Promise<DbProduct[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<DbProduct | null> {
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from('products')
     .select('*')
@@ -103,6 +106,7 @@ export async function getProductBySlug(slug: string): Promise<DbProduct | null> 
 }
 
 export async function getRelatedProducts(product: DbProduct, limit = 3): Promise<DbProduct[]> {
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('products')
     .select('*')
@@ -130,6 +134,7 @@ export async function getRelatedProducts(product: DbProduct, limit = 3): Promise
 export type SlotsByDate = Record<string, DbSlot[]>;
 
 export async function getAvailableSlots(daysAhead = 30): Promise<SlotsByDate> {
+  if (!supabase) return {};
   const from = new Date();
   from.setDate(from.getDate() + 1);
   const to = new Date();
@@ -171,6 +176,7 @@ export interface ReservationPayload {
 }
 
 export async function createReservation(payload: ReservationPayload): Promise<{ ok: boolean; error?: string }> {
+  if (!supabase) return { ok: false, error: 'La réservation en ligne est momentanément indisponible. Contactez-nous sur WhatsApp.' };
   // Mark slot as booked atomically
   const { error: slotError } = await supabase
     .from('availability_slots')

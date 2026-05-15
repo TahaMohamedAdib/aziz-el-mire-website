@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import CollectionBrowser from '@/components/CollectionBrowser';
 import { PageHero, SitePage } from '@/components/SitePage';
+import { newArrivals as staticNewArrivals, products as staticProducts } from '@/lib/catalog';
 import { getNewArrivals, getProducts, toProduct } from '@/lib/db';
 
 export const metadata: Metadata = {
@@ -12,7 +13,12 @@ export const metadata: Metadata = {
 export default async function NewArrivalsPage() {
   const [newArrivalsDb, allProductsDb] = await Promise.all([getNewArrivals(), getProducts()]);
   const hasNewArrivals = newArrivalsDb.length > 0;
-  const products = (hasNewArrivals ? newArrivalsDb : allProductsDb).map(toProduct);
+  const hasDbProducts = allProductsDb.length > 0;
+  const products = hasNewArrivals
+    ? newArrivalsDb.map(toProduct)
+    : hasDbProducts
+      ? allProductsDb.map(toProduct)
+      : (staticNewArrivals.length > 0 ? staticNewArrivals : staticProducts);
 
   return (
     <SitePage>

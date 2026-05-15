@@ -9,6 +9,7 @@ import ProductCard from '@/components/ProductCard';
 import {
   ADDRESS_DISPLAY,
   PHONE_DISPLAY,
+  newArrivals as staticNewArrivals,
   productCategories,
   productCategoryImages,
   whatsappUrl,
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const dbNewArrivals = await getNewArrivals();
-  const newArrivals = dbNewArrivals.map(toProduct);
+  const newArrivals = dbNewArrivals.length > 0 ? dbNewArrivals.map(toProduct) : staticNewArrivals;
   const heroPoster = productCategoryImages.Smokings;
   const tiles = productCategories.filter((category) => category !== 'Smokings').slice(0, 5);
   const collectionDetails: Record<string, string> = {

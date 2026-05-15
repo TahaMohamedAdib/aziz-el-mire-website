@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa6';
 import ProductCard from '@/components/ProductCard';
 import ProductGallery from '@/components/ProductGallery';
-import { whatsappUrl, products as staticProducts } from '@/lib/catalog';
+import {
+  getProduct as getStaticProduct,
+  getRelatedProducts as getStaticRelatedProducts,
+  products as staticProducts,
+  whatsappUrl,
+} from '@/lib/catalog';
 import { getProductBySlug, getRelatedProducts, getProducts, toProduct } from '@/lib/db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -27,7 +32,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const dbProduct = await getProductBySlug(id);
-  const product = dbProduct ? toProduct(dbProduct) : null;
+  const product = dbProduct ? toProduct(dbProduct) : getStaticProduct(id) ?? null;
   return {
     title: product ? product.name : 'Produit',
     description: product?.description,
@@ -41,12 +46,13 @@ export default async function ProductDetailPage({
 }) {
   const { id } = await params;
   const dbProduct = await getProductBySlug(id);
+  const product = dbProduct ? toProduct(dbProduct) : getStaticProduct(id);
 
-  if (!dbProduct) notFound();
+  if (!product) notFound();
 
-  const product = toProduct(dbProduct);
-  const relatedDb = await getRelatedProducts(dbProduct);
-  const related = relatedDb.map(toProduct);
+  const related = dbProduct
+    ? (await getRelatedProducts(dbProduct)).map(toProduct)
+    : getStaticRelatedProducts(product);
 
   return (
     <>

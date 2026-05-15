@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import CollectionBrowser from '@/components/CollectionBrowser';
 import { PageHero, SitePage } from '@/components/SitePage';
+import { products as staticProducts } from '@/lib/catalog';
 import { getProducts, toProduct } from '@/lib/db';
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function CollectionsPage() {
   const dbProducts = await getProducts();
-  const products = dbProducts.map(toProduct);
+  const products = dbProducts.length > 0 ? dbProducts.map(toProduct) : staticProducts;
 
   return (
     <SitePage>
