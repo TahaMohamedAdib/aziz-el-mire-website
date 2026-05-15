@@ -136,7 +136,6 @@ export type SlotsByDate = Record<string, DbSlot[]>;
 export async function getAvailableSlots(daysAhead = 30): Promise<SlotsByDate> {
   if (!supabase) return {};
   const from = new Date();
-  from.setDate(from.getDate() + 1);
   const to = new Date();
   to.setDate(to.getDate() + daysAhead);
 

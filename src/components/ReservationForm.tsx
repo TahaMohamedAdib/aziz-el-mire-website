@@ -71,13 +71,17 @@ function addMonths(date: Date, amount: number) {
   return new Date(date.getFullYear(), date.getMonth() + amount, 1);
 }
 
-function getCalendarStripDays(month: Date) {
-  const first = startOfMonth(month);
-  const mondayOffset = (first.getDay() + 6) % 7;
-  const start = new Date(first);
-  start.setDate(first.getDate() - mondayOffset);
+function isSameMonth(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+}
 
-  return Array.from({ length: 21 }, (_, index) => {
+function getCalendarStripDays(month: Date) {
+  const today = new Date();
+  const start = isSameMonth(month, today) ? today : startOfMonth(month);
+  const end = new Date(start.getFullYear(), start.getMonth() + 1, 0);
+  const dayCount = end.getDate() - start.getDate() + 1;
+
+  return Array.from({ length: dayCount }, (_, index) => {
     const day = new Date(start);
     day.setDate(start.getDate() + index);
     return day;
@@ -90,7 +94,7 @@ function createFallbackSlots(daysAhead = 45): SlotsByDate {
 
   return Array.from({ length: daysAhead }).reduce<SlotsByDate>((acc, _, index) => {
     const day = new Date(today);
-    day.setDate(today.getDate() + index + 1);
+    day.setDate(today.getDate() + index);
     if (day.getDay() === 0) return acc;
 
     const key = dateKey(day);

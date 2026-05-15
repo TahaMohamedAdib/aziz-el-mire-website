@@ -2101,8 +2101,10 @@ select:focus-visible {
   .calendar-nav button { flex: 1; min-width: 0; padding: 0 10px; }
   .calendar-grid {
     gap: 0;
-    grid-template-columns: repeat(21, minmax(50px, 1fr));
-    min-width: 1050px;
+    grid-auto-columns: minmax(50px, 1fr);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    min-width: max-content;
   }
   .calendar-day { font-size: 12px; min-height: 108px; }
   .calendar-day-number { font-size: 17px; height: 38px; width: 38px; }
@@ -2758,8 +2760,10 @@ select:focus-visible {
 .calendar-grid {
   display: grid;
   gap: 0;
-  grid-template-columns: repeat(21, minmax(52px, 1fr));
-  min-width: 1080px;
+  grid-auto-columns: minmax(52px, 1fr);
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  min-width: max-content;
 }
 
 .calendar-day {
