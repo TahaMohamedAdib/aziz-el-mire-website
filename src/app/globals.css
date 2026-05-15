@@ -202,6 +202,11 @@
   transform: translateY(-1px);
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
 .btn-gold {
   background: linear-gradient(135deg, var(--color-gold), var(--color-gold-bright));
   border: 1px solid var(--color-gold);
@@ -2903,6 +2908,25 @@ select:focus-visible {
 }
 
 .booking-actions .btn { min-width: 128px; }
+
+.booking-actions .btn-outline {
+  background: var(--color-white);
+  border-color: rgba(26, 26, 26, 0.18);
+  color: var(--color-dark);
+}
+
+.booking-actions .btn-outline:hover:not(:disabled) {
+  background: var(--color-ivory);
+  border-color: rgba(161, 98, 7, 0.36);
+  color: var(--color-gold);
+}
+
+.booking-actions .btn-outline:disabled {
+  background: rgba(248, 245, 240, 0.65);
+  border-color: rgba(26, 26, 26, 0.1);
+  color: rgba(26, 26, 26, 0.34);
+  box-shadow: none;
+}
 
 .reservation-note {
   align-items: center;
