@@ -110,6 +110,27 @@ function createFallbackSlots(daysAhead = 45): SlotsByDate {
   }, {});
 }
 
+function timeToMinutes(time: string) {
+  const [hours = '0', minutes = '0'] = time.split(':');
+  return Number(hours) * 60 + Number(minutes);
+}
+
+function filterSlotsByCurrentTime(slotsByDate: SlotsByDate, now = new Date()) {
+  const todayKey = dateKey(now);
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  return Object.entries(slotsByDate).reduce<SlotsByDate>((acc, [date, daySlots]) => {
+    if (date < todayKey) return acc;
+
+    const availableSlots = date === todayKey
+      ? daySlots.filter((slot) => timeToMinutes(slot.time) > currentMinutes)
+      : daySlots;
+
+    if (availableSlots.length > 0) acc[date] = availableSlots;
+    return acc;
+  }, {});
+}
+
 function formatDateDisplay(dateStr: string) {
   const d = new Date(`${dateStr}T00:00:00`);
   return FR_DATE.format(d);
@@ -139,25 +160,29 @@ export default function ReservationForm() {
   useEffect(() => {
     getAvailableSlots(120).then((data) => {
       const nextSlots = Object.keys(data).length > 0 ? data : createFallbackSlots();
+      const selectableSlots = filterSlotsByCurrentTime(nextSlots);
       setSlots(nextSlots);
-      const firstDate = Object.keys(nextSlots).sort()[0] ?? '';
+      const firstDate = Object.keys(selectableSlots).sort()[0] ?? '';
       setSelectedDate(firstDate);
-      setSelectedSlot(nextSlots[firstDate]?.[0] ?? null);
-      if (firstDate) setVisibleMonth(startOfMonth(new Date(`${firstDate}T00:00:00`)));
+      setSelectedSlot(selectableSlots[firstDate]?.[0] ?? null);
+      setVisibleMonth(startOfMonth(new Date()));
       setSlotsLoading(false);
     }).catch(() => {
       const fallbackSlots = createFallbackSlots();
-      const firstDate = Object.keys(fallbackSlots).sort()[0] ?? '';
+      const selectableSlots = filterSlotsByCurrentTime(fallbackSlots);
+      const firstDate = Object.keys(selectableSlots).sort()[0] ?? '';
       setSlots(fallbackSlots);
       setSelectedDate(firstDate);
-      setSelectedSlot(fallbackSlots[firstDate]?.[0] ?? null);
-      if (firstDate) setVisibleMonth(startOfMonth(new Date(`${firstDate}T00:00:00`)));
+      setSelectedSlot(selectableSlots[firstDate]?.[0] ?? null);
+      setVisibleMonth(startOfMonth(new Date()));
       setSlotsError('');
       setSlotsLoading(false);
     });
   }, []);
 
-  const sortedDates = useMemo(() => Object.keys(slots).sort(), [slots]);
+  const selectableSlots = useMemo(() => filterSlotsByCurrentTime(slots), [slots]);
+
+  const sortedDates = useMemo(() => Object.keys(selectableSlots).sort(), [selectableSlots]);
 
   const availableDateSet = useMemo(() => new Set(sortedDates), [sortedDates]);
 
@@ -179,13 +204,13 @@ export default function ReservationForm() {
   );
 
   const timeSlotsForDate: DbSlot[] = useMemo(
-    () => (selectedDate ? (slots[selectedDate] ?? []) : []),
-    [slots, selectedDate],
+    () => (selectedDate ? (selectableSlots[selectedDate] ?? []) : []),
+    [selectableSlots, selectedDate],
   );
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
-    const firstSlot = slots[date]?.[0] ?? null;
+    const firstSlot = selectableSlots[date]?.[0] ?? null;
     setSelectedSlot(firstSlot);
   };
 
