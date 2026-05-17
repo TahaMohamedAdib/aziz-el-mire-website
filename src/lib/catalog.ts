@@ -55,6 +55,7 @@ const IG = `${BASE}/aziz-media/instagram`;
 const MEDIA = `${BASE}/aziz-media`;
 
 export const BRAND_LOGO = `${MEDIA}/Logo/logo-website3.png`;
+export const NAV_LOGO = `${MEDIA}/Logo/logo-website3_without_background.png`;
 
 export const instagramCategoryImages: Record<ProductCategory, string[]> = {
   Smokings: [
