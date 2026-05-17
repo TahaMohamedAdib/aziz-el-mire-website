@@ -395,9 +395,14 @@ select:focus-visible {
 }
 
 .site-header.is-solid {
+  --header-height: 72px;
   background: rgba(0, 29, 20, 0.98);
   border-bottom-color: rgba(161, 98, 7, 0.3);
   min-height: var(--header-height);
+}
+
+.site-header.is-scrolled {
+  --header-logo-size: 58px;
 }
 
 .logo-intro-overlay {
@@ -446,18 +451,20 @@ select:focus-visible {
   animation: logo-intro-appear 540ms ease both;
   aspect-ratio: 1;
   background: rgba(0, 29, 20, 0.86);
-  border: 1px solid rgba(231, 200, 115, 0.46);
+  border: 1px solid rgba(248, 130, 2, 0.72);
   box-shadow:
-    0 0 0 6px rgba(161, 98, 7, 0.08),
+    0 0 0 6px rgba(248, 130, 2, 0.1),
     0 26px 80px rgba(0, 0, 0, 0.36),
-    0 0 44px rgba(201, 138, 28, 0.18);
+    0 0 44px rgba(248, 130, 2, 0.2);
   display: flex;
   height: clamp(96px, 13vw, 154px);
   justify-content: center;
   left: 50vw;
   overflow: hidden;
   padding: 7px;
+  pointer-events: auto;
   position: fixed;
+  text-decoration: none;
   top: 50svh;
   transform: translate(-50%, -50%);
   transition:
@@ -486,7 +493,7 @@ select:focus-visible {
 }
 
 .logo-intro-mark::after {
-  border: 1px solid rgba(255, 229, 164, 0.24);
+  border: 1px solid rgba(248, 130, 2, 0.5);
   content: "";
   inset: 5px;
   pointer-events: none;
@@ -516,33 +523,32 @@ select:focus-visible {
 .brand-link {
   align-items: center;
   background: rgba(0, 29, 20, 0.82);
-  border: 1px solid rgba(161, 98, 7, 0.45);
-  box-shadow: 0 0 0 4px rgba(161, 98, 7, 0.07), 0 10px 28px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(248, 130, 2, 0.72);
+  box-shadow: 0 0 0 4px rgba(248, 130, 2, 0.08), 0 10px 28px rgba(0, 0, 0, 0.18);
   color: var(--color-white);
   display: inline-flex;
   font-family: var(--font-serif);
   font-size: 22px;
-  height: var(--header-logo-size);
+  height: var(--logo-dynamic-size, var(--header-logo-size));
   justify-content: center;
   line-height: 0.95;
   overflow: hidden;
-  padding: 7px;
-  position: absolute;
+  padding: var(--logo-dynamic-padding, 7px);
+  position: fixed;
   left: clamp(24px, 4vw, 72px);
-  top: 100%;
+  top: var(--logo-dynamic-top, 84px);
   transform: translateY(-50%);
   transition:
     box-shadow 220ms ease,
-    height var(--transition-base),
     opacity 220ms ease,
-    transform 220ms ease,
-    width var(--transition-base);
-  width: var(--header-logo-size);
-  z-index: 2;
+    transform 220ms ease;
+  width: var(--logo-dynamic-size, var(--header-logo-size));
+  will-change: height, top, width, padding;
+  z-index: 1001;
 }
 
 .brand-link::after {
-  border: 1px solid rgba(255, 229, 164, 0.28);
+  border: 1px solid rgba(248, 130, 2, 0.5);
   content: "";
   inset: 4px;
   pointer-events: none;
@@ -550,13 +556,14 @@ select:focus-visible {
 }
 
 .brand-link:hover {
-  box-shadow: 0 0 0 4px rgba(161, 98, 7, 0.12), 0 0 18px rgba(161, 98, 7, 0.24), 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 4px rgba(248, 130, 2, 0.14), 0 0 18px rgba(248, 130, 2, 0.28), 0 12px 30px rgba(0, 0, 0, 0.2);
   transform: translateY(calc(-50% - 1px));
 }
 
 .site-header.is-solid .brand-link {
-  height: var(--header-logo-size);
-  width: var(--header-logo-size);
+  height: var(--logo-dynamic-size, var(--header-logo-size));
+  padding: var(--logo-dynamic-padding, 7px);
+  width: var(--logo-dynamic-size, var(--header-logo-size));
 }
 
 .brand-logo {
@@ -2117,6 +2124,12 @@ select:focus-visible {
     --header-height: 76px;
     --header-logo-size: 106px;
   }
+  .site-header.is-solid {
+    --header-height: 68px;
+  }
+  .site-header.is-scrolled {
+    --header-logo-size: 54px;
+  }
   .header-inner { grid-template-columns: 1fr 44px; }
   .main-nav, .header-cta { display: none; }
   .menu-button { display: block; }
@@ -2275,11 +2288,17 @@ select:focus-visible {
   }
 
   .site-header { min-height: 70px; }
-  .site-header,
-  .site-header.is-solid {
+  .site-header {
     --header-height: 66px;
     --header-logo-size: 82px;
     min-height: var(--header-height);
+  }
+  .site-header.is-solid {
+    --header-height: 62px;
+    min-height: var(--header-height);
+  }
+  .site-header.is-scrolled {
+    --header-logo-size: 50px;
   }
   .header-inner {
     gap: 10px;
@@ -2296,9 +2315,7 @@ select:focus-visible {
   }
   .brand-link,
   .site-header.is-solid .brand-link {
-    height: var(--header-logo-size);
     left: 16px;
-    width: var(--header-logo-size);
   }
   .mobile-menu { padding-top: 82px; }
   .mobile-close {

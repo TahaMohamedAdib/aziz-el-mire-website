@@ -1,0 +1,265 @@
+- generic [active] [ref=e1]:
+  - link "Aller au contenu principal" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - link "Accueil Maison El Mire" [ref=e3] [cursor=pointer]:
+    - /url: /
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Accueil Maison El Mire":
+        - /url: /
+        - generic: Maison El Mire
+      - button "Ouvrir le menu" [ref=e6] [cursor=pointer]
+    - generic [ref=e10]:
+      - link [ref=e11] [cursor=pointer]:
+        - /url: /collections/
+        - text: Collections
+      - link [ref=e12] [cursor=pointer]:
+        - /url: /new-arrivals/
+        - text: Nouveautés
+      - link [ref=e13] [cursor=pointer]:
+        - /url: /sur-mesure/
+        - text: Sur mesure
+      - link [ref=e14] [cursor=pointer]:
+        - /url: /about/
+        - text: À propos
+      - link [ref=e15] [cursor=pointer]:
+        - /url: /reservation/
+        - text: Réserver
+      - link [ref=e16] [cursor=pointer]:
+        - /url: https://wa.me/212661482884?text=Bonjour%2C%20je%20souhaite%20prendre%20rendez-vous%20%C3%A0%20l'atelier.
+        - img [ref=e17]
+        - text: WhatsApp
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - img "Smoking noir revers satin Maison El Mire Casablanca" [ref=e21]
+      - generic [ref=e24]:
+        - heading "Costumes d'exception." [level=1] [ref=e25]
+        - paragraph [ref=e26]: Maison de création et sur mesure — Casablanca
+        - generic [ref=e27]:
+          - link "Découvrir les collections" [ref=e28] [cursor=pointer]:
+            - /url: /collections/
+          - link "Prendre rendez-vous" [ref=e29] [cursor=pointer]:
+            - /url: /reservation/
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - paragraph [ref=e34]: Nos collections
+          - heading "Le vestiaire Maison" [level=2] [ref=e35]
+        - paragraph [ref=e36]: Des pièces choisies pour composer une silhouette complète, du costume principal jusqu'au dernier détail.
+      - generic [ref=e37]:
+        - link "Costumes Maison El Mire Casablanca 01 Costumes Silhouettes nettes pour cérémonie, travail et grands soirs. Explorer" [ref=e38] [cursor=pointer]:
+          - /url: /collections/?category=Costumes
+          - img "Costumes Maison El Mire Casablanca" [ref=e40]
+          - generic [ref=e41]:
+            - generic [ref=e42]: "01"
+            - generic [ref=e43]: Costumes
+            - generic [ref=e44]: Silhouettes nettes pour cérémonie, travail et grands soirs.
+            - generic [ref=e45]: Explorer
+        - link "Vestes Maison El Mire Casablanca 02 Vestes Textures, revers et couleurs pour signer une allure. Explorer" [ref=e46] [cursor=pointer]:
+          - /url: /collections/?category=Vestes
+          - img "Vestes Maison El Mire Casablanca" [ref=e48]
+          - generic [ref=e49]:
+            - generic [ref=e50]: "02"
+            - generic [ref=e51]: Vestes
+            - generic [ref=e52]: Textures, revers et couleurs pour signer une allure.
+            - generic [ref=e53]: Explorer
+        - link "Pantalons Maison El Mire Casablanca 03 Pantalons Coupes précises et tombés propres pour compléter la tenue. Explorer" [ref=e54] [cursor=pointer]:
+          - /url: /collections/?category=Pantalons
+          - img "Pantalons Maison El Mire Casablanca" [ref=e56]
+          - generic [ref=e57]:
+            - generic [ref=e58]: "03"
+            - generic [ref=e59]: Pantalons
+            - generic [ref=e60]: Coupes précises et tombés propres pour compléter la tenue.
+            - generic [ref=e61]: Explorer
+        - link "Chemises Maison El Mire Casablanca 04 Chemises Bases lumineuses pensées pour le costume et le smoking. Explorer" [ref=e62] [cursor=pointer]:
+          - /url: /collections/?category=Chemises
+          - img "Chemises Maison El Mire Casablanca" [ref=e64]
+          - generic [ref=e65]:
+            - generic [ref=e66]: "04"
+            - generic [ref=e67]: Chemises
+            - generic [ref=e68]: Bases lumineuses pensées pour le costume et le smoking.
+            - generic [ref=e69]: Explorer
+        - link "Accessoires Maison El Mire Casablanca 05 Accessoires Finitions, doublures et détails personnels. Explorer" [ref=e70] [cursor=pointer]:
+          - /url: /collections/?category=Accessoires
+          - img "Accessoires Maison El Mire Casablanca" [ref=e72]
+          - generic [ref=e73]:
+            - generic [ref=e74]: "05"
+            - generic [ref=e75]: Accessoires
+            - generic [ref=e76]: Finitions, doublures et détails personnels.
+            - generic [ref=e77]: Explorer
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - paragraph [ref=e82]: Dernières pièces
+          - heading "Nouveautés" [level=2] [ref=e83]
+        - link "Voir toutes les nouveautés" [ref=e84] [cursor=pointer]:
+          - /url: /new-arrivals/
+      - generic [ref=e85]:
+        - article [ref=e86]:
+          - link "Nouveau Smoking noir revers satin Maison El Mire Casablanca Voir la pièce" [ref=e87] [cursor=pointer]:
+            - /url: /product/smoking-noir-revers-satin/
+            - generic [ref=e88]: Nouveau
+            - img "Smoking noir revers satin Maison El Mire Casablanca" [ref=e89]
+            - generic [ref=e90]: Voir la pièce
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - generic [ref=e93]: Smokings
+              - generic [ref=e94]: /Mariage & Gala
+            - heading "Smoking noir revers satin" [level=3] [ref=e95]:
+              - link "Smoking noir revers satin" [ref=e96] [cursor=pointer]:
+                - /url: /product/smoking-noir-revers-satin/
+            - paragraph [ref=e97]: Smoking noir à revers satin pour mariage et soirée.
+            - paragraph [ref=e99]: 3 900 MAD
+        - article [ref=e100]:
+          - link "Nouveau Costume croisé noir Maison El Mire Casablanca Voir la pièce" [ref=e101] [cursor=pointer]:
+            - /url: /product/costume-croise-noir/
+            - generic [ref=e102]: Nouveau
+            - img "Costume croisé noir Maison El Mire Casablanca" [ref=e103]
+            - generic [ref=e104]: Voir la pièce
+          - generic [ref=e105]:
+            - generic [ref=e106]:
+              - generic [ref=e107]: Costumes
+              - generic [ref=e108]: /Cérémonie
+            - heading "Costume croisé noir" [level=3] [ref=e109]:
+              - link "Costume croisé noir" [ref=e110] [cursor=pointer]:
+                - /url: /product/costume-croise-noir/
+            - paragraph [ref=e111]: Costume croisé noir pour cérémonie et mariage.
+            - paragraph [ref=e113]: 4 500 MAD
+        - article [ref=e114]:
+          - link "Nouveau Veste bordeaux texturée Maison El Mire Casablanca Voir la pièce" [ref=e115] [cursor=pointer]:
+            - /url: /product/veste-bordeaux-texturee/
+            - generic [ref=e116]: Nouveau
+            - img "Veste bordeaux texturée Maison El Mire Casablanca" [ref=e117]
+            - generic [ref=e118]: Voir la pièce
+          - generic [ref=e119]:
+            - generic [ref=e120]:
+              - generic [ref=e121]: Vestes
+              - generic [ref=e122]: /Signature
+            - heading "Veste bordeaux texturée" [level=3] [ref=e123]:
+              - link "Veste bordeaux texturée" [ref=e124] [cursor=pointer]:
+                - /url: /product/veste-bordeaux-texturee/
+            - paragraph [ref=e125]: Veste bordeaux texturée avec allure signature.
+            - paragraph [ref=e127]: 3 600 MAD
+    - generic [ref=e129]:
+      - img "Détail de doublure sur mesure Maison El Mire" [ref=e131]
+      - generic [ref=e132]:
+        - paragraph [ref=e133]: Sur mesure
+        - heading "Un costume créé pour vous." [level=2] [ref=e134]
+        - paragraph [ref=e135]: À l'atelier, chaque rendez-vous commence par votre occasion, votre posture et votre manière de porter le costume. Nous guidons le choix du tissu, dessinons la coupe, puis ajustons les finitions jusqu'au bon équilibre.
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - strong [ref=e138]: "01"
+            - text: Rendez-vous
+          - generic [ref=e139]:
+            - strong [ref=e140]: "02"
+            - text: Mesures
+          - generic [ref=e141]:
+            - strong [ref=e142]: "03"
+            - text: Livraison
+        - link "Réserver une séance de mesure" [ref=e143] [cursor=pointer]:
+          - /url: /reservation/
+    - generic [ref=e145]:
+      - generic [ref=e146]:
+        - generic [ref=e147]:
+          - paragraph [ref=e148]: Bibliothèque textile
+          - heading "Les étoffes de la maison" [level=3] [ref=e149]
+        - paragraph [ref=e150]: "Tous les tissus disponibles sont présentés ici pour inspirer le rendez-vous : nuances sombres, textures fines, motifs discrets et matières de cérémonie."
+      - generic [ref=e152]:
+        - group "Pile de tissus Maison El Mire" [ref=e153]:
+          - figure "06" [ref=e154]:
+            - img "Tissu Maison El Mire 6"
+            - generic [ref=e155]: "06"
+          - figure "05" [ref=e156]:
+            - img "Tissu Maison El Mire 5"
+            - generic [ref=e157]: "05"
+          - figure "04" [ref=e158]:
+            - img "Tissu Maison El Mire 4"
+            - generic [ref=e159]: "04"
+          - figure "03" [ref=e160]:
+            - img "Tissu Maison El Mire 3"
+            - generic [ref=e161]: "03"
+          - figure "02" [ref=e162]:
+            - img "Tissu Maison El Mire 2"
+            - generic [ref=e163]: "02"
+          - figure "01" [ref=e164]:
+            - img "Tissu Maison El Mire 1"
+            - generic [ref=e165]: "01"
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - paragraph [ref=e168]: Pile d'echantillons
+            - paragraph [ref=e169]: "01"
+            - paragraph [ref=e170]: sur 43 tissus
+          - generic [ref=e171]:
+            - button "Voir le tissu precedent" [ref=e172] [cursor=pointer]:
+              - img [ref=e173]
+            - button "Voir le tissu suivant" [ref=e175] [cursor=pointer]:
+              - img [ref=e176]
+      - generic [ref=e178]:
+        - link "Choisir mon tissu en atelier" [ref=e179] [cursor=pointer]:
+          - /url: /reservation/
+        - link "Voir les pièces" [ref=e180] [cursor=pointer]:
+          - /url: /collections/
+    - generic [ref=e182]:
+      - generic [ref=e183]:
+        - paragraph [ref=e184]: Atelier
+        - heading "Héritage & Savoir-faire" [level=2] [ref=e185]
+        - paragraph [ref=e186]: Maison El Mire travaille la silhouette masculine depuis Casablanca avec une attention particulière pour la coupe, les matières et les détails intérieurs. Chaque pièce est pensée comme une rencontre entre cérémonie marocaine, exigence contemporaine et discrétion du beau geste. À Sidi Maarouf, l'atelier accompagne les clients dans un parcours simple, précis et personnel.
+        - link "Découvrir la maison" [ref=e187] [cursor=pointer]:
+          - /url: /about/
+      - img "Atelier Maison El Mire à Casablanca" [ref=e189]
+    - generic [ref=e191]:
+      - heading "Prêt à composer votre costume ?" [level=2] [ref=e192]
+      - paragraph [ref=e193]: Prenez rendez-vous à l'atelier ou contactez-nous sur WhatsApp.
+      - generic [ref=e194]:
+        - link "Prendre rendez-vous" [ref=e195] [cursor=pointer]:
+          - /url: /reservation/
+        - link "WhatsApp" [ref=e196] [cursor=pointer]:
+          - /url: https://wa.me/212661482884?text=Bonjour%2C%20je%20souhaite%20prendre%20rendez-vous%20%C3%A0%20l'atelier.
+          - img [ref=e197]
+          - text: WhatsApp
+      - paragraph [ref=e199]: +212 6 61 48 28 84 — Sidi Maarouf, Casablanca
+  - contentinfo [ref=e200]:
+    - generic [ref=e201]:
+      - generic [ref=e202]:
+        - generic [ref=e203]:
+          - img "Maison El Mire" [ref=e204]
+          - paragraph [ref=e205]: Maison de création et sur mesure
+          - paragraph [ref=e206]: L'élégance taillée pour vous
+          - generic [ref=e207]:
+            - link "Instagram" [ref=e208] [cursor=pointer]:
+              - /url: https://www.instagram.com/maison_elmire/
+              - img [ref=e209]
+            - link "Facebook" [ref=e211] [cursor=pointer]:
+              - /url: https://facebook.com/azizelmire
+              - img [ref=e212]
+            - link "TikTok" [ref=e214] [cursor=pointer]:
+              - /url: https://tiktok.com/@azizelmire
+              - img [ref=e215]
+            - link "WhatsApp" [ref=e217] [cursor=pointer]:
+              - /url: https://wa.me/212661482884?text=Bonjour%2C%20je%20souhaite%20prendre%20rendez-vous%20%C3%A0%20l'atelier.
+              - img [ref=e218]
+        - navigation "Navigation pied de page" [ref=e220]:
+          - heading "Navigation" [level=3] [ref=e221]
+          - link "Collections" [ref=e222] [cursor=pointer]:
+            - /url: /collections/
+          - link "Nouveautés" [ref=e223] [cursor=pointer]:
+            - /url: /new-arrivals/
+          - link "Sur mesure" [ref=e224] [cursor=pointer]:
+            - /url: /sur-mesure/
+          - link "À propos" [ref=e225] [cursor=pointer]:
+            - /url: /about/
+          - link "Réserver" [ref=e226] [cursor=pointer]:
+            - /url: /reservation/
+        - generic [ref=e227]:
+          - heading "Contact" [level=3] [ref=e228]
+          - paragraph [ref=e229]: Sidi Maarouf, Casablanca
+          - paragraph [ref=e230]: +212 6 61 48 28 84
+          - paragraph [ref=e231]: contact@azizelmire.com
+          - paragraph [ref=e232]: Lundi – Samedi, 10h – 20h
+      - paragraph [ref=e233]: © 2026 Maison El Mire. Tous droits réservés.
+  - link "Écrire sur WhatsApp":
+    - /url: https://wa.me/212661482884?text=Bonjour%2C%20je%20souhaite%20prendre%20rendez-vous%20%C3%A0%20l'atelier.
+    - img
+  - button "Open Next.js Dev Tools" [ref=e239] [cursor=pointer]:
+    - img [ref=e240]
+  - alert [ref=e243]
