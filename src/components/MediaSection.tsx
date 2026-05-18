@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '';
-
 const mediaItems = [
   {
     id: 1,
@@ -9,7 +7,7 @@ const mediaItems = [
     month: 'LOOK',
     channel: 'Costumes signature',
     title: 'Des coupes élégantes pour le quotidien, les rendez-vous et les occasions importantes.',
-    image: `${BASE}/aziz-media/instagram/costume-grey-boutique.jpg`,
+    image: '/aziz-media/instagram/costume-grey-boutique.jpg',
   },
   {
     id: 2,
@@ -17,7 +15,7 @@ const mediaItems = [
     month: 'FIT',
     channel: 'Sur mesure',
     title: 'Un accompagnement personnalisé pour choisir la coupe, le tissu et les finitions.',
-    image: `${BASE}/aziz-media/instagram/veste-blue-mannequin.jpg`,
+    image: '/aziz-media/instagram/veste-blue-mannequin.jpg',
   },
   {
     id: 3,
@@ -25,7 +23,7 @@ const mediaItems = [
     month: 'EVENT',
     channel: 'Cérémonie',
     title: 'Costumes de mariage, vestes habillées et pièces fortes pour vos grands événements.',
-    image: `${BASE}/aziz-media/instagram/costume-black-tuxedo-front.jpg`,
+    image: '/aziz-media/instagram/costume-black-tuxedo-front.jpg',
   },
 ];
 

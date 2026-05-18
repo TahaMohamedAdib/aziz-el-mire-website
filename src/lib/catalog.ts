@@ -50,9 +50,8 @@ export interface Product {
   aliases?: string[];
 }
 
-const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '';
-const IG = `${BASE}/aziz-media/instagram`;
-const MEDIA = `${BASE}/aziz-media`;
+const IG = '/aziz-media/instagram';
+const MEDIA = '/aziz-media';
 
 export const BRAND_LOGO = `${MEDIA}/Logo/logo-website3.png`;
 export const NAV_LOGO = `${MEDIA}/Logo/logo-website3_without_background.png`;

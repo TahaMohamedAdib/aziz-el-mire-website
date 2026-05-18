@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, CalendarDays, Ruler, Scissors, Shirt, Sparkles } from 'lucide-react';
 
-const BASE = process.env.NODE_ENV === 'production' ? '/aziz-el-mire-website' : '';
-const IG = `${BASE}/aziz-media/instagram`;
+const IG = '/aziz-media/instagram';
 
 const editorialBlocks = [
   {

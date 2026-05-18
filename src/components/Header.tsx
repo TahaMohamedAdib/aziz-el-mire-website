@@ -166,7 +166,7 @@ export default function Header() {
   }, []);
 
   const normalizedPath = (pathname ?? '/').replace(/\/$/, '') || '/';
-  const isHome = normalizedPath === '/' || normalizedPath === '/aziz-el-mire-website';
+  const isHome = normalizedPath === '/';
   const isSolid = scrolled || open || !isHome;
   const introActive = introPhase === 'center' || introPhase === 'moving';
   const introLogoStyle =
