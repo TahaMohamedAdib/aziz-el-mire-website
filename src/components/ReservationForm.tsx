@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { type CSSProperties, useEffect, useMemo, useState } from 'react';
 import { CalendarDays, Check, ChevronLeft, ChevronRight, Clock, House, Loader2, MapPin, MessageCircle, Scissors, TicketCheck, UserRound } from 'lucide-react';
 import { ADDRESS_DISPLAY, whatsappUrl } from '@/lib/catalog';
 import { createReservation, getAvailableSlots } from '@/lib/db';
@@ -48,6 +48,7 @@ const steps = ['Le lieu', 'Service', 'Prestataire', 'Heure', 'Client'];
 
 const FR_DATE = new Intl.DateTimeFormat('fr-MA');
 const FR_MONTH = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
+const FR_DAY_MONTH = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'short' });
 const FR_WEEKDAY = new Intl.DateTimeFormat('fr-FR', { weekday: 'short' });
 const FALLBACK_TIMES = ['10:00:00', '15:00:00', '16:00:00'];
 
@@ -57,35 +58,6 @@ function dateKey(date: Date) {
     String(date.getMonth() + 1).padStart(2, '0'),
     String(date.getDate()).padStart(2, '0'),
   ].join('-');
-}
-
-function monthKey(date: Date) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-}
-
-function startOfMonth(date: Date) {
-  return new Date(date.getFullYear(), date.getMonth(), 1);
-}
-
-function addMonths(date: Date, amount: number) {
-  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
-}
-
-function isSameMonth(a: Date, b: Date) {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
-}
-
-function getCalendarStripDays(month: Date) {
-  const today = new Date();
-  const start = isSameMonth(month, today) ? today : startOfMonth(month);
-  const end = new Date(start.getFullYear(), start.getMonth() + 1, 0);
-  const dayCount = end.getDate() - start.getDate() + 1;
-
-  return Array.from({ length: dayCount }, (_, index) => {
-    const day = new Date(start);
-    day.setDate(start.getDate() + index);
-    return day;
-  });
 }
 
 function createFallbackSlots(daysAhead = 45): SlotsByDate {
@@ -150,7 +122,8 @@ export default function ReservationForm() {
   const [selectedService, setSelectedService] = useState<ServiceType>('Rendez-vous découverte');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState<DbSlot | null>(null);
-  const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(new Date()));
+  const [visibleDayPage, setVisibleDayPage] = useState(0);
+  const [calendarPageSize, setCalendarPageSize] = useState(6);
   const [homeAddress, setHomeAddress] = useState('');
 
   const [slots, setSlots] = useState<SlotsByDate>({});
@@ -165,7 +138,7 @@ export default function ReservationForm() {
       const firstDate = Object.keys(selectableSlots).sort()[0] ?? '';
       setSelectedDate(firstDate);
       setSelectedSlot(selectableSlots[firstDate]?.[0] ?? null);
-      setVisibleMonth(startOfMonth(new Date()));
+      setVisibleDayPage(0);
       setSlotsLoading(false);
     }).catch(() => {
       const fallbackSlots = createFallbackSlots();
@@ -174,34 +147,57 @@ export default function ReservationForm() {
       setSlots(fallbackSlots);
       setSelectedDate(firstDate);
       setSelectedSlot(selectableSlots[firstDate]?.[0] ?? null);
-      setVisibleMonth(startOfMonth(new Date()));
+      setVisibleDayPage(0);
       setSlotsError('');
       setSlotsLoading(false);
     });
+  }, []);
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 640px)');
+    const updatePageSize = () => setCalendarPageSize(query.matches ? 4 : 6);
+    updatePageSize();
+    query.addEventListener('change', updatePageSize);
+    return () => query.removeEventListener('change', updatePageSize);
   }, []);
 
   const selectableSlots = useMemo(() => filterSlotsByCurrentTime(slots), [slots]);
 
   const sortedDates = useMemo(() => Object.keys(selectableSlots).sort(), [selectableSlots]);
 
-  const availableDateSet = useMemo(() => new Set(sortedDates), [sortedDates]);
-
-  const calendarDays = useMemo(() => getCalendarStripDays(visibleMonth), [visibleMonth]);
-
-  const availableMonthKeys = useMemo(
-    () => new Set(sortedDates.map((date) => date.slice(0, 7))),
+  const availableDays = useMemo(
+    () => sortedDates.map((date) => new Date(`${date}T00:00:00`)),
     [sortedDates],
   );
 
-  const canGoToPreviousMonth = useMemo(
-    () => sortedDates.some((date) => date.slice(0, 7) < monthKey(visibleMonth)),
-    [sortedDates, visibleMonth],
+  const calendarPageCount = Math.max(1, Math.ceil(availableDays.length / calendarPageSize));
+  const currentDayPage = Math.min(visibleDayPage, calendarPageCount - 1);
+
+  const calendarDays = useMemo(
+    () => availableDays.slice(currentDayPage * calendarPageSize, (currentDayPage + 1) * calendarPageSize),
+    [availableDays, calendarPageSize, currentDayPage],
   );
 
-  const canGoToNextMonth = useMemo(
-    () => sortedDates.some((date) => date.slice(0, 7) > monthKey(visibleMonth)),
-    [sortedDates, visibleMonth],
-  );
+  const calendarRangeLabel = useMemo(() => {
+    if (calendarDays.length === 0) return '';
+    const first = calendarDays[0];
+    const last = calendarDays[calendarDays.length - 1];
+    if (first.getMonth() === last.getMonth() && first.getFullYear() === last.getFullYear()) {
+      return FR_MONTH.format(first);
+    }
+    return `${FR_DAY_MONTH.format(first)} - ${FR_DAY_MONTH.format(last)}`;
+  }, [calendarDays]);
+
+  const canGoToPreviousDays = currentDayPage > 0;
+  const canGoToNextDays = currentDayPage < calendarPageCount - 1;
+
+  const calendarGridStyle = {
+    '--calendar-days': calendarDays.length || calendarPageSize,
+  } as CSSProperties;
+
+  const calendarPageIndicator = availableDays.length > 0
+    ? `${Math.min(currentDayPage * calendarPageSize + 1, availableDays.length)}-${Math.min((currentDayPage + 1) * calendarPageSize, availableDays.length)} / ${availableDays.length}`
+    : '';
 
   const timeSlotsForDate: DbSlot[] = useMemo(
     () => (selectedDate ? (selectableSlots[selectedDate] ?? []) : []),
@@ -214,15 +210,8 @@ export default function ReservationForm() {
     setSelectedSlot(firstSlot);
   };
 
-  const goToMonth = (direction: -1 | 1) => {
-    setVisibleMonth((month) => {
-      let next = addMonths(month, direction);
-      for (let i = 0; i < 12; i += 1) {
-        if (availableMonthKeys.has(monthKey(next))) return next;
-        next = addMonths(next, direction);
-      }
-      return month;
-    });
+  const goToDayPage = (direction: -1 | 1) => {
+    setVisibleDayPage((page) => Math.min(Math.max(page + direction, 0), calendarPageCount - 1));
   };
 
   const buildWhatsAppMessage = (name: string, email: string, phone: string, companions: string, remarks: string, promoOptIn: boolean) => {
@@ -262,7 +251,8 @@ export default function ReservationForm() {
             className={`booking-progress-step ${index === activeStep ? 'is-active' : ''} ${index < activeStep ? 'is-done' : ''}`}
             onClick={() => setActiveStep(index)}
           >
-            {String(index + 1).padStart(2, '0')} {step}
+            <span className="booking-progress-number">{String(index + 1).padStart(2, '0')}</span>
+            <span className="booking-progress-label">{step}</span>
           </button>
         ))}
       </div>
@@ -408,42 +398,42 @@ export default function ReservationForm() {
               <>
                 <div className="calendar-panel" aria-label="Calendrier">
                   <div className="calendar-head">
-                    <p className="calendar-month">{FR_MONTH.format(visibleMonth)}</p>
+                    <div>
+                      <p className="calendar-month">{calendarRangeLabel}</p>
+                      <p className="calendar-range">{calendarPageIndicator}</p>
+                    </div>
                     <div className="calendar-nav">
                       <button
                         type="button"
-                        aria-label="Mois précédent"
-                        disabled={!canGoToPreviousMonth}
-                        onClick={() => goToMonth(-1)}
+                        aria-label="Jours précédents"
+                        disabled={!canGoToPreviousDays}
+                        onClick={() => goToDayPage(-1)}
                       >
                         <ChevronLeft size={17} aria-hidden="true" />
-                        <span>Mois Prec.</span>
+                        <span>Jours Prec.</span>
                       </button>
                       <button
                         type="button"
-                        aria-label="Mois suivant"
-                        disabled={!canGoToNextMonth}
-                        onClick={() => goToMonth(1)}
+                        aria-label="Jours suivants"
+                        disabled={!canGoToNextDays}
+                        onClick={() => goToDayPage(1)}
                       >
-                        <span>Mois Suiv.</span>
+                        <span>Jours Suiv.</span>
                         <ChevronRight size={17} aria-hidden="true" />
                       </button>
                     </div>
                   </div>
-                  <div className="calendar-grid">
+                  <div className="calendar-grid" style={calendarGridStyle}>
                     {calendarDays.map((day) => {
                       const key = dateKey(day);
-                      const isAvailable = availableDateSet.has(key);
-                      const isOutside = day.getMonth() !== visibleMonth.getMonth();
                       const isSelected = key === selectedDate;
                       return (
                         <button
                           key={key}
                           type="button"
-                          className={`calendar-day ${isOutside ? 'is-outside' : ''} ${isAvailable ? 'is-available' : ''} ${isSelected ? 'is-selected' : ''}`}
-                          disabled={!isAvailable}
+                          className={`calendar-day is-available ${isSelected ? 'is-selected' : ''}`}
                           aria-pressed={isSelected}
-                          aria-label={`${formatDateDisplay(key)}${isAvailable ? ', disponible' : ', indisponible'}`}
+                          aria-label={`${formatDateDisplay(key)}, disponible`}
                           onClick={() => handleDateChange(key)}
                         >
                           <span className="calendar-day-weekday">{formatWeekday(day)}</span>

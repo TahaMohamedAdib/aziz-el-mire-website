@@ -4,8 +4,7 @@ import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaWhatsapp } from 'react-icons/fa6';
-import { NAV_LOGO, navItems, whatsappUrl } from '@/lib/catalog';
+import { NAV_LOGO, navItems } from '@/lib/catalog';
 
 type IntroPhase = 'center' | 'moving' | 'settling' | 'complete';
 
@@ -115,8 +114,10 @@ export default function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    document.documentElement.toggleAttribute('data-mobile-menu-open', open);
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.removeAttribute('data-mobile-menu-open');
     };
   }, [open]);
 
@@ -253,23 +254,36 @@ export default function Header() {
           </button>
         </div>
 
-        <div className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
-          <button type="button" className="mobile-close" aria-label="Fermer le menu" onClick={() => setOpen(false)} />
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-              {item.label}
-            </Link>
-          ))}
-          <a
-            className="mobile-whatsapp"
-            href={whatsappUrl("Bonjour, je souhaite prendre rendez-vous \u00e0 l'atelier.")}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaWhatsapp aria-hidden="true" /> WhatsApp
-          </a>
-        </div>
       </header>
+
+      <div className="mobile-header-actions" data-menu-open={open ? 'true' : 'false'}>
+        <Link href="/reservation" className="btn btn-gold mobile-header-reserve" onClick={() => setOpen(false)}>
+          R&eacute;server
+        </Link>
+        <button
+          type="button"
+          className={`mobile-header-toggle ${open ? 'is-open' : ''}`}
+          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={open}
+          onClick={() => setOpen((value) => !value)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <div className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        <Link href="/" className="mobile-menu-brand" aria-label="Accueil Maison El Mire" onClick={() => setOpen(false)}>
+          <Image src={NAV_LOGO} alt="" width={1254} height={1254} priority />
+        </Link>
+        <button type="button" className="mobile-close" aria-label="Fermer le menu" onClick={() => setOpen(false)} />
+        {navItems.map((item) => (
+          <Link key={item.href} href={item.href} className="mobile-menu-link" onClick={() => setOpen(false)}>
+            {item.label}
+          </Link>
+        ))}
+      </div>
     </>
   );
 }

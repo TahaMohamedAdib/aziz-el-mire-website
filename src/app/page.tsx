@@ -125,8 +125,8 @@ export default async function Home() {
               </div>
               <Link className="text-link" href="/new-arrivals">Voir toutes les nouveautés</Link>
             </div>
-            <div className="product-grid">
-              {newArrivals.slice(0, 3).map((product, index) => (
+            <div className="product-grid home-product-strip">
+              {newArrivals.slice(0, 8).map((product, index) => (
                 <ProductCard key={product.slug} product={product} index={index} />
               ))}
             </div>
