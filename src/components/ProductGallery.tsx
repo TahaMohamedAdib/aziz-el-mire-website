@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { asset } from '@/lib/utils';
 
 export default function ProductGallery({ images, name }: { images: string[]; name: string }) {
   const [active, setActive] = useState(0);
@@ -16,7 +17,7 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
         aria-label="Agrandir l'image du produit"
       >
         <Image
-          src={images[active]}
+          src={asset(images[active])}
           alt={`${name} Maison El Mire Casablanca`}
           fill
           priority
@@ -35,7 +36,7 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
             aria-label={`Voir image ${index + 1}`}
           >
             <Image
-              src={image}
+              src={asset(image)}
               alt={`${name} détail ${index + 1}`}
               fill
               loading="lazy"
@@ -58,7 +59,7 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
           </button>
           <div className="product-lightbox-image">
             <Image
-              src={images[active]}
+              src={asset(images[active])}
               alt={`${name} agrandi`}
               fill
               sizes="80vw"

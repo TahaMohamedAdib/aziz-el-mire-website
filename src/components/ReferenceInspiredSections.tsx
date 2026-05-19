@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, CalendarDays, Ruler, Scissors, Shirt, Sparkles } from 'lucide-react';
+import { asset } from '@/lib/utils';
 
-const IG = '/aziz-media/instagram';
+const IG = asset('/aziz-media/instagram');
 
 const editorialBlocks = [
   {

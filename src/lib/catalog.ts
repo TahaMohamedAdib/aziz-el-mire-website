@@ -1,3 +1,5 @@
+import { asset } from './utils';
+
 export const BRAND_NAME = 'Maison El Mire';
 export const BRAND_TAGLINE = 'Maison de création et sur mesure';
 export const BRAND_OFFER = "Costumes d'exception & pièces exclusives";
@@ -50,8 +52,8 @@ export interface Product {
   aliases?: string[];
 }
 
-const IG = '/aziz-media/instagram';
-const MEDIA = '/aziz-media';
+const IG = asset('/aziz-media/instagram');
+const MEDIA = asset('/aziz-media');
 
 export const BRAND_LOGO = `${MEDIA}/Logo/logo-website3.png`;
 export const NAV_LOGO = `${MEDIA}/Logo/logo-website3_without_background.png`;

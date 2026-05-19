@@ -1,6 +1,7 @@
 import { supabase } from './supabase';
 import type { Enums, Tables } from './database.types';
 import type { Product } from './catalog';
+import { asset } from './utils';
 
 // ─────────────────────────────────────────
 // TYPES
@@ -33,7 +34,7 @@ export function toProduct(p: DbProduct): Product {
     description: p.description,
     shortDescription: p.short_description,
     price: p.price,
-    images: p.images.map((img) => img.url),
+    images: p.images.map((img) => asset(img.url)),
     colors: p.colors,
     sizes: p.sizes,
     fabric: p.fabric,
